@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Brynn Floating Chat</title>
+  <link rel="stylesheet" href="floating_chat.css?v=50">
+</head>
+<body>
+  <iframe id="ssn_bridge" aria-hidden="true"></iframe>
+
+  <div id="hud">
+    <div class="viewers">
+      <span>TW <b id="twViewers">—</b></span>
+      <span>TT <b id="ttViewers">—</b></span>
+      <span>KI <b id="kiViewers">—</b></span>
+    </div>
+    <div id="mode">INTERACTIVO</div>
+  </div>
+
+  <div id="log"></div>
+
+  <div id="sendStatus" class="send-status" aria-live="polite"></div>
+  <form id="composer">
+    <input id="messageInput" autocomplete="off" maxlength="500" placeholder="Escribir al chat conectado…">
+    <select id="sendPlatform" title="Destino del mensaje"><option value="ssn">Twitch/TikTok · SSN</option><option value="kick">Kick · oficial</option></select>
+    <button id="sendBtn" type="submit">Enviar</button>
+  </form>
+
+  <div id="menu" class="menu" role="menu" aria-hidden="true">
+    <div id="menuUser" class="menu-user">Usuario</div>
+    <button type="button" data-action="copy">Copiar usuario</button>
+    <button type="button" data-action="block">Bloquear en SSN/Brynn</button>
+    <button type="button" data-action="timeout">Timeout Twitch/Kick 10 min</button>
+    <button type="button" data-action="ban" class="danger">Ban Twitch/Kick</button>
+  </div>
+
+  <script src="floating_chat.js?v=50"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.followers-dashboard{margin:14px 24px 22px;padding:18px 21px;border:1px solid #37644f;border-radius:18px;background:linear-gradient(125deg,#102220,#12141f);color:#edf9f4;font:14px 'Segoe UI',Arial,sans-serif;box-shadow:0 6px 20px #0005}
+.followers-dashboard h2{margin:0 0 5px;font-size:21px;color:#d8fff0}
+.followers-dashboard p{margin:5px 0 14px;color:#c5d9d1;line-height:1.5}
+.followers-dashboard .followers-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.followers-dashboard .followers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px}
+.followers-dashboard .followers-card{border:1px solid #344b49;border-radius:12px;background:#161b25;padding:14px;min-width:0}
+.followers-dashboard .followers-card h3{margin:0 0 8px;font-size:16px}
+.followers-dashboard .followers-number{font-size:30px;font-weight:900;color:white;font-variant-numeric:tabular-nums;margin-bottom:7px}
+.followers-dashboard .followers-chip{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:700}
+.followers-dashboard .followers-chip.verified{background:#183f30;color:#72fbb4}
+.followers-dashboard .followers-chip.estimated{background:#50412c;color:#ffe09c}
+.followers-dashboard .followers-meta{font-size:11px;color:#aab9b6;margin:10px 0 4px}
+.followers-dashboard .followers-error{min-height:16px;color:#ffa9b2;font-size:11px;word-break:break-word}
+.followers-dashboard .followers-row{display:flex;gap:6px;margin-top:8px}
+.followers-dashboard input{box-sizing:border-box;min-width:0;width:100%;background:#101620;border:1px solid #506661;border-radius:7px;color:#fff;padding:9px;font:inherit}
+.followers-dashboard .followers-row input{flex:1}
+.followers-dashboard button{background:#224d3c;border:1px solid #437e5d;color:#eefff5;border-radius:8px;padding:9px 12px;cursor:pointer;font-weight:700}
+.followers-dashboard button:hover{background:#31704f}
+.followers-dashboard .followers-options{margin-top:15px}
+.followers-dashboard .followers-options summary{cursor:pointer;font-weight:700;color:#baf9d3}
+.followers-dashboard .followers-settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:15px;margin-top:14px}
+.followers-dashboard label{display:block;margin:7px 0;font-size:12px;color:#e6f4ee}
+.followers-dashboard label input{display:block;margin-top:4px}
+.followers-dashboard .followers-settings-note{font-size:11px;color:#acc3b5}
+.followers-dashboard .followers-check{display:flex;align-items:center;gap:8px}
+.followers-dashboard .followers-check input{width:auto}
+#followersStatus{font-size:13px;min-height:17px;margin-top:8px}
+@media(max-width:650px){.followers-dashboard{margin:12px 8px;padding:13px}}

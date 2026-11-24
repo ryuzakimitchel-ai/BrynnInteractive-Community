@@ -1,0 +1,23 @@
+BRYNN INTERACTIVE V0.51.3 - BETA
+OBS CONTROL CENTER UI REFRESH
+
+NOVEDADES
+- Rediseño completo de Integraciones > OBS Studio como centro de control operativo.
+- Resumen en vivo: escena, stream, grabación, perfil y colección de escenas.
+- Escenas con estado activo y sistema local de favoritas.
+- Buscador de fuentes, filtros e inputs.
+- Fuentes con control visual de mostrar/ocultar.
+- Filtros con activación/desactivación directa.
+- Mezclador de inputs de audio con mute y volumen (0-200%).
+- Reinicio de fuentes multimedia compatibles.
+- Controles directos para iniciar/detener streaming y grabación.
+- Registro de actividad local del panel.
+- Copiado rápido del inventario OBS y del endpoint de conexión.
+- Configuración WebSocket plegable para dar prioridad al control en vivo.
+- Inventario ampliado con estado de audio/media.
+- Solicitudes OBS rechazadas ya no fuerzan una desconexión innecesaria del socket.
+
+COMPATIBILIDAD
+- Mantiene Automation Engine V0.51.
+- Mantiene OBS WebSocket 5.x y el hotfix de autenticación V0.51.2.
+- Los datos existentes, automatizaciones y configuración OBS se conservan.

@@ -1,0 +1,123 @@
+V22 - TIKFINITY WEB SIN DESKTOP
+================================
+
+La Event API local de TikFinity sigue necesitando TikFinity Desktop.
+V22 NO usa esa Event API en modo Web.
+
+En su lugar:
+TikFinity Web -> Actions & Events -> WebHook -> Cloudflare Tunnel
+-> puerto 8766 -> server.py -> alertas/Gumpitas.
+
+IMPORTANTE
+----------
+El puerto 8765 contiene tu panel privado y tokens.
+NO lo expongas a Internet.
+
+El túnel debe apuntar SOLO a:
+http://127.0.0.1:8766
+
+
+PASOS
+-----
+1) Inicia:
+   python server.py
+
+2) Abre:
+   http://127.0.0.1:8765/integraciones.html
+
+3) En TikFinity selecciona:
+   TikFinity Web (recomendado)
+
+4) Instala cloudflared desde Cloudflare.
+
+5) Ejecuta:
+   start_tikfinity_web_tunnel.bat
+
+   o manualmente:
+   cloudflared tunnel --url http://127.0.0.1:8766
+
+6) Cloudflare mostrará una URL parecida a:
+   https://algo.trycloudflare.com
+
+7) Pégala en:
+   URL pública del túnel HTTPS
+   y pulsa Guardar TikFinity.
+
+8) La página generará URLs para:
+   Follow
+   Subscribe
+   Gift
+   Like
+   Share
+   Join
+
+9) En TikFinity Web -> Actions & Events:
+   - crea una Action WebHook para cada tipo
+   - pega su URL
+   - si pide método, usa GET
+   - después crea/asigna el Event correspondiente a esa Action
+
+10) Prueba con el Event Simulator de TikFinity.
+
+
+PLACEHOLDERS
+------------
+Las URLs usan los placeholders de TikFinity:
+
+%userId%
+%username%
+%nickname%
+%profilePicturUrl%
+%giftName%
+%coins%
+%repeatCount%
+%likeCount%
+%subMonth%
+
+
+QUICK TUNNEL
+------------
+La URL trycloudflare.com cambia cuando cierras/reabres el Quick Tunnel.
+
+Para empezar está bien.
+
+Si luego quieres una URL permanente, configura un Named Cloudflare Tunnel
+con un dominio propio y mantén esa misma URL en TikFinity.
+
+
+DATOS
+-----
+Para migrar desde V21:
+copia data/ y user_media/ a V22.
+
+V22 amplía integrations.json automáticamente y conserva Streamlabs.
+
+
+V23 - CORRECCIÓN IMPORTANTE DE PLACEHOLDERS
+============================================
+
+TikFinity Actions & Events usa placeholders con llaves:
+
+{username}
+{nickname}
+{giftname}
+{coins}
+{repeatcount}
+{likecount}
+{totallikecount}
+{submonth}
+
+V22 generaba URLs con sintaxis %username%, que no corresponde al campo
+Trigger WebHook actual de TikFinity.
+
+Después de pasar a V23:
+1) Abre integraciones.html.
+2) Copia otra vez las URLs Follow/Sub/Gift/Like/Share/Join.
+3) Reemplaza las URLs antiguas dentro de tus Actions de TikFinity.
+4) GUARDA la Action.
+5) Pulsa el botón ▶ de la Action para probarla.
+6) Mira eventos_monitor.html.
+
+La URL Follow debe verse conceptualmente así:
+
+https://TU-TUNEL/t/CLAVE?type=follow&username={username}&nickname={nickname}

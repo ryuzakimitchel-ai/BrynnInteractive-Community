@@ -1,0 +1,100 @@
+BRYNN INTERACTIVE — SOPORTE KICK (Beta de integración)
+=====================================================
+Basado en tu proyecto BrynnInteractive V0.60.11 Beta Fix Lienzo y Acceso.
+Esta variante añade Kick sin eliminar Twitch/Streamlabs ni TikTok/TikFinity.
+
+FUNCIONES PREPARADAS
+-------------------
+• Chat Kick oficial en el overlay, chat flotante y entrada central de Brynn.
+• Comandos y Gumpitas disparados por mensajes Kick; ranking e interacción.
+• Follows, subs nuevas/renovadas, subs regaladas, regalos KICKs y canjes
+  aceptados, conectados a alertas y automatizaciones de Brynn.
+• Metas de Kick, viewers Kick, botones de simulación de eventos.
+• Envío de mensajes del chat flotante por la API oficial de Kick.
+• Ban y timeout desde el menú contextual del chat flotante de Kick.
+  Para moderar, el usuario debe haber escrito antes en el chat; Brynn
+  aprende su ID de un webhook Kick firmado. El token requiere moderation:ban.
+• Selector Kick en editor de Automatizaciones, Alertas, Metas y Ranking.
+
+INSTALAR / EJECUTAR EN WINDOWS
+-----------------------------
+1. Guarda una copia de seguridad de tu proyecto original y datos.
+2. Descomprime esta carpeta por separado de la instalación actual.
+3. Abre CMD en la carpeta que contiene desktop.py.
+4. Si ejecutas desde Python, instala dependencias (preferiblemente en venv):
+      py -m pip install -r requirements_desktop.txt
+5. Inicia el programa como lo hacías antes, por ejemplo:
+      py desktop.py
+   O ejecuta los scripts de compilación incluidos para generar tu EXE.
+   NO se incluye aquí un EXE compilado y la compilación Windows no se
+   ha probado en este entorno Linux.
+
+CONFIGURACIÓN DE KICK
+---------------------
+1. En Kick, activa la verificación en dos pasos si es requisito de la cuenta
+   y entra a https://kick.com/settings/developer
+2. Crea una aplicación y configura EXACTAMENTE como Redirect URL:
+      http://localhost:8765/api/kick/oauth/callback
+   Ten abierto Brynn mientras autorizas la cuenta.
+3. Para recibir webhooks, necesitas una URL pública HTTPS. Si ya tienes
+   Tailscale Funnel conectado con el receptor TikFinity de Brynn en
+   127.0.0.1:8766, puedes REUTILIZAR esa URL HTTPS.
+   Otra opción es Cloudflare Tunnel, siempre apuntando a:
+      http://127.0.0.1:8766
+   No expongas el puerto 8765 a Internet.
+4. En Kick Developer, habilita Webhooks y pega una URL como:
+      https://tu-subdominio.ejemplo/kick/webhook
+   El tramo /kick/webhook ES OBLIGATORIO. Debe llegar al puerto local 8766.
+5. Abre Brynn → Integraciones → Kick y pega Client ID y Client Secret.
+   Haz clic en: "1 · Guardar credenciales".
+6. Haz clic en "2 · Autorizar Kick"; acepta los permisos en el navegador.
+   La respuesta vuelve a la página de Brynn en localhost:8765.
+7. Regresa a Integraciones y haz clic en "3 · Suscribir eventos".
+   Confirma el resultado y el estado de conexión.
+8. Prueba los botones "Follow", "Sub", "KICKs" y "Canje":
+   Son pruebas LOCALES de render/funciones, no eventos reales de Kick.
+9. Haz una prueba REAL desde Kick: manda un mensaje, sigue tu canal desde
+   una cuenta de pruebas, revisa el overlay y el chat flotante.
+   En tu overlay de OBS usa las fuentes de Brynn que ya tenías.
+10. En el chat flotante, selecciona "Kick · oficial" en la lista de envío.
+    Los controles ban/timeout de Kick aparecen en el menú contextual.
+
+NOTAS IMPORTANTES
+-----------------
+• Kick usa webhooks firmados RSA SHA-256. Si el túnel no está activo,
+  Brynn no recibirá eventos y mensajes nuevos. Webhooks sólo entregan
+  datos mientras tu programa y receptor están disponibles.
+• Si Social Stream Ninja también está capturando Kick, desactiva su
+  origen Kick para evitar mensajes e interacciones duplicadas: la nueva
+  ruta oficial ya recibe el chat de Kick.
+• Gumpitas/Ranking de Brynn son un sistema PROPIO de la app; no son
+  puntos oficiales de Kick. Los canjes de recompensas oficiales de Kick
+  activan eventos, pero NO descuentan ni otorgan puntos internos.
+• La cuenta Kick debe autorizar los permisos del programa. En particular,
+  events:subscribe, chat:write y moderation:ban para las funciones indicadas.
+• Las credenciales se guardan en:
+      %APPDATA%\\BrynnInteractive\\kick.json
+  No compartas ese archivo ni lo subas públicamente.
+• "Desconectar" borra tus tokens locales pero no elimina los permisos
+  remotos ni las suscripciones del lado Kick. Para revocarlos, revisa
+  tu configuración en Kick Developer / apps conectadas.
+• En la primera ejecución del overlay, no se reproducen mensajes Kick
+  anteriores (evita alertas duplicadas al abrir OBS).
+• No está comprobado el envío de eventos de Kick REAL desde una cuenta
+  vinculada: la integración se validó con pruebas automatizadas offline.
+  Algunas funciones dependen de permisos, límites y disponibilidad de Kick.
+
+COMPROBACIÓN TÉCNICA
+-------------------
+Desde la carpeta del proyecto:
+      py -m unittest discover -s tests -p test_kick_integration.py -v
+
+Archivo principal de conexión Kick: kick_connector.py
+Backend / entradas de eventos: server.py
+Interfaz de autorización: integraciones.html + integraciones.js
+
+Documentación oficial:
+https://docs.kick.com/getting-started/kick-apps-setup
+https://docs.kick.com/events/introduction
+https://docs.kick.com/events/webhook-security
+https://github.com/KickEngineering/KickDevDocs

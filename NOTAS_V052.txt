@@ -1,0 +1,13 @@
+BRYNN INTERACTIVE V0.52.0 - BETA AUTOMATION STUDIO
+
+NOVEDADES
+- Corrección definitiva: Eliminar ahora persiste en automations.json mediante /api/automations/delete.
+- Editor de disparadores guiado para Twitch, TikTok, chat, Brynn y modo manual.
+- Condiciones con nombres comprensibles y sugerencias según el evento.
+- Plantillas rápidas: cambio de escena, regalo TikTok, follow Twitch, palabra en chat y raid.
+- Duplicar automatizaciones y acciones.
+- Activar/desactivar acciones individuales sin borrarlas.
+- Datos de prueba configurables.
+- Acciones nuevas: probabilidad, finalizar flujo, transición OBS, multimedia, stream, grabación, Replay Buffer y puntos.
+- Nombre de regalo TikTok disponible como campo giftName y cantidad de repeats corregida.
+- Conserva compatibilidad con automatizaciones V0.51 y OBS Control Center.

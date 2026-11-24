@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de comandos - Brynn</title>
+  <link rel="stylesheet" href="comandos_admin.css?v=533">
+  <link rel="stylesheet" href="neo_admin_theme.css?v=533">
+  <script src="theme_runtime.js?v=533"></script>
+</head>
+<body>
+<main class="app">
+  <header class="hero">
+    <div><p class="eyebrow">BRYNN INTERACTIVE · V0.59.0 MEDIA TIMELINE</p><h1>🎬 Editor de comandos</h1><p>Construye comandos como una pequeña edición de vídeo: audio, clips de emotes, animaciones y tiempos visuales.</p></div>
+    <div class="hero-actions"><a class="ghost link-button" href="/emotes_admin.html">😀 Biblioteca de emotes</a><a class="ghost link-button" href="/alertas_admin.html">🔔 Alertas</a><button id="newBtn" class="ghost">+ Nuevo comando</button></div>
+  </header>
+
+  <section class="layout">
+    <aside class="command-list-panel"><div class="panel-title">Comandos activos</div><div id="commandList" class="command-list"></div></aside>
+
+    <section class="editor-panel">
+      <form id="editorForm">
+        <div class="grid two">
+          <label>Comando <span>sin !</span><input id="id" required placeholder="fantasma"></label>
+          <label>Nombre visible<input id="name" required placeholder="Fantasma sorpresa"></label>
+          <label>Insignia / emoji<input id="icon" value="👻" maxlength="12"></label>
+          <label>Costo de canje<input id="cost" type="number" min="0" value="100"></label>
+        </div>
+
+        <label>Descripción<textarea id="description" rows="2" placeholder="Qué hará este comando..."></textarea></label>
+        <section class="command-weekly-access reward-readonly">
+          <div class="command-weekly-head"><div><b>🏆 Acceso semanal administrado en Recompensas</b><small>Este editor solo modifica el comando. La exclusividad, los rangos y la vigencia se controlan desde el Centro de recompensas.</small></div><a href="/weekly_rewards_admin.html">Abrir Recompensas</a></div>
+          <div id="commandWeeklyPreview" class="command-weekly-preview">General · disponible para todos.</div>
+        </section>
+        <div class="grid three">
+          <label>Duración base (segundos)<input id="duration" type="number" min="0.3" max="180" step="0.1" value="3"><small>Con duración automática activa, el timeline decide este valor.</small></label>
+          <label>Tamaño visual (%)<input id="size" type="range" min="10" max="100" value="62"><output id="sizeOut">62%</output></label>
+          <label>Volumen<input id="volume" type="range" min="0" max="1" step="0.05" value="0.8"><output id="volumeOut">80%</output></label>
+        </div>
+        <div class="grid two audio-cut-grid">
+          <label class="check-card"><span><input id="cutAudioAtDuration" type="checkbox" checked> Cortar audio al finalizar la duración</span><small>Con timeline automático, normalmente coincide con el final del audio/secuencia.</small></label>
+          <label>Fade de salida del audio (segundos)<input id="audioFadeOut" type="number" min="0" max="5" step="0.1" value="0.6"><small>0 = corte inmediato. Recomendado: 0.4–0.8 s.</small></label>
+        </div>
+
+        <div class="grid two">
+          <label>Efecto base<select id="effect"><option value="media">Solo archivo subido</option><option value="glitch">Glitch</option><option value="fog">Niebla</option><option value="bats">Murciélagos</option><option value="pumpkins">Calabazas</option><option value="bonk">BONK</option><option value="scare">Cara terrorífica</option></select></label>
+          <label>Posición<select id="position"><option value="center">Centro</option><option value="fullscreen">Pantalla completa</option><option value="top-left">Arriba izquierda</option><option value="top-center">Arriba centro</option><option value="top-right">Arriba derecha</option><option value="bottom-left">Abajo izquierda</option><option value="bottom-center">Abajo centro</option><option value="bottom-right">Abajo derecha</option></select></label>
+        </div>
+
+        <div class="upload-grid">
+          <div class="upload-card"><h3>Insignia</h3><p>PNG, JPG, WEBP o GIF.</p><input id="badgeFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><div id="badgeCurrent" class="file-current">Sin archivo</div></div>
+          <div class="upload-card"><h3>Imagen / GIF / Video base</h3><p>PNG, JPG, WEBP, GIF, MP4 o WEBM.</p><input id="visualFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm"><div id="visualCurrent" class="file-current">Sin archivo</div></div>
+          <div class="upload-card audio-upload-card"><h3>Audio del comando</h3><p>MP3, WAV, OGG, M4A o AAC. Se mostrará como waveform.</p><input id="audioFile" type="file" accept="audio/*"><div id="audioCurrent" class="file-current">Sin archivo</div></div>
+        </div>
+
+        <fieldset id="timeline-studio-panel" class="timeline-studio-panel">
+          <legend>🎞 Secuenciador visual de emotes</legend>
+          <div class="studio-topbar">
+            <label class="timeline-toggle"><input id="timelineEnabled" type="checkbox"> Activar timeline para este comando</label>
+            <label class="timeline-toggle"><input id="timelineAutoDuration" type="checkbox" checked> Duración automática</label>
+            <span class="timeline-audio-meta">Audio: <b id="audioDurationInfo">sin duración</b></span>
+          </div>
+          <p class="timeline-help">Un clic en un emote lo inserta en el cabezal. También puedes arrastrarlo a una pista. Los clips se mueven directamente y sus tiradores laterales cambian la duración, como en un editor de vídeo.</p>
+
+          <div class="studio-controls">
+            <button type="button" id="timelinePlayBtn">▶ Reproducir</button>
+            <button type="button" id="timelineStopBtn">■ Detener</button>
+            <button type="button" id="timelineGoStartBtn" title="Ir al inicio">⏮ Inicio</button>
+            <span id="timelineClock" class="timeline-clock">00:00.00 / 00:03.00</span>
+            <label class="zoom-control">Zoom <input id="timelineZoom" type="range" min="100" max="320" step="10" value="100"><output id="timelineZoomOut">100%</output></label>
+            <label class="snap-control"><input id="timelineSnap" type="checkbox" checked> Ajustar a 0.05 s</label>
+            <button type="button" id="previewTimelineBtn" class="accent-button">▶ Probar secuencia en OBS</button>
+            <button type="button" id="clearTimelineCues" class="danger-soft">Limpiar</button>
+          </div>
+
+          <section id="audioTrimmer" class="audio-trimmer">
+            <div class="audio-trim-head">
+              <div><b>✂ Recorte de audio</b><small>Recorte no destructivo: el archivo original no se modifica.</small></div>
+              <span id="audioTrimInfo">00:00.00 → 00:00.00</span>
+            </div>
+            <div id="audioTrimSurface" class="audio-trim-surface" title="Arrastra los bordes para elegir qué parte del audio usar">
+              <canvas id="sourceWaveCanvas" class="source-wave-canvas"></canvas>
+              <div id="audioTrimShadeLeft" class="audio-trim-shade left"></div>
+              <div id="audioTrimShadeRight" class="audio-trim-shade right"></div>
+              <div id="audioTrimSelection" class="audio-trim-selection">
+                <button type="button" class="audio-trim-handle left" data-trim-edge="left" aria-label="Recortar inicio"><i></i></button>
+                <button type="button" class="audio-trim-handle right" data-trim-edge="right" aria-label="Recortar final"><i></i></button>
+              </div>
+            </div>
+            <div class="audio-trim-actions">
+              <button type="button" id="trimStartToPlayhead">Inicio = cabezal</button>
+              <button type="button" id="trimEndToPlayhead">Final = cabezal</button>
+              <button type="button" id="resetAudioTrim">Restablecer audio completo</button>
+            </div>
+          </section>
+
+          <div class="studio-workspace">
+            <div class="timeline-main">
+              <div id="timelineScroll" class="timeline-scroll">
+                <div id="timelineContent" class="timeline-content">
+                  <canvas id="waveCanvas" class="wave-canvas"></canvas>
+                  <div id="timeRuler" class="studio-ruler"></div>
+                  <div id="trackSurface" class="track-surface" aria-label="Pistas de emotes"></div>
+                  <div id="playhead" class="playhead" role="slider" tabindex="0" aria-label="Cabezal de reproducción" aria-valuemin="0" aria-valuenow="0"><i></i><span class="playhead-hit"></span></div>
+                </div>
+              </div>
+              <div class="timeline-hint">Tip: arrastra el cabezal rojo para buscar con precisión. Un clic en la regla o waveform también lo mueve. Clic en un emote = insertar en el cabezal; arrastrar = colocarlo exactamente donde quieras.</div>
+            </div>
+
+            <aside class="timeline-side">
+              <section class="emote-bin">
+                <div class="side-title"><b>Biblioteca de emotes</b><a href="/emotes_admin.html">Administrar</a></div>
+                <input id="timelineEmoteSearch" placeholder="Buscar emote...">
+                <div class="scope-tabs"><button type="button" data-scope="all" class="active">Todos</button><button type="button" data-scope="general">Generales</button><button type="button" data-scope="exclusive">Exclusivos</button></div>
+                <div id="timelineEmoteBin" class="emote-bin-list"></div>
+              </section>
+
+              <section id="clipInspector" class="clip-inspector empty">
+                <div class="side-title"><b>Propiedades del clip</b><span id="clipTimeLabel">—</span></div>
+                <div id="clipEmpty">Selecciona un clip del timeline.</div>
+                <div id="clipFields" class="clip-fields">
+                  <label>Emote<select id="clipEmote"></select></label>
+                  <div class="grid two compact"><label>Cantidad<input id="clipQuantity" type="number" min="1" max="60" value="1"></label><label>Tamaño visual <span id="clipSizeOut">24%</span><input id="clipSize" type="range" min="6" max="100" value="24"></label></div>
+                  <label>Distribución<select id="clipPattern"><option value="scatter">Repartidos</option><option value="burst">Explosión radial</option><option value="fountain">Fuente</option><option value="rain">Lluvia</option><option value="orbit">Órbita</option><option value="edges">Desde bordes</option><option value="wave">Ola</option><option value="center">Centro</option></select></label>
+                  <label>Entrada<select id="clipEnter"></select></label>
+                  <label>Animación<select id="clipMotion"></select></label>
+                  <label>Salida<select id="clipExit"></select></label>
+                  <label>Separación entre copias (ms)<input id="clipStagger" type="number" min="0" max="3000" step="10" value="90"></label>
+                  <div class="clip-actions"><button type="button" id="duplicateClipBtn">Duplicar</button><button type="button" id="deleteClipBtn" class="danger-soft">Eliminar clip</button></div>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </fieldset>
+
+        <fieldset><legend>Movimiento del visual base mientras está visible</legend><div id="animationPicker" class="animation-picker"></div></fieldset>
+
+        <div class="grid two">
+          <label>Animación de entrada<select id="enterAnimation"><option value="none">Sin entrada</option><option value="pop">Pop</option><option value="fade">Fade</option><option value="zoom">Zoom</option><option value="bounce">Rebote</option><option value="slide-left">Deslizar desde izquierda</option><option value="slide-right">Deslizar desde derecha</option><option value="slide-up">Subir desde abajo</option><option value="slide-down">Bajar desde arriba</option><option value="elastic">Elástico</option><option value="flip">Volteo 3D</option><option value="rotate">Giro de entrada</option><option value="burst">Explosión al centro</option><option value="drop-in">Caer desde arriba</option><option value="rise">Emerger desde abajo</option></select></label>
+          <label>Animación de salida<select id="exitAnimation"><option value="none">Sin salida</option><option value="fade">Fade</option><option value="shrink">Encogerse</option><option value="zoom">Zoom hacia cámara</option><option value="slide-left">Salir izquierda</option><option value="slide-right">Salir derecha</option><option value="slide-up">Salir arriba</option><option value="slide-down">Salir abajo</option><option value="drop">Caer</option><option value="explode">Explotar</option><option value="dissolve">Disolver</option><option value="spin-out">Girar y salir</option><option value="fly-away">Salir volando</option></select></label>
+        </div>
+        <div class="checks"><label><input id="enabled" type="checkbox" checked> Comando habilitado</label><label><input id="showCard" type="checkbox" checked> Mostrar tarjeta de canje</label></div>
+
+        <div class="actions"><button type="submit" class="primary">Guardar comando</button><button type="button" id="testBtn">Probar en OBS</button><button type="button" id="deleteBtn" class="danger">Eliminar</button></div>
+        <div id="status" class="status">Listo.</div>
+
+        <section class="media-preview-panel"><h3>Vista previa de multimedia base</h3><div id="visualPreview" class="visual-preview">Sin imagen/video cargado</div><button id="audioPreviewBtn" class="secondary" type="button">🔊 Probar audio cargado</button><div id="mediaPreviewStatus" class="file-current"></div></section>
+      </form>
+    </section>
+  </section>
+</main>
+<script src="comandos_admin.js?v=533"></script>
+</body>
+</html>

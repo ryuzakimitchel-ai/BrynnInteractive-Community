@@ -1,0 +1,6 @@
+Brynn Interactive V0.60.8 Beta
+- Rediseño de la parte superior de Splash Studio.
+- La sección ahora se trabaja con tarjetas visuales, similar al diseñador de Inicio de la rama 0.60.6.
+- Nuevos bloques: Comportamiento, Tema y progreso, Textos del splash, Audio y recursos.
+- Se conserva la lógica existente, pero con una organización más cómoda y visual.
+- La biblioteca de capas y el lienzo siguen funcionando como antes.

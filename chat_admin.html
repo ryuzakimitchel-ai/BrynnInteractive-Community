@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diseñador de Chat - Brynn</title>
+<link rel="stylesheet" href="chat_admin.css?v=50">
+<link rel="stylesheet" href="neo_admin_theme.css?v=50">
+<script src="theme_runtime.js?v=50"></script>
+</head>
+<body>
+<main class="app">
+<header>
+  <div><p class="eyebrow">BRYNN INTERACTIVE SYSTEM</p><h1>💬 Diseñador HTML / CSS / JS del chat</h1><p>Edita el chat sin tocar <code>style.css</code> ni <code>script.js</code>.</p></div>
+  <a href="/index.html">Ver chat</a>
+</header>
+<section class="controls">
+<label class="check"><input id="enabled" type="checkbox"> Usar diseño personalizado</label>
+<label class="check"><input id="replaceDefaultCss" type="checkbox"> Reemplazar CSS base por completo</label>
+</section>
+<div class="vars">
+<b>Variables HTML:</b>
+<code>{user}</code><code>{platform}</code><code>{avatar}</code><code>{platformIcon}</code>
+<code>{badges}</code><code>{message}</code><code>{contentImage}</code><code>{role}</code><code>{roleIcon}</code><code>{roleTag}</code>
+<code>{weeklyTitle}</code><code>{weeklyBadge}</code><code>{weeklyRank}</code><code>{weeklyTier}</code><code>{weeklyTag}</code>
+</div>
+<div class="tabs">
+<button class="tab active" data-panel="htmlPanel">HTML</button>
+<button class="tab" data-panel="cssPanel">CSS</button>
+<button class="tab" data-panel="jsPanel">JS</button>
+</div>
+<section id="htmlPanel" class="panel active"><textarea id="customHtml" spellcheck="false"></textarea></section>
+<section id="cssPanel" class="panel"><textarea id="customCss" spellcheck="false"></textarea></section>
+<section id="jsPanel" class="panel"><textarea id="customJs" spellcheck="false"></textarea></section>
+<div class="actions">
+<button id="templateBtn">Cargar plantilla editable</button>
+<button id="previewBtn">Actualizar preview</button>
+<button id="saveBtn" class="primary">Guardar diseño</button>
+</div>
+<p class="hint">En JS recibes <code>CHAT_DATA</code> y <code>CHAT_ELEMENT</code>. V0.42 añade <code>CHAT_DATA.weekly</code> para títulos y premios semanales. El diseño guardado se recarga automáticamente en el chat cada pocos segundos; los mensajes nuevos usarán el nuevo HTML.</p>
+<div class="preview-title">Vista previa</div>
+<iframe id="preview" sandbox="allow-scripts"></iframe>
+<div id="status">Listo.</div>
+</main>
+<script src="chat_admin.js?v=50"></script>
+</body>
+</html>

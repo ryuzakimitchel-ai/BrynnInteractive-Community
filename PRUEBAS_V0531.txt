@@ -1,0 +1,14 @@
+PRUEBAS RECOMENDADAS V0.53.1
+
+1. Abre Comandos y activa el timeline.
+2. Carga un audio y comprueba que aparecen dos waveforms: fuente completa (recorte) y timeline (rango activo).
+3. Arrastra los handles del recorte y verifica que el rango usable cambia.
+4. Arrastra el cabezal rojo; el reloj debe actualizarse continuamente.
+5. Haz clic UNA VEZ en un emote: debe insertarse donde esté el cabezal.
+6. Arrastra el clip horizontalmente y entre V1–V6 sin doble clic.
+7. Arrastra los bordes del clip para cambiar su duración.
+8. Cambia Tamaño visual con el slider y prueba en OBS.
+9. Recorta inicio/final del audio, guarda, recarga el comando y confirma que el rango persiste.
+10. Pulsa Probar secuencia en OBS: el audio debe iniciar en el IN elegido y detenerse en el OUT elegido.
+
+Atajos: Espacio = play/pausa; ←/→ = mover cabezal 50 ms; Delete/Backspace = eliminar clip seleccionado.

@@ -1,0 +1,11 @@
+BRYNN INTERACTIVE V0.49.0 - BETA
+
+NOVEDADES
+- Propietario: bypass opcional para comandos y emotes exclusivos del ranking.
+- Simulación de rango Top 1 / Top 2 / Top 3 / Top 10 para probar descuentos.
+- Botón para probar la entrada semanal del propietario directamente en OBS.
+- Economía: nombre singular/plural, símbolo, imagen/GIF y comando de saldo configurables.
+- Canjes: presentación completamente editable con HTML, CSS y JavaScript.
+- Variables de canje: user, platform, reward, cost, currencyName, currencyImage, balances y más.
+- Botón Probar canje en OBS.
+- Billeteras y tienda adoptan automáticamente la identidad de la moneda.

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Emotes - Brynn</title>
+<link rel="stylesheet" href="emotes_admin.css?v=533">
+<link rel="stylesheet" href="neo_admin_theme.css?v=533">
+<script src="theme_runtime.js?v=533"></script>
+</head>
+<body>
+<main class="app">
+<header class="hero">
+  <div>
+    <p class="eyebrow">BRYNN INTERACTIVE · V0.59.0</p>
+    <h1>😀 Biblioteca de emotes</h1>
+    <p>Importa y edita tus emotes. La exclusividad semanal se administra únicamente desde Recompensas para evitar configuraciones duplicadas.</p>
+  </div>
+  <div class="hero-actions">
+    <a class="ghost" href="/comandos_admin.html">🎬 Comandos / Timeline</a>
+    <button id="bulkToggleBtn" class="primary-lite" type="button">⇧ Importar lote</button>
+    <button id="newBtn" class="ghost" type="button">+ Nuevo emote</button>
+  </div>
+</header>
+
+<section id="bulkPanel" class="bulk-panel hidden">
+  <div class="bulk-head">
+    <div><p class="eyebrow">IMPORTACIÓN MASIVA</p><h2>Agregar varios emotes de un golpe</h2><p>El nombre del archivo se usa como ID/comando y nombre visible. La descripción queda vacía y luego puedes editar cualquier emote.</p></div>
+    <button id="bulkCloseBtn" class="ghost" type="button">Cerrar</button>
+  </div>
+  <div class="bulk-grid">
+    <label class="drop-zone">Archivos
+      <input id="bulkFiles" type="file" multiple accept="image/png,image/jpeg,image/webp,image/gif">
+      <span>Selecciona PNG, JPG, WEBP o GIF. Puedes elegir decenas a la vez.</span>
+    </label>
+    <div class="reward-managed-card"><b>🏆 Acceso semanal</b><span>Los nuevos emotes se crean como generales. Después puedes asignarlos a Top 1/2/3/10 desde <a href="/weekly_rewards_admin.html">Recompensas semanales</a>.</span></div>
+    <label>Costo por defecto
+      <input id="bulkCost" type="number" min="0" value="25">
+    </label>
+    <label>Duración por defecto
+      <input id="bulkDuration" type="number" min="0.3" max="120" step="0.1" value="3">
+    </label>
+  </div>
+  <div id="bulkQueue" class="bulk-queue"><div class="bulk-empty">Selecciona archivos para preparar la importación.</div></div>
+  <div class="bulk-actions">
+    <button id="bulkImportBtn" class="primary" type="button" disabled>Importar emotes</button>
+    <button id="bulkClearBtn" class="ghost" type="button">Limpiar selección</button>
+    <span id="bulkStatus" class="bulk-status">Sin archivos pendientes.</span>
+  </div>
+</section>
+
+<section class="layout">
+  <aside class="list-panel">
+    <div class="panel-title-row"><div class="panel-title">Biblioteca</div><span id="countBadge" class="count-badge">0</span></div>
+    <div class="library-tools">
+      <input id="search" placeholder="Buscar emote...">
+      <div class="filter-tabs">
+        <button type="button" data-filter="all" class="active">Todos</button>
+        <button type="button" data-filter="general">Generales</button>
+        <button type="button" data-filter="exclusive">Exclusivos</button>
+      </div>
+    </div>
+    <div id="list" class="item-list"></div>
+  </aside>
+
+  <section class="editor-panel">
+    <form id="form">
+      <div class="editor-title-row">
+        <div><p class="eyebrow">EDITOR</p><h2 id="editorTitle">Nuevo emote</h2></div>
+        <span id="scopeBadge" class="scope-badge general">GENERAL</span>
+      </div>
+
+      <div class="grid two">
+        <label>ID / nombre del emote <span>se usa en !emote nombre</span>
+          <input id="id" required placeholder="ohmaigotto">
+        </label>
+        <label>Nombre visible
+          <input id="name" required placeholder="Oh mai gotto">
+        </label>
+      </div>
+
+      <label>Descripción <span>opcional; en importación masiva queda vacía</span>
+        <textarea id="description" rows="2" placeholder="Descripción del emote..."></textarea>
+      </label>
+
+      <div class="grid two">
+        <label>Costo de canje<input id="cost" type="number" min="0" value="25"></label>
+        <label>Duración (segundos)<input id="duration" type="number" min=".3" max="120" step=".1" value="3"></label>
+      </div>
+      <section class="weekly-access-panel reward-readonly">
+        <div class="weekly-access-head"><div><b>🏆 Acceso semanal administrado en Recompensas</b><small id="accessHelp">Este emote es general mientras no esté asignado a un rango semanal.</small></div><a href="/weekly_rewards_admin.html">Abrir Recompensas</a></div>
+        <div id="weeklyAccessPreview" class="weekly-access-preview">General · disponible para todos.</div>
+      </section>
+
+      <div class="grid three">
+        <label>Tamaño (%)
+          <input id="size" type="range" min="10" max="100" value="45"><output id="sizeOut">45%</output>
+        </label>
+        <label>Volumen
+          <input id="volume" type="range" min="0" max="1" step=".05" value=".8"><output id="volumeOut">80%</output>
+        </label>
+        <label>Posición
+          <select id="position">
+            <option value="center">Centro</option><option value="fullscreen">Pantalla completa</option><option value="top-left">Arriba izquierda</option><option value="top-center">Arriba centro</option><option value="top-right">Arriba derecha</option><option value="bottom-left">Abajo izquierda</option><option value="bottom-center">Abajo centro</option><option value="bottom-right">Abajo derecha</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="upload-grid">
+        <div class="upload-card"><h3>Imagen / GIF</h3><p>PNG, JPG, WEBP o GIF.</p><input id="visualFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><div id="visualCurrent" class="file-current">Sin archivo</div></div>
+        <div class="upload-card"><h3>Audio opcional</h3><p>MP3, WAV, OGG, M4A o AAC.</p><input id="audioFile" type="file" accept="audio/*"><div id="audioCurrent" class="file-current">Sin archivo</div></div>
+      </div>
+
+      <div class="grid three">
+        <label>Entrada<select id="enterAnimation"><option value="none">Sin entrada</option><option value="pop">Pop</option><option value="fade">Fade</option><option value="zoom">Zoom</option><option value="bounce">Rebote</option><option value="slide-left">Desde izquierda</option><option value="slide-right">Desde derecha</option><option value="slide-up">Desde abajo</option><option value="slide-down">Desde arriba</option><option value="elastic">Elástico</option><option value="flip">Volteo 3D</option><option value="rotate">Giro</option><option value="burst">Explosión</option><option value="drop-in">Caer</option><option value="rise">Emerger</option></select></label>
+        <label>Movimiento<select id="animation"><option value="none">Quieto</option><option value="float">Flotar</option><option value="pulse">Pulso</option><option value="shake">Temblar</option><option value="spin">Girar</option><option value="glitch">Glitch</option><option value="wobble">Wobble</option><option value="sway">Balanceo</option><option value="bounce">Rebote</option><option value="heartbeat">Latido</option><option value="bob">Sube y baja</option><option value="jelly">Gelatina</option><option value="swing">Columpio</option><option value="flip">Volteo</option><option value="zigzag">Zigzag</option><option value="spiral">Espiral</option><option value="orbit">Órbita</option><option value="drift-left">Deriva izquierda</option><option value="drift-right">Deriva derecha</option><option value="drift-up">Deriva arriba</option><option value="drift-down">Deriva abajo</option><option value="rainbow">Arcoíris</option><option value="fly">Volar</option><option value="fall">Caer</option></select></label>
+        <label>Salida<select id="exitAnimation"><option value="none">Sin salida</option><option value="fade">Fade</option><option value="shrink">Encogerse</option><option value="zoom">Zoom</option><option value="slide-left">Izquierda</option><option value="slide-right">Derecha</option><option value="slide-up">Arriba</option><option value="slide-down">Abajo</option><option value="drop">Caer</option><option value="explode">Explotar</option><option value="dissolve">Disolver</option><option value="spin-out">Girar y salir</option><option value="fly-away">Salir volando</option></select></label>
+      </div>
+
+      <div class="checks"><label><input id="enabled" type="checkbox" checked> Emote habilitado</label><label><input id="showCard" type="checkbox"> Mostrar tarjeta de canje</label></div>
+
+      <div class="preview-panel"><h3>Vista previa</h3><div id="preview" class="preview">Sube un emote.</div></div>
+
+      <div class="actions"><button type="submit" class="primary">Guardar emote</button><button type="button" id="testBtn">Probar en OBS</button><button type="button" id="deleteBtn" class="danger">Eliminar</button></div>
+      <div id="status" class="status">Listo.</div>
+    </form>
+  </section>
+</section>
+</main>
+<script src="emotes_admin.js?v=533"></script>
+</body>
+</html>

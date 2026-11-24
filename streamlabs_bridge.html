@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brynn Streamlabs Bridge</title>
+<style>
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:transparent;
+  color:#f2ead8;
+  font-family:Arial,sans-serif
+}
+main{
+  width:min(760px,92vw);
+  margin:16px auto;
+  padding:14px;
+  border-radius:10px;
+  background:rgba(13,9,17,.92);
+  border:1px solid rgba(140,255,58,.20)
+}
+h1{font-size:19px;margin:0 0 9px}
+code{color:#8cff3a}
+.ok{color:#8cff3a}.warn{color:#ffd34e}.bad{color:#ff637d}
+pre{
+  background:#070609;
+  padding:9px;
+  border-radius:7px;
+  white-space:pre-wrap;
+  font-size:11px
+}
+body.obs main{
+  display:none;
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Streamlabs Bridge persistente</h1>
+<p id="status">Cargando...</p>
+<p>
+  Esta página se reconecta automáticamente y envía un heartbeat local
+  cada 5 segundos.
+</p>
+<pre id="last">Sin eventos todavía.</pre>
+</main>
+
+<script>
+if(new URLSearchParams(location.search).get("obs")==="1"){
+  document.body.classList.add("obs");
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<script src="/streamlabs_bridge.js?v=50"></script>
+</body>
+</html>

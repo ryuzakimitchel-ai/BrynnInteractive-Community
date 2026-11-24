@@ -1,0 +1,23 @@
+BRYNN INTERACTIVE — MEJORAS V0.56 CONSERVADAS EN V0.59
+
+1. PROTECCIÓN CONTRA PANTALLAS NEGRAS
+- Navegación externa abre el navegador del sistema.
+- Un panel nuevo no reemplaza al anterior hasta comprobar que tiene contenido.
+- Reintento y recuperación automática de WebViews vacíos.
+- Si no existe una vista válida, Brynn vuelve a Inicio.
+
+2. ACTUALIZACIONES INTEGRADAS
+- Los ZIP se preparan desde una ventana nativa con barra de progreso.
+- PowerShell se ejecuta oculto durante actualización integrada.
+- AppData y backups se conservan.
+- Protección de staging para no borrar la carpeta activa.
+
+3. SPLASH STUDIO
+- Pantalla de inicio con progreso real.
+- Imagen, GIF, vídeo y audio personalizados.
+- Editor visual y prueba sin reiniciar.
+- Assets guardados en AppData/loading_assets.
+
+NOTA
+- Los cambios de chat nativo de la rama original V0.56 NO forman parte de V0.59.
+- V0.59 mantiene Social Stream Ninja desde la base V0.53.3.

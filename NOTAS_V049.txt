@@ -1,0 +1,10 @@
+BRYNN INTERACTIVE V0.49.0 - BETA
+
+- Secuenciador de stickers/emotes sincronizado con el audio de cada comando.
+- Cada momento configura tiempo, emote, cantidad, duración, tamaño, patrón, movimiento, entrada, salida y stagger.
+- Audio no se corta cuando el visual principal termina antes.
+- Emotes normales respetan ahora su entrada, movimiento y salida configurados.
+- Biblioteca ampliada de animaciones para comandos, emotes y alertas.
+- Gestor de actualizaciones acepta ZIP o EXE comercial.
+- Instalador Inno Setup detecta una instalación existente por AppId y la actualiza en la misma carpeta.
+- En una instalación nueva el usuario sigue pudiendo elegir la carpeta.

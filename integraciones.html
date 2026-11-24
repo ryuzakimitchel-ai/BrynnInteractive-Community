@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Integraciones - Brynn</title>
+<link rel="stylesheet" href="integraciones.css?v=50">
+<link rel="stylesheet" href="neo_admin_theme.css?v=50">
+<script src="theme_runtime.js?v=50"></script>
+</head>
+<body>
+<main class="app">
+<header>
+  <div>
+    <p class="eyebrow">BRYNN INTERACTIVE SYSTEM</p>
+    <h1>🔌 Integraciones</h1>
+    <p>
+      Conecta Twitch/Streamlabs, TikTok/TikFinity y Kick con Brynn.
+      Las credenciales privadas se guardan fuera del directorio de datos web.
+    </p>
+  </div>
+  <a href="/alertas_admin.html">← Alertas</a>
+</header>
+
+<section class="service" id="streamlabsCard">
+  <div class="service-head">
+    <div>
+      <h2>Streamlabs</h2>
+      <p>Twitch follows, subs, Bits, raids y donaciones de Streamlabs.</p>
+      <p class="hint">
+        V0.44.0 - BETA usa una fuente Socket.IO dedicada y persistente.
+        Añade <code>streamlabs_bridge.html?v=50&obs=1</code> en OBS una sola vez.
+      </p>
+    </div>
+    <div id="streamlabsState" class="state">Cargando...</div>
+  </div>
+
+  <div class="grid two">
+    <label class="switch-row">
+      <input id="streamlabsEnabled" type="checkbox">
+      Habilitar integración Streamlabs
+    </label>
+
+    <label>Socket API Token
+      <input
+        id="streamlabsToken"
+        type="password"
+        autocomplete="off"
+        placeholder="Pega aquí tu Socket API Token"
+      >
+      <small id="tokenInfo">No guardado</small>
+    </label>
+  </div>
+
+  <p class="hint">
+    V0.44.0 - BETA guarda el token fuera de la carpeta de la versión, en tu AppData de Windows. Así no tienes que volver a pegarlo al actualizar a versiones nuevas.
+  </p>
+
+  <div class="actions">
+    <button id="saveStreamlabs" class="primary" type="button">Guardar / conectar</button>
+    <button id="clearStreamlabs" class="danger" type="button">Borrar token local</button>
+  </div>
+
+  <div class="tests">
+    <span>Pruebas:</span>
+    <button data-service="streamlabs" data-type="follow">Follow</button>
+    <button data-service="streamlabs" data-type="subscription">Sub</button>
+    <button data-service="streamlabs" data-type="donation">Donación $5</button>
+    <button data-service="streamlabs" data-type="bits">100 Bits</button>
+    <button data-service="streamlabs" data-type="raid">Raid</button>
+  </div>
+
+  <pre id="streamlabsLast" class="last-event">Sin eventos todavía.</pre>
+</section>
+
+<section class="service" id="tikfinityCard">
+  <div class="service-head">
+    <div>
+      <h2>TikFinity</h2>
+      <p>
+        V22 puede usar TikFinity Web sin instalar TikFinity Desktop.
+        TikFinity dispara WebHooks desde Actions & Events hacia un receptor
+        aislado de nuestra app.
+      </p>
+    </div>
+    <div id="tikfinityState" class="state">Cargando...</div>
+  </div>
+
+  <label class="switch-row">
+    <input id="tikfinityEnabled" type="checkbox">
+    Habilitar TikFinity
+  </label>
+
+  <div class="grid two">
+    <label>Modo
+      <select id="tikfinityMode">
+        <option value="webhook">🌐 TikFinity Web (recomendado)</option>
+        <option value="desktop">🖥️ TikFinity Desktop / Event API</option>
+      </select>
+    </label>
+
+    <label>URL pública del túnel HTTPS
+      <input
+        id="tikfinityPublicBaseUrl"
+        type="url"
+        placeholder="https://xxxxx.trycloudflare.com"
+      >
+      <small>
+        En modo Web, pega aquí la URL que te dé Cloudflare Tunnel.
+      </small>
+    </label>
+  </div>
+
+  <div class="actions">
+    <button id="saveTikfinity" class="primary" type="button">
+      Guardar TikFinity
+    </button>
+    <button id="regenTikfinitySecret" type="button">
+      Regenerar clave WebHook
+    </button>
+  </div>
+
+  <div id="webhookSetup" class="webhook-setup">
+    <div class="webhook-title-row"><h3>WebHooks para Actions & Events</h3><button id="copyAllWebhooks" class="primary" type="button">📋 Copiar todo</button></div>
+    <p class="hint">
+      Crea una Action de tipo Trigger WebHook en TikFinity Web para cada evento
+      y pega la URL correspondiente. V27 usa los placeholders actuales de TikFinity
+      con llaves, por ejemplo <code>{username}</code>. Si TikFinity pregunta por método,
+      usa GET.
+    </p>
+
+    <div class="diagnostic-note">
+      <b>Prueba rápida:</b>
+      pulsa ▶ en la Action de TikFinity. Si el WebHook está activo y guardado,
+      debe aparecer inmediatamente en <code>eventos_monitor.html</code>.
+    </div>
+
+    <div class="webhook-row">
+      <b>Follow</b>
+      <input id="urlFollow" readonly>
+      <button class="copy-webhook" data-target="urlFollow">Copiar</button>
+    </div>
+
+    <div class="webhook-row">
+      <b>Subscribe</b>
+      <input id="urlSub" readonly>
+      <button class="copy-webhook" data-target="urlSub">Copiar</button>
+    </div>
+
+    <div class="webhook-row">
+      <b>Gift</b>
+      <input id="urlGift" readonly>
+      <button class="copy-webhook" data-target="urlGift">Copiar</button>
+    </div>
+
+    <div class="webhook-row">
+      <b>Like</b>
+      <input id="urlLike" readonly>
+      <button class="copy-webhook" data-target="urlLike">Copiar</button>
+    </div>
+
+    <div class="webhook-row">
+      <b>Share</b>
+      <input id="urlShare" readonly>
+      <button class="copy-webhook" data-target="urlShare">Copiar</button>
+    </div>
+
+    <div class="webhook-row">
+      <b>Join</b>
+      <input id="urlJoin" readonly>
+      <button class="copy-webhook" data-target="urlJoin">Copiar</button>
+    </div>
+
+    <div class="diagnostic-note">
+      <b>Importante con Like:</b> activar WebHook dentro de una Action no dispara la Action por sí solo.
+      En TikFinity debes asignar esa Action a un <b>Event de tipo Like</b> y definir el umbral
+      (por ejemplo cada 10 o 100 likes). El evento Like predefinido de TikFinity suele venir a 100 taps.
+    </div>
+
+    <p class="hint">
+      Receptor local seguro:
+      <code>http://127.0.0.1:8766</code>.
+      Expón únicamente ese puerto, nunca el 8765.
+    </p>
+  </div>
+
+  <div class="tests">
+    <span>Pruebas locales:</span>
+    <button data-service="tikfinity" data-type="follow">Follow</button>
+    <button data-service="tikfinity" data-type="subscription">Sub</button>
+    <button data-service="tikfinity" data-type="gift">Regalo TikTok</button>
+    <button data-service="tikfinity" data-type="like">100 Likes</button>
+    <button data-service="tikfinity" data-type="share">Share</button>
+    <button data-service="tikfinity" data-type="join">Join</button>
+  </div>
+
+  <pre id="tikfinityLast" class="last-event">Sin eventos todavía.</pre>
+</section>
+
+
+<section class="service" id="kickCard">
+  <div class="service-head">
+    <div>
+      <h2>🟢 Kick · API oficial</h2>
+      <p>Chat, follows, suscripciones, subs regaladas, KICKs, recompensas y eventos en OBS.
+      Funciona a la vez que Twitch y TikTok.</p>
+    </div>
+    <div class="state" id="kickState">Sin configurar</div>
+  </div>
+  <p class="hint">1. Crea una aplicación en <a href="https://kick.com/settings/developer" target="_blank" rel="noopener noreferrer">Kick Developer</a> con 2FA activado.
+  En Redirect URL escribe exactamente <code>http://localhost:8765/api/kick/oauth/callback</code>.
+  Habilita webhooks en Kick e introduce tu URL pública HTTPS terminada en <code>/kick/webhook</code> (el túnel HTTPS debe apuntar a <code>127.0.0.1:8766</code>).</p>
+  <div class="grid two">
+    <label>Client ID<input id="kickClientId" placeholder="Client ID de Kick" autocomplete="off"></label>
+    <label>Client Secret<input id="kickClientSecret" type="password" placeholder="Client Secret (no se mostrará de nuevo)" autocomplete="off"></label>
+  </div>
+  <div class="actions">
+    <button id="kickSave" type="button" class="primary">1 · Guardar credenciales</button>
+    <button id="kickConnect" type="button">2 · Autorizar Kick</button>
+    <button id="kickSubscribe" type="button">3 · Suscribir eventos</button>
+    <button id="kickDisconnect" type="button" class="danger">Desconectar sesión local</button>
+  </div>
+  <p id="kickAccountInfo" class="hint">Sin cuenta autorizada.</p>
+  <label>URL pública del Webhook de Kick (copiarla a la app Kick Developer)
+    <input id="kickWebhookUrl" type="url" placeholder="https://TU-SUBDOMINIO/kick/webhook" autocomplete="off">
+  </label>
+  <p class="hint">Este campo sirve para preparar/copiar la URL; la URL pública se configura en Kick Developer, no se crea automáticamente. No publiques el puerto local 8765.</p>
+  <div class="actions">
+    <button id="kickCopyUrl" type="button">Copiar URL</button>
+    <a href="https://docs.kick.com/events/introduction" target="_blank" rel="noopener noreferrer">Documentación de webhooks</a>
+  </div>
+  <div class="tests"><span>Pruebas locales (no son eventos reales):</span>
+    <button data-service="kick" data-type="follow">Follow</button>
+    <button data-service="kick" data-type="subscription">Sub</button>
+    <button data-service="kick" data-type="gift">KICKs</button>
+    <button data-service="kick" data-type="reward">Canje</button>
+  </div>
+  <pre class="last-event" id="kickLast">Sin eventos reales recibidos.</pre>
+</section>
+
+<section class="info">
+  <h2>Qué cambia en V22</h2>
+  <p>
+    TikFinity sigue conectado directamente desde el servidor.
+    Streamlabs usa ahora un bridge Socket.IO independiente con heartbeat
+    y reconexión automática. Esto evita que los cambios de escena o recargas
+    de Brynn_Alerts tiren la conexión.
+  </p>
+  <p>
+    <code>index.html</code> procesa y muestra mensajes, Gumpitas y comandos de las tres plataformas.
+    Para Kick usa la API oficial con webhooks HTTPS firmados y autorización OAuth.
+  </p>
+</section>
+
+<div id="status" class="global-status">Listo.</div>
+</main>
+<script src="integraciones.js?v=51"></script>
+</body>
+</html>

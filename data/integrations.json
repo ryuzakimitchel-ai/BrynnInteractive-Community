@@ -1,0 +1,13 @@
+{
+  "streamlabs": {
+    "enabled": false,
+    "socketToken": ""
+  },
+  "tikfinity": {
+    "enabled": false,
+    "mode": "webhook",
+    "url": "ws://127.0.0.1:21213/",
+    "webhookSecret": "",
+    "publicBaseUrl": ""
+  }
+}

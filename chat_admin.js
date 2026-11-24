@@ -1,0 +1,24 @@
+const $=id=>document.getElementById(id);
+const DEFAULT_HTML=`<div class="custom-chat-card">
+  {roleTag}
+  <div class="custom-meta">
+    <img class="custom-platform-icon" src="{platformIcon}" alt="">
+    <span class="custom-badges">{badges}</span>
+    <strong>{user}</strong>
+  </div>
+  <div class="custom-message">{message}{contentImage}</div>
+</div>`;
+const DEFAULT_CSS=`#log{position:absolute;left:0;bottom:0;width:480px;max-width:100%;padding:12px}
+#log>div{margin:12px 0;animation:customIn .45s ease both}
+.custom-chat-card{position:relative;color:#F2EAD8;filter:drop-shadow(0 0 8px rgba(138,43,226,.55))}
+.custom-meta{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#FF6A00;color:#120D16;border-radius:8px 8px 0 0}
+.custom-platform-icon{width:20px;height:20px;object-fit:contain}.custom-message{padding:14px 18px;background:rgba(18,13,22,.94);border-left:4px solid #8CFF3A;border-radius:0 10px 10px 10px}.custom-message img{max-height:1.5em;vertical-align:middle}.content-image{display:block!important;max-width:260px!important;max-height:180px!important;margin-top:8px}.role-tag{display:inline-flex;gap:5px;margin-left:8px;padding:3px 8px;background:#8CFF3A;color:#120D16;font-size:12px}
+@keyframes customIn{from{opacity:0;transform:translateX(-25px)}to{opacity:1;transform:none}}`;
+const DEFAULT_JS=`// CHAT_DATA: user, platform, message, avatar, role, roleIcon, badges, raw\n// CHAT_ELEMENT: el <div> del mensaje actual\nCHAT_ELEMENT.animate([{opacity:.4},{opacity:1}],{duration:350,fill:'both'});`;
+function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function status(t){$('status').textContent=t}
+function template(){if(!$('customHtml').value)$('customHtml').value=DEFAULT_HTML;if(!$('customCss').value)$('customCss').value=DEFAULT_CSS;if(!$('customJs').value)$('customJs').value=DEFAULT_JS}
+async function load(){const r=await fetch('/api/chat-design',{cache:'no-store'});const d=await r.json();const x=d.design||{};$('enabled').checked=Boolean(x.enabled);$('replaceDefaultCss').checked=Boolean(x.replaceDefaultCss);$('customHtml').value=x.customHtml||'';$('customCss').value=x.customCss||'';$('customJs').value=x.customJs||'';if(!x.customHtml&&!x.customCss&&!x.customJs)template();preview();}
+function preview(){const data={user:'BrynnFan',platform:'tiktok',avatar:'',platformIcon:'https://socialstream.ninja/sources/images/tiktok.png',badges:'★',message:'¡Hola Brynn! Este es un mensaje de prueba 💀',contentImage:'',role:'GUMPITA DESTACADA',roleIcon:'🥈'};const roleTag=`<span class="role-tag"><span>${data.roleIcon}</span><span>${data.role}</span></span>`;let html=$('customHtml').value||DEFAULT_HTML;const tokens={'{user}':esc(data.user),'{platform}':esc(data.platform.toUpperCase()),'{avatar}':'','{platformIcon}':esc(data.platformIcon),'{badges}':data.badges,'{message}':data.message,'{contentImage}':'','{role}':esc(data.role),'{roleIcon}':esc(data.roleIcon),'{roleTag}':roleTag};for(const [k,v] of Object.entries(tokens))html=html.split(k).join(v);const js=$('customJs').value||DEFAULT_JS;const css=$('customCss').value||DEFAULT_CSS;$('preview').srcdoc=`<!doctype html><html><head><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent}${css}</style></head><body><div id="log"><div id="msg">${html}</div></div><script>const CHAT_DATA=${JSON.stringify(data)};const CHAT_ELEMENT=document.getElementById('msg');try{${js}}catch(e){document.body.insertAdjacentHTML('beforeend','<pre style="color:red">'+String(e)+'</pre>')}<\/script></body></html>`}
+async function save(){const payload={design:{enabled:$('enabled').checked,replaceDefaultCss:$('replaceDefaultCss').checked,customHtml:$('customHtml').value,customCss:$('customCss').value,customJs:$('customJs').value}};const r=await fetch('/api/chat-design/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const d=await r.json();status(d.ok?'✅ Diseño guardado. El chat lo cargará automáticamente.':'❌ '+(d.error||'Error'));}
+document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));btn.classList.add('active');$(btn.dataset.panel).classList.add('active')});$('templateBtn').onclick=()=>{$('customHtml').value=DEFAULT_HTML;$('customCss').value=DEFAULT_CSS;$('customJs').value=DEFAULT_JS;$('enabled').checked=true;preview();status('Plantilla cargada.')};$('previewBtn').onclick=preview;$('saveBtn').onclick=save;['customHtml','customCss','customJs'].forEach(id=>$(id).addEventListener('input',()=>{clearTimeout(window.__p);window.__p=setTimeout(preview,350)}));load();

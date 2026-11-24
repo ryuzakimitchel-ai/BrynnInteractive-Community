@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economía - Brynn Interactive</title>
+  <link rel="stylesheet" href="economia.css?v=50">
+  <link rel="stylesheet" href="neo_admin_theme.css?v=50">
+  <script src="theme_runtime.js?v=50"></script>
+</head>
+<body>
+  <main class="panel">
+    <header>
+      <div>
+        <p class="eyebrow">TWITCH + TIKTOK</p>
+        <h1 id="currencyTitle">Economía</h1>
+        <p id="currencySubtitle">Moneda persistente de la comunidad.</p>
+        <p><a href="/economia_config.html?v=50">⚙ Configurar economía, moneda y canjes</a></p>
+      </div>
+    </header>
+    <section class="earning-info"><h2 id="earningTitle">Cómo conseguir puntos</h2><div id="earning-rates" class="earning-grid"></div><p class="daily-tip">💡 También pueden escribir <b>!diario</b> una vez al día.</p></section>
+    <section class="store"><h2>Tienda</h2><div id="store-grid" class="store-grid"></div></section>
+    <section class="table-wrap"><table><thead><tr><th>#</th><th>Usuario</th><th>Plataforma</th><th>Saldo</th><th>Ganadas</th><th>Gastadas</th><th>Ajuste local</th></tr></thead><tbody id="wallets"></tbody></table></section>
+    <p class="note">Puedes usar +100 / -100 para pruebas o correcciones manuales. Las cuentas propietarias tienen saldo infinito.</p>
+  </main>
+  <script src="economia.js?v=50"></script>
+</body>
+</html>

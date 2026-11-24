@@ -1,0 +1,6 @@
+Brynn Interactive V0.60.2 Beta
+- Splash Studio: el lienzo central tiene más prioridad visual.
+- Splash Studio: se añadió indicador de capa seleccionada.
+- Splash Studio: inspector con controles directos de Posición X/Y y Ancho/Alto.
+- Splash Studio: los cambios de posición y tamaño pueden hacerse sin depender solo del arrastre.
+- Splash Studio: la selección se mantiene sincronizada entre lista, lienzo e inspector.

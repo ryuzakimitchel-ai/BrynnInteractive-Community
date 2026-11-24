@@ -1,0 +1,35 @@
+BRYNN INTERACTIVE V0.53.0 - RUTA DE PRUEBAS
+
+1. EMOTES / IMPORTACIÓN MASIVA
+- Abrir Biblioteca de emotes -> Importar lote.
+- Elegir 3 o más PNG/GIF a la vez.
+- Confirmar que cada archivo recibe ID y nombre visible automáticamente.
+- Importar un lote como General y otro como Exclusivo.
+- Reiniciar Brynn y comprobar persistencia.
+
+2. AISLAMIENTO GENERAL / EXCLUSIVO
+- Ejecutar !emote <general>: debe funcionar.
+- Ejecutar !emote <exclusivo>: debe indicar que está reservado para secuencias.
+- Abrir Comandos: ambos tipos deben aparecer en la biblioteca del timeline.
+
+3. TIMELINE
+- Crear comando y cargar un audio.
+- Verificar que aparece waveform y duración.
+- Reproducir / pausar / detener y hacer clic en el waveform para mover el cabezal.
+- Arrastrar un emote al timeline.
+- Moverlo a otro tiempo y otra pista.
+- Estirar los bordes para cambiar duración.
+- Superponer clips en distintas pistas.
+- Cambiar entrada/movimiento/salida desde Propiedades del clip.
+- Probar zoom y snap.
+
+4. OBS
+- Guardar el comando.
+- Pulsar Probar secuencia en OBS.
+- Confirmar que el audio y los emotes aparecen en los tiempos aproximados del timeline.
+- Verificar que la duración de los clips coincide con el tamaño visual de cada bloque.
+
+5. COMPATIBILIDAD
+- Abrir un comando viejo con stickerTimeline.
+- Confirmar que los cues aparecen como clips en V1.
+- Guardar y volver a abrir.

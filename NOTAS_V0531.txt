@@ -1,0 +1,13 @@
+BRYNN INTERACTIVE V0.53.1 BETA — TIMELINE UX & AUDIO TRIM
+
+- Corrección del drag de clips: ya no se reconstruye el clip mientras se arrastra.
+- Clic simple en emote para insertarlo en el cabezal.
+- Tiradores de resize más grandes/visibles.
+- Cabezal rojo arrastrable con scrub continuo.
+- Flechas izquierda/derecha: ±50 ms. Espacio: reproducir/pausar. Delete/Backspace: elimina clip seleccionado.
+- Trimmer de audio no destructivo con handles IN/OUT.
+- Botones Inicio = cabezal / Final = cabezal / Restaurar.
+- El waveform principal representa el rango recortado.
+- OBS reproduce únicamente el rango de audio seleccionado.
+- Campo de tamaño visual del clip cambiado a slider.
+- Compatible con comandos V0.53.0.

@@ -1,0 +1,11 @@
+BRYNN INTERACTIVE V0.60.12
+
+PAQUETES
+1) ACTUALIZACION: usar el ZIP de actualización y ejecutar ACTUALIZAR_BRYNN.ps1. No extraigas manualmente sobre tu instalación. El script solicita la carpeta actual, crea un respaldo y copia únicamente los archivos de programa; conserva data, user_media y configuración privada.
+2) DISTRIBUCION_COMUNIDAD: versión limpia para instalar desde cero. No contiene tus datos del canal ni credenciales. Cada persona debe configurar sus propias cuentas, tokens, claves, OBS y servicios.
+
+REQUISITOS
+Windows 10/11 de 64 bits. Python y dependencias según requirements_desktop.txt si se usa el modo desde código; para compilar/instalar el escritorio, sigue instalar_desktop.bat.
+
+NOTA DE SEGURIDAD
+No expongas el servidor local a Internet ni compartas tu carpeta de datos. Esta versión corrige hallazgos prioritarios seleccionados, pero todavía no debe considerarse endurecida para exposición pública sin autenticación adicional de endpoints administrativos.

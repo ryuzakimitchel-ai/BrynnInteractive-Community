@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Layout Studio - Brynn</title>
+<link rel="stylesheet" href="layout_studio.css?v=50">
+<link rel="stylesheet" href="neo_admin_theme.css?v=50">
+<script src="theme_runtime.js?v=50"></script>
+</head>
+<body>
+<main class="app">
+<header class="hero">
+  <div>
+    <p class="eyebrow">BRYNN INTERACTIVE // V0.44.0 - BETA</p>
+    <h1>🎛 Layout Studio</h1>
+    <p>Ajusta visualmente el layout base del chat y las alertas. Los editores HTML/CSS/JS avanzados siguen teniendo prioridad cuando están habilitados.</p>
+  </div>
+</header>
+
+<section class="target-tabs">
+  <button class="target-tab active" data-target="chat">💬 Chat</button>
+  <button class="target-tab" data-target="alerts">🚨 Alertas</button>
+</section>
+
+<section class="studio-grid">
+  <form id="controls" class="controls-panel">
+    <h2 id="targetTitle">Chat</h2>
+
+    <label>Ancho base <span id="widthOut">450 px</span>
+      <input id="width" type="range" min="220" max="1600" step="10">
+    </label>
+
+    <label>Escala <span id="scaleOut">100%</span>
+      <input id="scale" type="range" min="50" max="180" step="5">
+    </label>
+
+    <label>Posición
+      <select id="position"></select>
+    </label>
+
+    <label>Color de acento
+      <div class="color-row"><input id="accent" type="color"><input id="accentText" type="text" maxlength="7"></div>
+    </label>
+
+    <label>Opacidad del fondo <span id="opacityOut">92%</span>
+      <input id="backgroundOpacity" type="range" min="0" max="100" step="1">
+    </label>
+
+    <label>Radio de esquinas <span id="radiusOut">14 px</span>
+      <input id="radius" type="range" min="0" max="48" step="1">
+    </label>
+
+    <div class="actions">
+      <button type="button" id="resetBtn">Restablecer target</button>
+      <button type="submit" class="primary">Guardar layout</button>
+    </div>
+    <div id="status">Cargando...</div>
+  </form>
+
+  <section class="preview-panel">
+    <div class="preview-head"><b>Vista previa</b><span id="previewLabel">CHAT</span></div>
+    <div id="previewStage" class="preview-stage">
+      <div id="chatPreview" class="chat-preview">
+        <div class="name-tag">STREAMER</div>
+        <div class="message-card">Oh mai gotto! Esta es una vista previa del chat ✦</div>
+      </div>
+      <div id="alertPreview" class="alert-preview hidden">
+        <div class="avatar-dot"></div>
+        <div><small>TWITCH · FOLLOW</small><strong>KEVIN AHORA SIGUE A BRYNN</strong><p>Welcome my love!</p></div>
+      </div>
+    </div>
+    <p class="hint">OBS usa estos valores globales como base. Si una alerta tiene HTML avanzado, su propio CSS puede reemplazar parte del layout.</p>
+  </section>
+</section>
+</main>
+<script src="layout_studio.js?v=50"></script>
+</body>
+</html>

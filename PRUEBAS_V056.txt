@@ -1,0 +1,31 @@
+PRUEBAS RECOMENDADAS V0.56.0
+
+A) CHAT / DUPLICADOS
+1. Conecta Twitch.
+2. Abre el chat flotante y el Browser Source de chat en OBS.
+3. Envía "prueba v056" desde Brynn.
+4. Debe existir 1 mensaje en Twitch y 1 representación del mismo mensaje en el chat Brynn/OBS; no dos tarjetas repetidas.
+5. Si todavía tienes Social Stream Ninja abierto, repite la prueba: Brynn no debe duplicar el mensaje.
+
+B) PANELES NEGROS
+1. Abre Chat flotante, Emotes, Comandos, OBS y vuelve a Chat flotante varias veces.
+2. Pulsa enlaces OAuth/Developer.
+3. Deben abrirse fuera de Brynn y el panel actual debe conservarse.
+4. Si una página local falla, Brynn debe mantener el panel anterior o volver a Inicio, nunca quedarse negro.
+
+C) SPLASH STUDIO
+1. Personalización > Splash Studio.
+2. Arrastra Logo, Título y Barra.
+3. Redimensiona desde la esquina inferior derecha de cada objeto.
+4. Carga una imagen/GIF/vídeo y un audio.
+5. Pulsa Probar pantalla de inicio.
+6. Guarda, cierra Brynn y vuelve a abrirlo.
+7. Verifica progreso, media, audio y posiciones.
+
+D) ACTUALIZADOR INTEGRADO
+1. Sistema > Actualizaciones.
+2. Selecciona un ZIP de actualización válido.
+3. Pulsa Instalar paquete preparado.
+4. Debe aparecer el progreso dentro de Brynn sin abrir CMD.
+5. Al terminar, pulsa Continuar para reiniciar.
+6. Confirma que emotes, comandos, OAuth, OBS y personalización siguen en AppData.

@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&display=swap');
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 40px;
+  background: #0f0b13;
+  color: #f2ead8;
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+main {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #8CFF3A;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+h1 { margin: 0 0 8px; }
+
+.intro {
+  opacity: .78;
+  max-width: 720px;
+}
+
+.grid {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+}
+
+button {
+  min-height: 92px;
+  border: 1px solid rgba(140,255,58,.20);
+  background: linear-gradient(135deg,#17111c,#2a1737);
+  color: #f2ead8;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+button:hover {
+  border-color: #8CFF3A;
+  box-shadow: 0 0 18px rgba(140,255,58,.24);
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+#status {
+  margin-top: 18px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,.05);
+  border-left: 4px solid #8CFF3A;
+}
+
+@media (max-width: 700px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  body { padding: 20px; }
+}

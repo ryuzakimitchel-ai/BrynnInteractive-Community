@@ -1,0 +1,5 @@
+V0.47.4 - BETA · STARTUP STYLE HOTFIX
+
+- Corrige un NameError al aplicar el tema de escritorio.
+- La regla QSS de QLabel/QCheckBox ahora escapa correctamente las llaves dentro del f-string.
+- Mantiene el rediseño de Ajustes de V0.47.2 y el runtime corto de V0.47.1.

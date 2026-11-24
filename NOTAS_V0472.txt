@@ -1,0 +1,7 @@
+V0.47.3 - BETA · SETTINGS UI FIX
+
+- Rediseña Ajustes Desktop con tarjetas y campos verticales.
+- Elimina QFormLayout para evitar labels y controles comprimidos.
+- Hace la página completamente desplazable.
+- Corrige fondos opacos detrás de QLabel/QCheckBox en temas nativos.
+- Mantiene el fix de rutas largas de V0.47.1.

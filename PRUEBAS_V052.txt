@@ -1,0 +1,14 @@
+BRYNN INTERACTIVE V0.52.0 - RUTA DE PRUEBAS
+
+1. Abre Integraciones > Automatizaciones.
+2. Crea una automatización manual y guárdala.
+3. Elimínala, cierra y vuelve a abrir la pantalla: NO debe reaparecer.
+4. Usa la plantilla "Cambiar escena", elige una escena y pulsa Probar.
+5. Usa "Regalo TikTok" y revisa las sugerencias: regalo, monedas y cantidad.
+6. Añade una acción "Probabilidad" y después un mensaje de overlay.
+7. Prueba OBS > Grabación con iniciar y detener.
+8. Si usas Replay Buffer, actívalo previamente en OBS y prueba Guardar replay.
+9. Crea una automatización de chat con condición "Mensaje contiene".
+10. Comprueba que tus automatizaciones anteriores sigan apareciendo.
+
+NOTA: el botón Probar ejecuta acciones reales. Evita probar "Iniciar stream" si no deseas salir en directo.

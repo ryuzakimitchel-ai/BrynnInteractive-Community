@@ -1,0 +1,16 @@
+BRYNN INTERACTIVE V0.60.9 · BETA
+
+Mejoras sobre V0.60.8, conservando integración por Social Stream Ninja:
+- Versión alineada en escritorio, manifiesto, novedades y archivo Inno Setup.
+- Splash Studio: arreglo de desplazamiento y resize con coordenadas globales (evita saltos).
+- Splash Studio: reutilización de imagen original en transformaciones; escritura de títulos y colores sin reconstruir el editor; propiedades numéricas se aplican al terminar la edición en vez de interrumpir cada tecla; lista de capas solo se regenera cuando cambia el inventario.
+- JSON: archivos temporales únicos por solicitud y os.replace atómico.
+- Subida de archivos: streaming en bloques de 1 MiB, nombre único, rechazo de archivos incompletos, limpieza de temporales.
+- Webhook TikFinity: la ruta secreta ya no se guarda ni muestra completa en logs HTTP.
+- Build comercial: evita incluir tests vendorizados.
+
+No se modificaron las rutas ni contratos HTTP de Social Stream Ninja, OBS o TikFinity.
+No se probaron conexiones reales a Twitch/TikTok/OBS ni la interfaz PySide6 en Windows.
+
+Cómo actualizar: desde Actualizaciones selecciona este ZIP. Antes, exporta copia de tus datos; el actualizador también realiza su backup habitual.
+Pruebas recomendadas: Splash > añadir imagen, mover, resize, invertir, guardar/reabrir; enviar y recibir mensajes con SSN, probar comandos/alertas y subir medios grandes.

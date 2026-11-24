@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OBS Control Center · Brynn Interactive</title>
+  <link rel="stylesheet" href="neo_admin_theme.css?v=513">
+  <link rel="stylesheet" href="obs_admin.css?v=513">
+</head>
+<body>
+<main class="obs-shell">
+  <header class="hero obs-hero">
+    <div class="hero-copy">
+      <div class="eyebrow-row">
+        <p class="eyebrow">INTEGRACIONES · V0.51.3</p>
+        <span class="micro-badge">OBS WEBSOCKET 5.x</span>
+      </div>
+      <h1>OBS Control Center</h1>
+      <p class="muted">Supervisa y controla tu directo desde Brynn: escenas, fuentes, filtros, audio, media, streaming y grabación.</p>
+      <div class="connection-meta">
+        <span><i class="dot"></i><b id="endpointLabel">127.0.0.1:4455</b></span>
+        <span>OBS <b id="heroObsVersion">—</b></span>
+        <span>WebSocket <b id="heroWsVersion">—</b></span>
+      </div>
+    </div>
+    <div class="hero-actions obs-hero-actions">
+      <div id="statusPill" class="status-pill off"><i></i><span>Desconectado</span></div>
+      <button id="testBtn" class="btn secondary">Probar conexión</button>
+      <button id="refreshInventory" class="btn primary">Actualizar</button>
+    </div>
+  </header>
+
+  <section class="control-strip" aria-label="Estado principal de OBS">
+    <article class="metric-card scene-metric">
+      <span class="metric-label">ESCENA ACTUAL</span>
+      <strong id="currentScene">—</strong>
+      <small id="sceneContext">Sin conexión</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">STREAMING</span>
+      <div class="state-line"><i id="streamDot" class="state-dot"></i><strong id="streamState">Detenido</strong></div>
+      <small id="streamDuration">—</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">GRABACIÓN</span>
+      <div class="state-line"><i id="recordDot" class="state-dot"></i><strong id="recordState">Detenida</strong></div>
+      <small id="recordDuration">—</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">PERFIL / COLECCIÓN</span>
+      <strong id="profileName" class="metric-small">—</strong>
+      <small id="collectionName">—</small>
+    </article>
+  </section>
+
+  <section class="workspace-grid">
+    <div class="workspace-main">
+      <article class="panel studio-panel">
+        <div class="panel-head">
+          <div>
+            <span class="kicker">CONTROL RÁPIDO</span>
+            <h2>Escenas</h2>
+            <p class="panel-help">Cambia de escena con un clic. Marca ★ para fijar las que usas durante el directo.</p>
+          </div>
+          <div class="compact-actions">
+            <button id="showAllScenes" class="btn quiet active" data-scene-view="all">Todas</button>
+            <button id="showFavoriteScenes" class="btn quiet" data-scene-view="favorites">★ Favoritas</button>
+          </div>
+        </div>
+        <div id="sceneButtons" class="scene-grid empty-state">Conecta OBS para cargar tus escenas.</div>
+      </article>
+
+      <article class="panel studio-panel">
+        <div class="panel-head filter-head">
+          <div>
+            <span class="kicker">ESCENA ACTUAL</span>
+            <h2>Fuentes</h2>
+          </div>
+          <label class="search-box"><span>⌕</span><input id="sourceSearch" type="search" placeholder="Buscar fuente…" autocomplete="off"></label>
+        </div>
+        <div id="sources" class="control-list empty-state">Sin datos.</div>
+      </article>
+
+      <article class="panel studio-panel">
+        <div class="panel-head filter-head">
+          <div>
+            <span class="kicker">EFECTOS DE OBS</span>
+            <h2>Filtros</h2>
+          </div>
+          <label class="search-box"><span>⌕</span><input id="filterSearch" type="search" placeholder="Buscar filtro o fuente…" autocomplete="off"></label>
+        </div>
+        <div id="filters" class="control-list empty-state">Sin datos.</div>
+      </article>
+
+      <article class="panel studio-panel">
+        <div class="panel-head filter-head">
+          <div>
+            <span class="kicker">MEZCLADOR</span>
+            <h2>Audio y media</h2>
+            <p class="panel-help">Controla mute y volumen. Los inputs multimedia compatibles también pueden reiniciarse.</p>
+          </div>
+          <label class="search-box"><span>⌕</span><input id="inputSearch" type="search" placeholder="Buscar input…" autocomplete="off"></label>
+        </div>
+        <div id="inputs" class="control-list empty-state">Sin datos.</div>
+      </article>
+    </div>
+
+    <aside class="workspace-side">
+      <article class="panel side-panel live-console">
+        <div class="panel-head">
+          <div><span class="kicker">DIRECTO</span><h2>Salida</h2></div>
+          <span class="danger-hint">Acción inmediata</span>
+        </div>
+        <div class="live-actions">
+          <button id="toggleStream" class="live-control stream"><span class="live-icon">●</span><span><b>Streaming</b><small id="toggleStreamHint">Iniciar transmisión</small></span></button>
+          <button id="toggleRecord" class="live-control record"><span class="live-icon">●</span><span><b>Grabación</b><small id="toggleRecordHint">Iniciar grabación</small></span></button>
+        </div>
+      </article>
+
+      <article class="panel side-panel">
+        <div class="panel-head">
+          <div><span class="kicker">CONEXIÓN</span><h2>OBS WebSocket</h2></div>
+          <button id="toggleConnectionPanel" class="icon-btn" title="Mostrar u ocultar configuración">⌄</button>
+        </div>
+        <div id="connectionPanel" class="connection-panel">
+          <label class="switch-line"><input id="enabled" type="checkbox"><span>Habilitar integración</span></label>
+          <div class="form-row">
+            <label>Host<input id="host" value="127.0.0.1" spellcheck="false"></label>
+            <label class="port-field">Puerto<input id="port" type="number" min="1" max="65535" value="4455"></label>
+          </div>
+          <label>Contraseña <span id="passHint" class="hint"></span><input id="password" type="password" placeholder="Vacía = conservar la guardada" autocomplete="new-password"></label>
+          <div class="actions compact"><button id="saveBtn" class="btn primary">Guardar</button><button id="clearPassBtn" class="btn danger ghost">Borrar contraseña</button></div>
+        </div>
+        <div id="message" class="message-box info">Esperando estado de OBS…</div>
+      </article>
+
+      <article class="panel side-panel activity-panel">
+        <div class="panel-head">
+          <div><span class="kicker">DIAGNÓSTICO</span><h2>Actividad</h2></div>
+          <button id="clearLog" class="btn quiet tiny">Limpiar</button>
+        </div>
+        <div id="activityLog" class="activity-log"></div>
+      </article>
+
+      <article class="panel side-panel utilities-panel">
+        <span class="kicker">UTILIDADES</span>
+        <div class="utility-grid">
+          <button id="copyInventory" class="utility-btn"><span>⧉</span><b>Copiar inventario</b><small>Escenas, fuentes y filtros</small></button>
+          <button id="copyConnection" class="utility-btn"><span>↗</span><b>Copiar conexión</b><small>Host y puerto</small></button>
+        </div>
+      </article>
+    </aside>
+  </section>
+</main>
+
+<div id="toastStack" class="toast-stack" aria-live="polite"></div>
+<script src="theme_runtime.js?v=513"></script>
+<script src="obs_admin.js?v=513"></script>
+</body>
+</html>

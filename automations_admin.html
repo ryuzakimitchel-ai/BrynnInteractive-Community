@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Automation Studio · Brynn Interactive</title>
+  <link rel="stylesheet" href="neo_admin_theme.css?v=520">
+  <link rel="stylesheet" href="automations_admin.css?v=520">
+</head>
+<body>
+<main class="page-shell">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">AUTOMATION STUDIO · V0.52</p>
+      <h1>Automatizaciones</h1>
+      <p class="muted">Crea reglas del tipo <b>CUANDO pasa algo → SI se cumple una condición → HACER una o varias acciones</b>.</p>
+    </div>
+    <div class="hero-actions">
+      <span id="saveState" class="save-state saved">Todo guardado</span>
+      <button id="saveAll" class="btn secondary">Guardar todo</button>
+      <button id="newBtn" class="btn primary">+ Nueva automatización</button>
+    </div>
+  </header>
+
+  <section class="quick-start panel soft-panel">
+    <div>
+      <strong>Inicio rápido</strong>
+      <small>Usa una plantilla y cambia solamente lo que necesites.</small>
+    </div>
+    <div class="template-row">
+      <button class="template-chip" data-template="manual_scene">🎬 Cambiar escena</button>
+      <button class="template-chip" data-template="tiktok_gift">🎁 Regalo TikTok</button>
+      <button class="template-chip" data-template="twitch_follow">💜 Follow Twitch</button>
+      <button class="template-chip" data-template="kick_follow">💚 Follow Kick</button>
+      <button class="template-chip" data-template="chat_keyword">💬 Palabra en chat</button>
+      <button class="template-chip" data-template="raid_scene">🚨 Raid → escena</button>
+    </div>
+  </section>
+
+  <div class="workspace">
+    <aside class="panel list-panel">
+      <div class="panel-head">
+        <div><strong>Mis flujos</strong><small id="flowCount">0 automatizaciones</small></div>
+        <button id="newSmall" class="icon-add" title="Nueva automatización">+</button>
+      </div>
+      <input id="flowSearch" class="search" placeholder="Buscar automatización…">
+      <div id="automationList" class="automation-list"></div>
+      <div id="history" class="history"></div>
+    </aside>
+
+    <section class="panel editor">
+      <div id="emptyEditor" class="empty-editor">
+        <div class="empty-icon">⚡</div>
+        <h2>Selecciona o crea una automatización</h2>
+        <p>Una automatización puede escuchar Twitch, TikTok, Kick, chat o eventos internos y después controlar OBS, overlays, emotes, audio y economía.</p>
+      </div>
+
+      <div id="editor" hidden>
+        <div class="editor-top">
+          <label class="grow">Nombre<input id="name" placeholder="Ej. Rose → corazones + glow"></label>
+          <label class="switch-line"><input id="enabled" type="checkbox"><span>Activada</span></label>
+          <button id="duplicateBtn" class="btn secondary">Duplicar</button>
+          <button id="testBtn" class="btn test">▶ Probar</button>
+          <button id="deleteBtn" class="btn danger ghost">Eliminar</button>
+        </div>
+
+        <div id="flowSummary" class="flow-summary"></div>
+
+        <div class="section">
+          <div class="section-title">
+            <span>1</span>
+            <div><b>CUANDO</b><small>¿Qué debe iniciar este flujo?</small></div>
+          </div>
+
+          <div class="trigger-grid">
+            <label>Origen
+              <select id="triggerOrigin">
+                <option value="manual">🧪 Manual / prueba</option>
+                <option value="twitch">💜 Twitch</option>
+                <option value="tiktok">🎵 TikTok</option>
+                <option value="kick">💚 Kick</option>
+                <option value="chat">💬 Mensaje de chat</option>
+                <option value="brynn">⚡ Evento de Brynn</option>
+                <option value="custom">🛠 Avanzado / personalizado</option>
+              </select>
+            </label>
+            <label id="triggerPlatformWrap">Plataforma
+              <select id="triggerPlatform">
+                <option value="any">Cualquiera</option>
+                <option value="twitch">Twitch</option>
+                <option value="tiktok">TikTok</option>
+                <option value="kick">Kick</option>
+              </select>
+            </label>
+            <label id="triggerEventWrap">Evento
+              <select id="triggerEvent"></select>
+            </label>
+            <label id="triggerEventCustomWrap" hidden>Evento personalizado
+              <input id="triggerEventCustom" placeholder="gift, raid, goal_reached…">
+            </label>
+            <label id="triggerCommandWrap" hidden>Comando específico
+              <select id="triggerCommand"><option value="">Cualquier comando</option></select>
+            </label>
+          </div>
+
+          <div id="customTrigger" class="advanced-box" hidden>
+            <strong>Modo avanzado</strong>
+            <p>Úsalo solo si necesitas escuchar un tipo de evento que todavía no aparece en los menús.</p>
+            <div class="form-grid three">
+              <label>Tipo interno<input id="customType" placeholder="platform_event"></label>
+              <label>Plataforma<input id="customPlatform" placeholder="any"></label>
+              <label>Evento<input id="customEvent" placeholder="custom_event"></label>
+            </div>
+          </div>
+          <p id="triggerHelp" class="helper"></p>
+        </div>
+
+        <div class="section">
+          <div class="section-title">
+            <span>2</span>
+            <div><b>SI</b><small>Filtros opcionales. Si no agregas ninguno, cualquier evento coincidente pasa.</small></div>
+            <button id="addCondition" class="btn tiny secondary">+ Condición</button>
+          </div>
+          <div id="conditionSuggestions" class="suggestion-row"></div>
+          <div id="conditions" class="stack"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title action-title">
+            <span>3</span>
+            <div><b>HACER</b><small>Las acciones se ejecutan de arriba hacia abajo.</small></div>
+            <select id="actionPicker" class="compact">
+              <option value="">+ Añadir acción…</option>
+              <optgroup label="Flujo">
+                <option value="wait">⏱ Esperar</option>
+                <option value="chance">🎲 Probabilidad para continuar</option>
+                <option value="stop">⛔ Finalizar flujo</option>
+              </optgroup>
+              <optgroup label="OBS Studio">
+                <option value="obs_scene">🎬 Cambiar escena</option>
+                <option value="obs_transition">✨ Cambiar transición</option>
+                <option value="obs_source">👁 Mostrar / ocultar fuente</option>
+                <option value="obs_filter">🎨 Activar / desactivar filtro</option>
+                <option value="obs_mute">🔇 Mutear / desmutear</option>
+                <option value="obs_volume">🔊 Cambiar volumen</option>
+                <option value="obs_media">⏯ Controlar multimedia</option>
+                <option value="obs_stream">🔴 Iniciar / detener stream</option>
+                <option value="obs_record">⏺ Iniciar / detener grabación</option>
+                <option value="obs_replay">💾 Replay Buffer</option>
+              </optgroup>
+              <optgroup label="Brynn Interactive">
+                <option value="command">⚡ Ejecutar comando / efecto</option>
+                <option value="emote">💜 Mostrar emote</option>
+                <option value="economy_adjust">🪙 Sumar / restar puntos</option>
+              </optgroup>
+              <optgroup label="Overlay">
+                <option value="overlay_message">💬 Mostrar mensaje</option>
+                <option value="audio">🎵 Reproducir audio</option>
+              </optgroup>
+            </select>
+          </div>
+          <div id="actions" class="stack actions-stack"></div>
+        </div>
+
+        <details class="test-box">
+          <summary>🧪 Datos de prueba <span>Configura con qué datos se ejecuta el botón “Probar”.</span></summary>
+          <div class="form-grid test-grid">
+            <label>Usuario<input id="testUsername" value="DemoViewer"></label>
+            <label>Mensaje<input id="testMessage" value="hola brynn"></label>
+            <label>Regalo<input id="testGiftName" value="Rose"></label>
+            <label>Cantidad<input id="testQuantity" type="number" value="10"></label>
+            <label>Monedas del regalo<input id="testGiftCoins" type="number" value="10"></label>
+            <label>Donación USD<input id="testDonation" type="number" step="0.01" value="0"></label>
+          </div>
+          <p class="helper">El modo de prueba sí ejecuta las acciones. Si agregas o quitas puntos, esa acción afectará al usuario de prueba indicado.</p>
+        </details>
+
+        <div class="section foot">
+          <label>Cooldown
+            <div class="unit-input"><input id="cooldown" type="number" min="0" value="0"><span>seg</span></div>
+          </label>
+          <label class="switch-line"><input id="stopOnError" type="checkbox" checked><span>Detener si una acción falla</span></label>
+          <button id="saveOne" class="btn primary">Guardar cambios</button>
+        </div>
+        <p id="message" class="message"></p>
+      </div>
+    </section>
+  </div>
+</main>
+<script src="theme_runtime.js?v=520"></script>
+<script src="automations_admin.js?v=520"></script>
+</body>
+</html>

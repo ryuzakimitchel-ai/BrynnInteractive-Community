@@ -1,0 +1,4 @@
+V0.60.5 — Hotfix de arranque Splash Studio
+- Corregida importación de QRect de PySide6.QtCore faltante en V0.60.4.
+- Mantiene la mesa de trabajo 16:9, paneles y herramientas V0.60.4.
+- El código Python compila; se requiere probar arranque en Windows con PySide6.

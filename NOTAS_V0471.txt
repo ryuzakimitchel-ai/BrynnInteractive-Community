@@ -1,0 +1,8 @@
+V0.47.4 - BETA · LONG PATH INSTALLER HOTFIX
+
+- El entorno virtual ya no se crea dentro de la carpeta del proyecto.
+- Runtime compartido: %LOCALAPPDATA%\BrynnInteractive\runtime\desktop
+- Evita errores de PySide6/Qt por rutas largas en OneDrive o carpetas profundas.
+- El instalador elimina el .venv local incompleto de versiones anteriores.
+- Launchers, diagnóstico, build EXE y build comercial usan el nuevo runtime.
+- No requiere activar LongPathsEnabled en Windows.

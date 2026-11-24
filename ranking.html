@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ranking semanal del chat</title>
+  <link rel="stylesheet" href="ranking.css?v=50">
+<link rel="stylesheet" href="neo_admin_theme.css?v=50">
+<script src="theme_runtime.js?v=50"></script>
+</head>
+<body>
+  <main class="panel">
+    <header>
+      <div>
+        <p class="eyebrow">CHAT TWITCH + TIKTOK + KICK</p>
+        <h1>Ranking semanal</h1>
+        <p id="period">Cargando...</p>
+      </div>
+
+      <div class="ranking-actions"><a class="rewards-link" href="/weekly_rewards_admin.html?v=50">Recompensas semanales</a><button id="reset-button" class="danger">Reiniciar semana</button></div>
+    </header>
+
+    <section class="podium" id="podium"></section>
+
+    <section class="ranking-search" aria-label="Buscar usuario">
+      <div class="search-copy">
+        <h2>Buscar usuario</h2>
+        <p>Busca por nombre completo o parcial. No distingue mayúsculas, @, espacios ni guiones bajos.</p>
+      </div>
+      <div class="search-controls">
+        <input id="ranking-search" type="search" autocomplete="off" placeholder="Ej. Brynn, kevin, @usuario...">
+        <select id="platform-filter" aria-label="Filtrar plataforma">
+          <option value="all">Todas las plataformas</option>
+          <option value="twitch">Twitch</option>
+          <option value="tiktok">TikTok</option>
+          <option value="kick">Kick</option>
+        </select>
+        <button id="clear-search" type="button">Limpiar</button>
+      </div>
+      <div id="search-result-info" class="search-result-info">Mostrando todo el ranking.</div>
+    </section>
+
+    <section id="user-detail" class="user-detail" hidden></section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Plataforma</th>
+            <th>Puntos</th>
+            <th>Mensajes</th>
+            <th>Likes</th>
+            <th>Regalos</th>
+            <th>Monedas</th>
+            <th>USD</th>
+            <th>Follows</th>
+            <th>Subs</th>
+          </tr>
+        </thead>
+        <tbody id="ranking-body"></tbody>
+      </table>
+    </section>
+
+    <p class="note">
+      El ranking se guarda en <code>ranking.json</code> y cambia de semana automáticamente cada lunes.
+    </p>
+  </main>
+
+  <script src="ranking.js?v=50"></script>
+</body>
+</html>

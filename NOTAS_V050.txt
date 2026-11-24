@@ -1,0 +1,12 @@
+BRYNN INTERACTIVE V0.50.0 - BETA
+
+Navigation & Control Center
+- Menú lateral reorganizado por categorías.
+- Búsqueda inmediata dentro del menú.
+- Paleta global Ctrl+K.
+- Favoritos mediante clic derecho.
+- Historial de secciones recientes.
+- Modo de barra lateral compacto.
+- Breadcrumbs en el área principal.
+- Dashboard renovado con viewers, meta activa, Top 3, actividad reciente y acciones rápidas.
+- El buscador Ctrl+K indexa también comandos, emotes y metas actuales cuando el backend está disponible.

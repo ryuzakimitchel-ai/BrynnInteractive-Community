@@ -1,0 +1,461 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Creepster&display=swap');
+
+:root {
+    --ink: #F2EAD8;
+    --dark: #120D16;
+    --ecto: #8CFF3A;
+    --belle: #FF6A00;
+    --blood: #B3122A;
+    --violet: #8A2BE2;
+    --gold: #FFD34E;
+    --silver: #D7E3F4;
+    --bronze: #D9935B;
+    --cut: 15px;
+
+    --font-size: 22px;
+    --chat-width: 450px;
+    --message-width: 100%;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    background: transparent;
+    font-family: 'Chakra Petch', 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: var(--font-size);
+    line-height: 1.4em;
+    color: var(--ink);
+}
+
+#ssn_bridge {
+    position: fixed;
+    left: -100px;
+    top: -100px;
+    width: 1px;
+    height: 1px;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ---------- Diagnóstico ---------- */
+.status {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 520px;
+    padding: 10px 14px;
+    color: #fff;
+    background: rgba(10, 8, 14, .92);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 8px;
+    box-shadow: 0 0 16px rgba(0,0,0,.45);
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 14px;
+    line-height: 1.25;
+}
+
+.status.hidden { display: none; }
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #ffcc00;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.status.connected .status-dot,
+.status.message .status-dot { background: #5cff70; }
+
+.status.error .status-dot,
+.status.disconnected .status-dot { background: #ff4056; }
+
+#status-title { font-weight: 700; }
+
+#status-detail {
+    margin-top: 2px;
+    opacity: .72;
+    font-size: 12px;
+}
+
+/* ---------- Chat ---------- */
+#log {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: var(--chat-width);
+    max-width: 100%;
+    padding: 12px;
+}
+
+#log > div {
+    --accent: var(--belle);
+    --role-color: var(--belle);
+    --role-ink: var(--dark);
+    --glow: rgba(138,43,226,.60);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 12px 0;
+
+    filter: drop-shadow(0 0 8px var(--glow));
+
+    animation:
+        haunt .6s cubic-bezier(.22,1,.36,1) forwards,
+        hauntedLight 6s infinite 1s;
+}
+
+/* Roles nativos */
+#log > div.subscriber {
+    --accent: #FFCC00;
+    --role-color: #FFCC00;
+    --role-ink: #1A1200;
+    --glow: rgba(255,204,0,.45);
+}
+
+#log > div.vip {
+    --accent: #B76CFF;
+    --role-color: #B76CFF;
+    --role-ink: #17071F;
+    --glow: rgba(183,108,255,.55);
+}
+
+#log > div.mod {
+    --accent: var(--blood);
+    --role-color: #E93150;
+    --role-ink: #FFF3F5;
+    --glow: rgba(179,18,42,.60);
+}
+
+#log > div.broadcaster {
+    --accent: var(--ecto);
+    --role-color: var(--ecto);
+    --role-ink: #101608;
+    --glow: rgba(140,255,58,.70);
+}
+
+/* Podio automático */
+#log > div.top-1 {
+    --accent: var(--gold);
+    --role-color: var(--gold);
+    --role-ink: #241600;
+    --glow: rgba(255,211,78,.82);
+}
+
+#log > div.top-2 {
+    --accent: var(--silver);
+    --role-color: var(--silver);
+    --role-ink: #121A26;
+    --glow: rgba(215,227,244,.70);
+}
+
+#log > div.top-3 {
+    --accent: var(--bronze);
+    --role-color: var(--bronze);
+    --role-ink: #2A1205;
+    --glow: rgba(217,147,91,.68);
+}
+
+/* ---------- Etiqueta ---------- */
+.role-tag {
+    position: relative;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: .35em;
+    margin: 0 0 -1px 12px;
+    padding: 4px 11px 4px 9px;
+
+    color: var(--role-ink);
+    background: var(--role-color);
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: .62em;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    clip-path: polygon(
+        0 0,
+        calc(100% - 7px) 0,
+        100% 50%,
+        calc(100% - 7px) 100%,
+        0 100%,
+        5px 50%
+    );
+
+    box-shadow: 0 0 8px var(--glow);
+}
+
+.role-tag-icon {
+    font-size: 1.08em;
+    line-height: 1;
+}
+
+#log > div.top-1 .role-tag {
+    animation: crownPulse 2.4s ease-in-out infinite;
+}
+
+#log > div.top-1 .meta {
+    background: linear-gradient(90deg,#FFB000,#FFD34E 54%,#FFB000);
+}
+
+/* ---------- Nombre ---------- */
+#log .meta {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    max-width: 92%;
+    margin-bottom: -2px;
+    padding: 6px 22px 6px 16px;
+    background: var(--accent);
+    color: var(--dark) !important;
+    font-family: 'Creepster','Chakra Petch',sans-serif;
+    font-weight: 400;
+    font-size: 1.05em;
+    letter-spacing: 1.5px;
+    clip-path: polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%);
+}
+
+#log > div.mod .meta { color: var(--ink) !important; }
+
+.name {
+    margin-left: .25em;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.platform-icon {
+    width: 1.05em;
+    height: 1.05em;
+    margin-right: .42em;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.badges {
+    display: inline-flex;
+    align-items: center;
+    gap: .22em;
+}
+
+.badge {
+    width: auto;
+    height: 1.1em;
+    vertical-align: middle;
+}
+
+.badge-text {
+    display: inline-flex;
+    align-items: center;
+    font-size: .7em;
+}
+
+/* ---------- Mensaje ---------- */
+#log .message {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: var(--message-width);
+    padding: 16px 20px 24px 28px;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    color: var(--ink);
+    text-shadow: 0 1px 2px rgba(0,0,0,.8);
+    background: linear-gradient(135deg,rgba(18,13,22,.94),rgba(38,18,48,.82));
+    clip-path: polygon(
+        0 0, calc(100% - var(--cut)) 0, 100% var(--cut),
+        100% calc(100% - 6px),
+        94% 100%, 88% calc(100% - 8px),
+        82% 100%, 76% calc(100% - 6px),
+        70% 100%, 64% calc(100% - 8px),
+        58% 100%, 52% calc(100% - 6px),
+        46% 100%, 40% calc(100% - 8px),
+        34% 100%, 28% calc(100% - 6px),
+        22% 100%, 16% calc(100% - 8px),
+        10% 100%, 4% calc(100% - 6px),
+        0 100%
+    );
+    animation: lightning .6s ease-out;
+}
+
+#log .message::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 90px 40px at 60px 85%,rgba(140,255,58,.10),transparent 70%),
+        radial-gradient(ellipse 120px 50px at 180px 95%,rgba(183,108,255,.12),transparent 70%)
+        0 0 / 240px 100% repeat-x;
+    animation: fog 9s linear infinite;
+}
+
+#log .message::after {
+    content: "\2620";
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+    font-size: .7em;
+    line-height: 1;
+    color: var(--ecto);
+    opacity: .75;
+    text-shadow: 0 0 6px var(--ecto);
+}
+
+#log > div::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: calc(1.4em + 45px);
+    bottom: 18px;
+    width: 4px;
+    z-index: 4;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    border-radius: 2px;
+    animation: candle 2.4s infinite;
+}
+
+#log > div.no-role-tag::after {
+    top: calc(1.4em + 24px);
+}
+
+/* ---------- Emotes ---------- */
+#log .emote {
+    position: relative;
+    padding: 0 .1em;
+    background: none !important;
+}
+
+#log .emote img,
+#log .message img:not(.content-image) {
+    display: inline-block;
+    width: auto;
+    height: 1.35em;
+    max-width: 3.5em;
+    vertical-align: middle;
+    object-fit: contain;
+}
+
+.content-image {
+    display: block;
+    max-width: min(260px,90%);
+    max-height: 180px;
+    margin-top: 10px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+/* ---------- Inactividad ---------- */
+#log.idle-fade > div {
+    animation: idleFadeOut .8s ease forwards !important;
+}
+
+/* ---------- Animaciones ---------- */
+@keyframes idleFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(10px); }
+}
+
+@keyframes haunt {
+    0%   { opacity: 0; transform: translateY(28px) scale(.96) skewX(-4deg); }
+    60%  { opacity: 1; transform: translateY(-4px) scale(1.01) skewX(1deg); }
+    100% { opacity: 1; transform: none; }
+}
+
+@keyframes lightning {
+    0%   { filter: brightness(2.4); }
+    20%  { filter: brightness(.8); }
+    35%  { filter: brightness(1.8); }
+    100% { filter: brightness(1); }
+}
+
+@keyframes candle {
+    0%   { opacity: .9; transform: scaleY(1); }
+    12%  { opacity: .4; transform: scaleY(.9); }
+    25%  { opacity: 1; transform: scaleY(1); }
+    41%  { opacity: .55; transform: scaleY(.94); }
+    58%  { opacity: 1; transform: scaleY(1); }
+    73%  { opacity: .35; transform: scaleY(.88); }
+    100% { opacity: .9; transform: scaleY(1); }
+}
+
+@keyframes fog {
+    to { background-position: 240px 0; }
+}
+
+@keyframes hauntedLight {
+    0%,10%,100% { filter: drop-shadow(0 0 8px var(--glow)); }
+    2%          { filter: drop-shadow(0 0 16px rgba(255,106,0,.9)); }
+    4%          { filter: drop-shadow(0 0 2px var(--glow)); }
+    6%          { filter: drop-shadow(0 0 12px rgba(255,106,0,.7)); }
+    8%          { filter: drop-shadow(0 0 3px var(--glow)); }
+    93% {
+        filter:
+            drop-shadow(-3px 0 0 rgba(140,255,58,.9))
+            drop-shadow(3px 0 0 rgba(179,18,42,.9));
+    }
+    94% {
+        filter:
+            drop-shadow(2px 0 0 rgba(140,255,58,.9))
+            drop-shadow(-2px 0 0 rgba(179,18,42,.9));
+    }
+    95% { filter: drop-shadow(0 0 8px var(--glow)); }
+}
+
+@keyframes crownPulse {
+    0%,100% { transform: translateY(0) scale(1); filter: brightness(1); }
+    50%     { transform: translateY(-1px) scale(1.035); filter: brightness(1.14); }
+}
+
+/* ===== V0.42 · Recompensas semanales ===== */
+.weekly-role-tag{
+    --weekly-accent:#53E6FF;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    width:max-content;
+    max-width:100%;
+    padding:3px 8px;
+    margin:0 5px 4px 0;
+    border:1px solid color-mix(in srgb,var(--weekly-accent) 58%,transparent);
+    border-radius:999px;
+    background:color-mix(in srgb,var(--weekly-accent) 12%,rgba(12,10,18,.86));
+    color:var(--weekly-accent);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    box-shadow:0 0 16px color-mix(in srgb,var(--weekly-accent) 15%,transparent);
+}
+.weekly-role-icon{font-size:11px;line-height:1}
+.weekly-reward-user .name{
+    text-shadow:0 0 10px color-mix(in srgb,var(--weekly-accent) 28%,transparent);
+}
+
+
+/* V0.43 · insignias semanales personalizables */
+.weekly-custom-badge-host{display:inline-flex;align-items:center;justify-content:center;min-width:18px;min-height:18px;line-height:1;vertical-align:middle}

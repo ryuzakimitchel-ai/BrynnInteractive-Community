@@ -1,0 +1,26 @@
+BRYNN INTERACTIVE V0.60.11 — CORRECCIÓN DE AUTORIZACIÓN KICK
+==========================================================
+Causa: El botón anterior usaba window.open(), que no crea pestañas en
+QWebEngineView sin manejar createWindow().
+
+Corrección: El botón navega por el marco principal a la URL oficial OAuth
+https://id.kick.com/oauth/authorize; la clase DesktopWebPage que ya tenía
+Brynn intercepta esa navegación y la abre en el navegador predeterminado
+(Chrome/Edge), sin reemplazar el panel dentro de Brynn.
+
+PASOS:
+1. Cierra Brynn por completo.
+2. Extrae este ZIP en una carpeta NUEVA; no sobrescribas la instalación original.
+3. Abre desktop.py como de costumbre.
+4. Integraciones → Kick → «2 · Autorizar Kick».
+5. Acepta los permisos en el navegador; regresa a Brynn y, cuando diga
+   «Autorizado», pulsa «3 · Suscribir eventos».
+
+ALTERNATIVA INMEDIATA SIN ACTUALIZAR:
+Abre Chrome con Brynn iniciado, visita
+http://127.0.0.1:8765/integraciones.html y haz clic en «2 · Autorizar Kick».
+
+No compartas el Client Secret, tokens de acceso ni el archivo kick.json.
+Las credenciales anteriores se almacenan en %%APPDATA%%\BrynnInteractive\kick.json
+(no se incluyen en este ZIP); por tanto, no deben volver a introducirse si
+usas la misma cuenta de Windows y sigues usando el mismo directorio AppData.

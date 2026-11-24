@@ -1,0 +1,21 @@
+BRYNN INTERACTIVE V0.60.11 · BETA
+
+Correcciones de Splash Studio:
+1. Las capas de imagen/GIF/vídeo agregadas tras abrir el lienzo ahora se muestran explícitamente; antes el widget podía existir en la lista y seguir oculto.
+2. Se mantiene la selección después de actualizar la configuración del editor.
+3. Mesa de trabajo y biblioteca arriba, inspector de Propiedades debajo: sin panel derecho recortado en ventanas compactas.
+4. Controles largos separados en filas cortas. Las tarjetas de Textos y Audio se apilan para que entren en la ventana.
+5. Barra horizontal disponible como mecanismo de seguridad si otra sección excede el ancho.
+6. Se mantienen funciones existentes, incluido ocultar el logo (seleccionar en el lienzo y Eliminar).
+
+VALIDACIÓN:
+- Compilación sintáctica de Python y pruebas del backend.
+- La prueba visual completa requiere Windows con PySide6 y se debe realizar dentro de la app.
+
+PRUEBA MANUAL RECOMENDADA:
+- Personalización > Splash Studio > + Imágenes / GIF.
+- Selecciona la imagen añadida: debe verse dentro del lienzo y poder moverse con el ratón.
+- Arrástrala, cambia su tamaño desde la esquina inferior derecha y aplica Voltear H.
+- Abre Propiedades debajo del lienzo, mueve Posición X/Y y pulsa Guardar.
+- Reinicia la app y comprueba que imagen y posición permanecen.
+- Oculta el logo oficial y prueba la pantalla de inicio.

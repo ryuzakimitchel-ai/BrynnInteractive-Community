@@ -1,0 +1,22 @@
+BRYNN INTERACTIVE V0.60.0 BETA — PARCHE DE ESTABILIDAD CONSERVADOR
+
+Base: V0.59.0. No cambia el motor SSN ni elimina funcionalidades.
+
+CAMBIOS
+- API HTTP: se eliminó CORS abierto y se rechazan mutaciones desde orígenes externos.
+- API HTTP: endpoints JSON requieren Content-Type application/json.
+- Encabezado X-Content-Type-Options: nosniff.
+- Chat: deduplicación por ID incluye plataforma y mantiene IDs 15 s; mensajes sin ID, 1.5 s.
+- Comandos: protección frente a ejecuciones idénticas simultáneas en intervalo de 1.5 s.
+- Envío SSN: algunos cuerpos de error ya no cuentan como éxito; se distingue aceptación de publicación real.
+- Chat flotante: texto de estado transparente y protección frente a conexiones WS repetidas.
+
+PENDIENTE DE PRUEBAS EN WINDOWS/STREAM
+- Verificar publish sendChat con extensión SSN conectada y su remote API habilitada.
+- Validar Twitch/TikTok y OBS en vivo; las pruebas sintácticas no sustituyen esta comprobación.
+- Centralizar comandos en backend requiere refactor cuidadoso de ranking/economía del overlay.
+- Autenticación administrativa por instalación y sandbox de JS personalizados son trabajos mayores, no incluidos en este parche.
+
+INSTALACIÓN
+Cierra Brynn y haz una copia de los archivos y datos antes de sustituir archivos.
+No borres la carpeta de datos del usuario ni las credenciales configuradas.

@@ -1,0 +1,28 @@
+BRYNN INTERACTIVE V0.59.0 BETA — MODERN DESKTOP + STABLE SOCIAL STREAM CHAT
+
+BASE
+- Esta versión usa Brynn Interactive V0.53.3 Weekly Rewards Hub como base del chat.
+- Social Stream Ninja permanece como transporte de Twitch + TikTok.
+- Se conserva el puente P2P/Channel 4 del chat flotante y sendChat para publicar.
+- El overlay index.html sigue interpretando comandos recibidos por SSN y los envía a /api/command.
+- NO se incluyen los cambios V0.54/V0.55 que reemplazaban SSN por EventSub/TikFinity Chat/OAuth nativo.
+
+MEJORAS APLICADAS
+- Protección y recuperación frente a WebViews/pantallas negras.
+- Enlaces externos siempre fuera del WebView principal.
+- Actualizador integrado con progreso, backup y procesos ocultos.
+- Protección del staging para no intentar borrar la carpeta activa.
+- Splash Studio visual con múltiples capas de imagen/GIF/vídeo.
+- Edición visual: mover, redimensionar, zoom, paneo, rotación y volteo.
+- Presets, temas globales, estilos de ventana y barras de progreso.
+- Actualizador personalizable.
+- Sidebar profesional: buscador arriba y modo compacto solo iconos.
+- Optimización de navegación y watchdog de paneles web.
+- Se mantienen OBS, Automation Engine, emotes, timeline de comandos y Centro de Recompensas Semanales de la base.
+
+PRUEBAS CLAVE
+1. Abrir Chat flotante y confirmar Session ID de Social Stream Ninja.
+2. Escribir desde Twitch y TikTok: ambos deben aparecer en Brynn/OBS mediante SSN.
+3. Probar un comando que ya funcionaba en V0.53.3.
+4. Enviar un mensaje desde Chat flotante y comprobar el envío mediante sendChat.
+5. Probar Personalización > Splash Studio y el actualizador integrado.

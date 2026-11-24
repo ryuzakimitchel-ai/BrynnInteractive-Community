@@ -1,0 +1,12 @@
+PRUEBAS RECOMENDADAS V0.53.3
+
+1. Abre Comunidad > Recompensas. Debes ver Resumen, Ranking, Top 1, Top 2, Top 3 y Top 4–10.
+2. En Top 1 > Emotes, marca un emote y pulsa Guardar cambios.
+3. Abre Emotes: el emote debe mostrarse como RECOMPENSA, pero no debe permitir modificar el tier desde ese editor.
+4. Con un viewer normal prueba !emote <id>: debe bloquearse. Con el ganador Top 1 debe funcionar.
+5. En Top 1 > Comandos, asigna un comando y repite la prueba de permisos.
+6. Retira el recurso de todos los tiers y guarda: debe volver a ser general.
+7. Si aparece Migración segura en Resumen, usa Hacer general sobre un recurso viejo sin tier o asígnalo desde un Top.
+8. Renombra un emote asignado: la recompensa debe seguir apuntando al nuevo ID y el timeline no debe romperse.
+9. Renombra un comando asignado: su tier debe conservarse.
+10. Prueba Entrada especial y Preview de cada tier.

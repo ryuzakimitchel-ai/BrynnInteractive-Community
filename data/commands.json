@@ -1,0 +1,144 @@
+{
+  "commands": [
+    {
+      "id": "glitch",
+      "name": "Glitch de pantalla",
+      "cost": 40,
+      "icon": "⚡",
+      "description": "Provoca un glitch rápido en toda la escena.",
+      "effect": "glitch",
+      "aliases": [
+        "glitch"
+      ],
+      "enabled": true,
+      "durationMs": 1800,
+      "animation": "glitch",
+      "position": "fullscreen",
+      "size": 100,
+      "showCard": true,
+      "visualUrl": "",
+      "visualType": "",
+      "badgeUrl": "",
+      "audioUrl": "",
+      "audioVolume": 0.8
+    },
+    {
+      "id": "niebla",
+      "name": "Niebla embrujada",
+      "cost": 50,
+      "icon": "🌫️",
+      "description": "Invoca niebla spooky sobre el stream.",
+      "effect": "fog",
+      "aliases": [
+        "niebla",
+        "fog"
+      ],
+      "enabled": true,
+      "durationMs": 5200,
+      "animation": "float",
+      "position": "fullscreen",
+      "size": 100,
+      "showCard": true,
+      "visualUrl": "",
+      "visualType": "",
+      "badgeUrl": "",
+      "audioUrl": "",
+      "audioVolume": 0.8
+    },
+    {
+      "id": "murcielagos",
+      "name": "Ataque de murciélagos",
+      "cost": 60,
+      "icon": "🦇",
+      "description": "Una bandada atraviesa la pantalla con aleteos.",
+      "effect": "bats",
+      "aliases": [
+        "murcielagos",
+        "murciélagos",
+        "bats"
+      ],
+      "enabled": true,
+      "durationMs": 4600,
+      "animation": "fly",
+      "position": "fullscreen",
+      "size": 62,
+      "showCard": true,
+      "visualUrl": "",
+      "visualType": "",
+      "badgeUrl": "",
+      "audioUrl": "/assets/audio/bat_wings.wav",
+      "audioVolume": 0.78
+    },
+    {
+      "id": "calabazas",
+      "name": "Lluvia de calabazas",
+      "cost": 75,
+      "icon": "🎃",
+      "description": "Calabazas caen por la pantalla.",
+      "effect": "pumpkins",
+      "aliases": [
+        "calabazas",
+        "calabaza",
+        "pumpkins"
+      ],
+      "enabled": true,
+      "durationMs": 4700,
+      "animation": "fall",
+      "position": "fullscreen",
+      "size": 100,
+      "showCard": true,
+      "visualUrl": "",
+      "visualType": "",
+      "badgeUrl": "",
+      "audioUrl": "",
+      "audioVolume": 0.8
+    },
+    {
+      "id": "bonk",
+      "name": "BONK!",
+      "cost": 90,
+      "icon": "🔨",
+      "description": "Golpe gigante estilo meme sobre el stream.",
+      "effect": "bonk",
+      "aliases": [
+        "bonk",
+        "golpe"
+      ],
+      "enabled": true,
+      "durationMs": 1300,
+      "animation": "bounce",
+      "position": "center",
+      "size": 62,
+      "showCard": true,
+      "visualUrl": "",
+      "visualType": "",
+      "badgeUrl": "",
+      "audioUrl": "",
+      "audioVolume": 0.8
+    },
+    {
+      "id": "susto",
+      "name": "Susto terrorífico",
+      "cost": 140,
+      "icon": "☠️",
+      "description": "Cara terrorífica con golpe visual y grito sintético.",
+      "effect": "scare",
+      "aliases": [
+        "susto",
+        "jumpscare",
+        "scare"
+      ],
+      "enabled": true,
+      "durationMs": 2450,
+      "animation": "zoom",
+      "position": "fullscreen",
+      "size": 62,
+      "showCard": true,
+      "visualUrl": "",
+      "visualType": "",
+      "badgeUrl": "",
+      "audioUrl": "/assets/audio/scare_scream_synth.wav",
+      "audioVolume": 0.95
+    }
+  ]
+}

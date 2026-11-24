@@ -1,0 +1,39 @@
+BRYNN INTERACTIVE V0.60.11 - RANKING POR TAP TAPS DE TIKTOK
+=============================================================
+
+NOVEDAD
+- Los likes recibidos por TikFinity Web (webhooks) y TikFinity Desktop
+  (WebSocket) suman directamente al ranking semanal de Brynn.
+- Cada corazon = 0.1 punto; 10 corazones = 1 punto.
+- Los likes se guardan en data/ranking_actual.json, columna Likes.
+- Se distingue por usuario TikTok; no se usa el total de likes del LIVE.
+- Las pruebas de alertas desde Integraciones NO suman al ranking.
+- Gumpitas, metas y alertas de TikTok siguen funcionando igual.
+- El chat unificado evita sumar de nuevo los likes cuando TikFinity
+  está conectado directamente, manteniendo fallback cuando no lo está.
+
+CONFIGURACION PARA TIKFINITY WEB
+1. Inicia Brynn y entra a Integraciones > TikFinity.
+2. Selecciona modo Webhook y habilita TikFinity.
+3. En URL pública del túnel, usa la HTTPS de tu Tailscale Funnel
+   (apuntando al puerto 8766), luego guarda TikFinity.
+4. Copia la URL del evento Like que Brynn genera.
+5. En TikFinity Web > Actions & Events, crea una Action WebHook usando
+   esa URL (metodo GET si te lo solicita) y vincula el evento Like.
+6. Asegura que el evento se dispara en cada lote de likes. Si eliges
+   un umbral (por ejemplo 100 likes), no se enviaran lotes anteriores.
+7. Abre Ranking semanal, filtra por TikTok y pide taps a otro usuario.
+   El ranking se refresca cada 2 segundos.
+
+ATENCION
+- El placeholder {likecount} indica los likes del evento actual.
+- El placeholder {totallikecount} es el total de la sala. No lo sumamos
+  al ranking: hacerlo inflaria los puntos de los usuarios.
+- Tu Tailscale Funnel publico lleva /t/<clave_de_TikFinity>, NO
+  /kick/webhook. Kick y TikFinity comparten el puerto 8766 sin mezclarse.
+- La URL de TikFinity incorpora una clave privada; no la publiques.
+- Usa cuentas reales distintas de la del creador para probar el ranking.
+- Se recomienda guardar una copia de data/ antes de cambiar versiones.
+
+PRUEBAS AUTOMATICAS
+python -m unittest discover -s tests -p 'test_tiktok_likes_ranking.py' -v

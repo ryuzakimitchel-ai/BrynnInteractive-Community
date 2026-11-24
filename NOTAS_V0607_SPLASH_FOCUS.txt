@@ -1,0 +1,6 @@
+Brynn Interactive V0.60.7 Beta
+- Se elimina el enfoque en la página de inicio introducido en la rama 0.60.6.
+- Splash Studio vuelve a centrarse en la ventana de carga real de Brynn Interactive.
+- Texto y ayudas del editor actualizados para dejar claro que modifica la pantalla mostrada al arrancar.
+- Nuevos botones rápidos: Invertir izquierda/derecha e Invertir arriba/abajo.
+- Inspector: el control de orientación ahora usa etiquetas más claras para el volteo horizontal y vertical.

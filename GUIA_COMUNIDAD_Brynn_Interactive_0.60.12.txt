@@ -1,0 +1,361 @@
+BRYNN INTERACTIVE 0.60.12 GUIA DE INSTALACION, CONFIGURACION Y OPERACION
+PARA LA COMUNIDAD
+================================================================
+
+Documento para la distribucion comunitaria. Cada creador debe configurar
+sus propias cuentas, credenciales, OBS y servicios externos. Esta guia
+describe el funcionamiento previsto del paquete 0.60.12; las interfaces
+y permisos de plataformas externas pueden cambiar.
+
+1. QUE ES BRYNN INTERACTIVE
+
+Brynn es un panel local para centralizar elementos de un stream: - Chat
+y chat flotante. - Alertas y eventos de Twitch, TikTok y Kick, segun el
+transporte configurado. - Metas, ranking, Gumpitas/economia, comandos y
+automatizaciones. - Overlays para OBS: chat, alertas, eventos, metas y
+Top 3. - Integracion con OBS mediante OBS WebSocket. - Integraciones
+auxiliares con Streamlabs, Social Stream Ninja y TikFinity.
+
+Brynn no sustituye a OBS ni a las aplicaciones de cada plataforma.
+Funciona como centro local que recibe eventos, aplica reglas y actualiza
+paneles y overlays.
+
+2. REQUISITOS Y PROGRAMAS EXTERNOS
+
+Sistema: - Windows 10 u 11 de 64 bits. - Conexion a Internet para
+autorizar cuentas y recibir eventos online. - Permisos de Windows para
+ejecutar aplicaciones y abrir conexiones locales. - Recomendado:
+ejecutar Brynn y OBS en el mismo equipo.
+
+Programas: A) OBS Studio Necesario para mostrar overlays y,
+opcionalmente, controlar escenas, fuentes, filtros, volumen, grabacion y
+streaming desde Brynn. Descarga: https://obsproject.com/ En OBS moderno,
+OBS WebSocket viene integrado. En Herramientas > Ajustes del servidor
+WebSocket, habilita el servidor, configura un puerto (habitualmente
+4455) y una contraseña. Copia esos datos en Brynn > Integraciones > OBS.
+No compartas la contraseña.
+
+B)  Python (solo si ejecutas desde codigo) No es necesario instalar
+    Python por separado si utilizas un paquete de escritorio que ya
+    incluya su runtime. Para ejecutar desktop.py desde codigo, instala
+    Python 3.11 o superior de 64 bits y las dependencias del archivo
+    requirements_desktop.txt. En la carpeta de Brynn: py -m venv .venv
+    .venv py -m pip install –upgrade pip py -m pip install -r
+    requirements_desktop.txt Si Windows no reconoce “py”, instala Python
+    desde: https://www.python.org/downloads/windows/ Marca la opcion de
+    agregar Python al PATH.
+
+C)  Social Stream Ninja (SSN) Recomendado para centralizar chat de
+    Twitch y TikTok en Brynn. Sitio: https://socialstream.ninja/ Inicia
+    SSN, crea/abre tu sala y conecta las plataformas que vayas a usar.
+    Copia el Session ID de la sala y pegalo en Brynn > Configuracion /
+    Chat flotante > Social Stream Ninja. Para enviar mensajes desde
+    Brynn, activa en SSN la opcion Remote API control si tu flujo la
+    requiere. Evita activar al mismo tiempo dos transportes para el
+    mismo chat; podrias recibir mensajes duplicados.
+
+D)  Streamlabs Opcional. Se utiliza para eventos/alertas de Streamlabs y
+    su Bridge dentro de OBS. Instala Streamlabs Desktop o configura tu
+    cuenta/alertbox segun tu uso: https://streamlabs.com/ En Brynn >
+    Integraciones > Streamlabs configura el token/credencial que
+    solicita la interfaz. Agrega en OBS la Browser Source de Streamlabs
+    Bridge que Brynn indica. Si no usas Streamlabs, deja esta
+    integracion desactivada. Nunca compartas tokens ni archivos privados
+    de Streamlabs.
+
+E)  TikFinity Necesario para las funciones de TikTok LIVE que dependen
+    de sus eventos: follows, likes, regalos, shares y entradas, segun
+    las acciones disponibles. Sitio: https://tikfinity.zerody.one/
+    Puedes usar TikFinity Desktop (su conexion local/Event API) o
+    TikFinity Web (Actions & Events + WebHook). No configures ambos
+    caminos para el mismo tipo de evento a la vez, para evitar
+    duplicados.
+
+F)  Cloudflare Tunnel o Tailscale Funnel Se necesita un transporte HTTPS
+    publico SOLO cuando una plataforma externa debe enviar webhooks a tu
+    equipo, especialmente TikFinity Web y Kick. Cloudflare:
+    https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
+    Tailscale: https://tailscale.com/kb/1223/funnel/ El tunel debe
+    apuntar exclusivamente al receptor de webhooks local:
+    http://127.0.0.1:8766 NUNCA publiques el puerto 8765: contiene el
+    panel local y funciones administrativas. No crees un tunel hacia
+    8765 ni abras ese puerto en el router/firewall.
+
+G)  Kick Developer Solo para la integracion oficial de Kick:
+    https://docs.kick.com/ Se necesita crear una aplicacion, configurar
+    OAuth y suscribirse a eventos. Consulta la seccion 8 de esta guia.
+
+H)  Inno Setup (solo desarrolladores) No es necesario para usar Brynn.
+    Solo se requiere si quieres construir instaladores a partir del
+    codigo fuente: https://jrsoftware.org/isinfo.php
+
+3. INSTALACION INICIAL
+
+1)  Descarga y extrae el ZIP comunitario en una carpeta estable, por
+    ejemplo: C:
+    Evita instalarlo dentro de carpetas temporales, OneDrive
+    sincronizado o rutas con permisos restringidos.
+2)  Revisa LEEME_V0612.txt.
+3)  Para instalacion de escritorio, ejecuta instalar_desktop.bat o el
+    instalador indicado en la distribucion. Sigue las instrucciones que
+    aparezcan. Si el runtime no existe, el instalador puede necesitar
+    Internet.
+4)  Inicia con iniciar_brynn_desktop.bat.
+5)  Completa el asistente inicial: nombre del canal y preferencias.
+6)  Abre el panel local desde Brynn. La direccion base habitual es:
+    http://127.0.0.1:8765/ Brynn crea sus datos de usuario en: %APPDATA%
+    La carpeta de programa y la carpeta de datos son distintas.
+7)  Autoriza/configura una integracion a la vez y prueba cada una antes
+    de activar la siguiente.
+
+Alternativa para ejecutar desde codigo: py -m venv .venv .venv py -m pip
+install -r requirements_desktop.txt py desktop.py No ejecutes dos
+instancias de Brynn simultaneamente usando los mismos datos.
+
+4. ORDEN RECOMENDADO DE CONFIGURACION
+
+Primero: - Abre Brynn y confirma que el panel carga. - Abre OBS y
+configura OBS WebSocket. - Conecta OBS desde Brynn y comprueba el
+estado. - Agrega una Browser Source de prueba con un overlay de Brynn.
+
+Segundo: - Configura Social Stream Ninja para chat Twitch/TikTok si lo
+necesitas. - Conecta Streamlabs si utilizas sus alertas. - Configura
+TikFinity si transmites en TikTok. - Configura Kick si transmites en
+Kick.
+
+Tercero: - Crea alertas, metas, comandos, automatizaciones y
+recompensas. - Copia las URLs de overlays desde los apartados
+correspondientes de Brynn. - Prueba eventos simulados antes de emitir en
+directo.
+
+5. CONFIGURAR OBS Y LOS OVERLAYS
+
+1)  Abre OBS Studio.
+2)  En Herramientas > Ajustes del servidor WebSocket, habilita el
+    servidor.
+3)  Define puerto y contraseña; anota ambos.
+4)  En Brynn > Integraciones > OBS, introduce host 127.0.0.1, puerto y
+    contraseña. Guarda y pulsa Conectar/Probar.
+5)  En OBS, en la escena deseada, pulsa + > Navegador (Browser Source).
+6)  Pega la URL del overlay que Brynn muestra. No inventes rutas: copia
+    la URL desde el apartado de cada overlay.
+7)  Ajusta ancho/alto según el lienzo (por ejemplo 1920 x 1080 para
+    overlays de pantalla completa; chat puede usar dimensiones menores).
+8)  Para cambios visuales, activa “Actualizar navegador cuando la escena
+    esté activa” si está disponible y usa Actualizar en el menú
+    contextual.
+9)  Mantén Brynn ejecutándose mientras OBS utiliza sus overlays.
+
+Overlays disponibles segun la distribucion/configuracion: - Chat / chat
+flotante. - Alertas. - Eventos. - Metas. - Top 3 / ranking. - Streamlabs
+Bridge.
+
+Las URLs locales suelen usar 127.0.0.1:8765. Son para OBS en el mismo
+equipo. No las publiques como URLs de acceso remoto.
+
+6. TWITCH
+
+Chat: - Ruta recomendada: Social Stream Ninja para recibir el chat en
+Brynn. - Conecta tu cuenta/canal de Twitch en SSN. - Copia el Session ID
+en Brynn y guarda. - Si deseas enviar mensajes desde Brynn, habilita el
+control remoto/API correspondiente en SSN y selecciona Twitch como
+destino.
+
+Alertas y control: - Streamlabs puede aportar eventos/alertas si
+conectas su cuenta y token. - Para control de OBS, configura OBS
+WebSocket por separado. - Para sincronizar el total de seguidores,
+configura Twitch Control con los datos de desarrollador que solicite
+Brynn y autoriza los permisos adecuados. La disponibilidad del total
+depende de la API y permisos vigentes.
+
+Prueba: - Envía un mensaje en tu chat. - Verifica que aparezca en el
+chat flotante. - Ejecuta una alerta de prueba desde Streamlabs, si lo
+utilizas. - Comprueba el overlay y la meta correspondiente.
+
+7. TIKTOK LIVE Y TIKFINITY
+
+TikTok LIVE necesita que TikFinity esté conectado a la sala LIVE y
+reciba eventos. Brynn no obtiene por sí solo todos los eventos de
+TikTok.
+
+Opcion A: TikFinity Desktop 1) Instala/abre TikFinity Desktop e inicia
+sesion. 2) Conecta la sala LIVE correcta. 3) En Brynn > Integraciones >
+TikFinity, selecciona el transporte local/ Desktop y activa la conexion.
+4) Mantén TikFinity Desktop abierto durante el directo. 5) Usa el
+monitor de eventos y dispara un evento de prueba disponible.
+
+Opcion B: TikFinity Web + WebHook 1) Abre Brynn y entra en
+Integraciones > TikFinity. 2) Selecciona TikFinity Web y genera/guarda
+la URL/clave de webhook. 3) Instala cloudflared o configura Tailscale
+Funnel. 4) Inicia el tunel apuntando SOLO a: http://127.0.0.1:8766 Para
+Cloudflare Quick Tunnel, el comando de referencia es: cloudflared tunnel
+–url http://127.0.0.1:8766 La URL publica puede cambiar al reiniciar un
+Quick Tunnel. 5) Copia la URL HTTPS publica en la configuracion de
+TikFinity/Brynn. 6) En TikFinity Web > Actions & Events, crea acciones
+WebHook para los eventos que quieras (Follow, Subscribe, Gift, Like,
+Share, Join). 7) Usa las URLs y placeholders que Brynn genera. No
+escribas placeholders manualmente si la interfaz ya proporciona una URL
+lista. 8) Guarda cada Action y asignala al Event correspondiente. 9) Usa
+el simulador de TikFinity para probar. 10) Revisa el monitor de eventos
+de Brynn.
+
+Atencion: - La URL de TikFinity puede contener una clave privada. No la
+publiques. - Si el tunel se cierra, Brynn deja de recibir webhooks. - Un
+contador de likes puede representar el evento actual; no sumes un total
+acumulado de sala como si fueran likes nuevos. - La deteccion por
+eventos no garantiza el numero total real de seguidores. Para cifras
+exactas se necesita una fuente/API autorizada que entregue
+follower_count. Sin ella, el contador es una estimacion basada en
+follows. - No uses TikFinity Desktop y TikFinity Web para el mismo
+evento a la vez.
+
+8. KICK
+
+Kick usa OAuth y webhooks oficiales. Se requiere una aplicacion propia.
+
+1)  Abre Kick Developer y crea una aplicacion.
+2)  Configura exactamente esta Redirect URL:
+    http://localhost:8765/api/kick/oauth/callback
+3)  Copia Client ID y Client Secret.
+4)  En Brynn > Integraciones > Kick, guarda Client ID y Client Secret.
+5)  Pulsa Autorizar Kick y acepta los permisos solicitados en el
+    navegador.
+6)  Vuelve a Brynn y pulsa Suscribir eventos.
+7)  Configura un tunel HTTPS hacia: http://127.0.0.1:8766
+8)  En el panel de Kick Developer, configura el webhook:
+    https://TU-DOMINIO/kick/webhook Sustituye TU-DOMINIO por la URL
+    HTTPS de tu tunel. Conserva exactamente el tramo /kick/webhook.
+9)  Comprueba el estado de la integracion.
+10) Prueba primero las simulaciones locales y despues eventos reales
+    desde otra cuenta (follow, mensaje, suscripcion, etc., segun
+    permisos).
+
+Permisos: - Autoriza los scopes que la propia interfaz de Brynn
+solicita. - Para chat, eventos y moderacion se requieren permisos
+especificos. - La moderacion puede depender de que Brynn haya recibido
+previamente el identificador verificado del usuario y del scope
+correspondiente. - Las simulaciones locales solo comprueban la
+interfaz/procesamiento local; no demuestran que Kick haya enviado un
+webhook real.
+
+Kick y TikFinity Web pueden compartir el puerto 8766 y el mismo tunel,
+usando rutas distintas: /kick/webhook /t/CLAVE_DE_TIKFINITY No compartas
+Client Secret, tokens, URL secreta de TikFinity ni archivos kick.json.
+
+9. METAS, SEGUIDORES, RANKING Y ECONOMIA
+
+-   Metas por eventos: suman follows, likes, regalos u otros eventos
+    recibidos.
+-   Metas de seguidores totales: necesitan una cifra base y una fuente
+    real de sincronizacion para mantenerse exactas.
+-   Si una plataforma solo entrega eventos, Brynn puede mantener una
+    estimacion, pero no detectar necesariamente unfollows.
+-   Twitch: puede consultar el total mediante Twitch Control autorizado.
+-   TikTok: la cifra exacta puede requerir una aplicacion de TikTok for
+    Developers y el permiso user.info.stats, con token valido.
+-   Kick: no asumas que existe un endpoint publico documentado para
+    obtener el total de seguidores; sin una fuente externa fiable, usa
+    estimacion.
+-   Ranking y Gumpitas son sistemas internos de Brynn, no puntos
+    oficiales de Twitch, TikTok ni Kick.
+-   Revisa que una misma plataforma no este conectada por dos
+    transportes que dupliquen el mismo evento.
+
+10. PRUEBAS ANTES DE SALIR EN DIRECTO
+
+Lista recomendada: [ ] Brynn abre sin errores. [ ] OBS WebSocket aparece
+conectado. [ ] Una Browser Source muestra un overlay de Brynn. [ ] El
+chat de Twitch aparece una sola vez. [ ] El chat de TikTok aparece una
+sola vez, si aplica. [ ] El chat de Kick aparece una sola vez, si
+aplica. [ ] Una alerta de prueba se muestra y se oculta correctamente. [
+] Los eventos de TikFinity llegan al monitor. [ ] Los webhooks de Kick
+llegan, si aplica. [ ] Las metas suman el evento esperado. [ ] Los
+puntos/ranking se actualizan segun las reglas configuradas. [ ] Las
+automatizaciones ejecutan la accion correcta. [ ] El
+audio/volumen/escenas de OBS se controlan solo si se configuraron. [ ]
+Se hizo un backup de los datos antes del primer directo.
+
+11. SOLUCION DE PROBLEMAS
+
+Brynn no inicia: - Ejecuta iniciar_brynn_debug.bat y lee el mensaje de
+error. - Si usas Python, activa el entorno virtual e instala
+requirements. - Comprueba que no haya otra instancia usando los puertos
+8765/8766. - Reinicia Brynn y consulta los logs locales.
+
+El panel no abre: - Comprueba que Brynn esté iniciado. - Abre
+http://127.0.0.1:8765/ en el mismo equipo. - No uses la IP publica del
+tunel para entrar al panel.
+
+OBS muestra pagina vacia: - Verifica que Brynn siga abierto. - Copia de
+nuevo la URL del overlay desde Brynn. - Actualiza la Browser Source. -
+Comprueba que la URL usa 127.0.0.1:8765 y no el puerto 8766.
+
+OBS no conecta: - Habilita OBS WebSocket. - Comprueba host, puerto y
+contraseña. - El puerto habitual de OBS WebSocket moderno es 4455, pero
+usa el que realmente aparece en OBS.
+
+No llegan eventos TikTok: - Comprueba que TikFinity esta conectado a la
+sala LIVE correcta. - Verifica que la Action WebHook este guardada y
+asociada al Event. - Comprueba que el tunel HTTPS siga activo y apunte a
+8766. - Revisa la clave y URL de webhook en Brynn. - Ejecuta el
+simulador de TikFinity y revisa el monitor de eventos.
+
+No llegan eventos Kick: - Comprueba que OAuth este autorizado y las
+suscripciones creadas. - Verifica el webhook HTTPS y la ruta
+/kick/webhook. - Confirma que el tunel apunta al puerto 8766, no al
+8765. - Comprueba que el equipo y Brynn permanezcan encendidos.
+
+Eventos duplicados: - Desactiva el transporte duplicado (por ejemplo,
+Kick capturado a la vez por SSN y por la integracion oficial). - No
+conectes TikFinity Desktop y TikFinity Web al mismo evento a la vez.
+
+Seguidores no coinciden: - Distingue total sincronizado de estimacion
+por eventos. - Comprueba token, permisos, expiracion y estado de la
+fuente. - Un follow event no detecta un unfollow. - No fijes una
+estimacion como si fuera cifra oficial.
+
+12. SEGURIDAD, PRIVACIDAD Y LIMITACIONES
+
+-   No compartas archivos de %APPDATA% ni capturas con tokens/secretos
+    visibles.
+-   No publiques Client Secret, OAuth tokens, Session ID privado de SSN,
+    clave de TikFinity, contraseñas OBS ni archivos JSON privados.
+-   No expongas el puerto 8765 a Internet. El tunel publico debe apuntar
+    solo al receptor de webhooks 8766.
+-   Usa el equipo local y una red confiable. Mantén Windows y los
+    programas externos actualizados.
+-   Cierra/revoca credenciales si crees que se filtraron.
+-   El usuario es responsable de cumplir las reglas de Twitch, TikTok,
+    Kick, Streamlabs, TikFinity, Social Stream Ninja y OBS.
+-   Las funciones dependen de las APIs, permisos, limites y cambios de
+    cada proveedor. Una prueba simulada no equivale a validacion con
+    evento real.
+-   Esta distribucion comunitaria es una beta local; no debe
+    considerarse endurecida para exponer el panel administrativo
+    directamente a Internet.
+
+13. COPIAS DE SEGURIDAD Y DATOS
+
+Los datos de usuario se guardan normalmente en: %APPDATA%
+
+Incluye configuracion, datos, multimedia, logs y credenciales locales.
+Haz una copia de seguridad desde las opciones de Brynn o copia la
+carpeta con Brynn completamente cerrado. No subas esa carpeta a
+repositorios ni la envies a otros usuarios.
+
+Para compartir Brynn, distribuye unicamente el ZIP comunitario limpio y
+esta guia. Cada usuario debe crear sus propias credenciales y
+configuracion.
+
+14. DOCUMENTACION Y SOPORTE OFICIAL
+
+OBS: https://obsproject.com/ Social Stream Ninja:
+https://socialstream.ninja/ Streamlabs: https://streamlabs.com/
+TikFinity: https://tikfinity.zerody.one/ Cloudflare Tunnel:
+https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
+Tailscale Funnel: https://tailscale.com/kb/1223/funnel/ Kick Developer
+Docs: https://docs.kick.com/ TikTok for Developers:
+https://developers.tiktok.com/ Python:
+https://www.python.org/downloads/windows/
+
+FIN DE LA GUIA

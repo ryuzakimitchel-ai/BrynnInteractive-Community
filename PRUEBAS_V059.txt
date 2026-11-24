@@ -1,0 +1,46 @@
+PRUEBAS RECOMENDADAS V0.59.0
+============================
+
+1) CHAT SOCIAL STREAM NINJA (base V0.53.3)
+- Abre Social Stream Ninja con Twitch y TikTok conectados.
+- Verifica que Brynn conserve Session ID/password en su configuración.
+- Abre Chat flotante.
+- Escribe un mensaje en Twitch y otro en TikTok.
+- Ambos deben aparecer mediante el puente SSN de V0.53.3.
+- Prueba un comando que ya funcionaba en V0.53.3.
+- Envía un mensaje desde el compositor del Chat flotante y comprueba sendChat.
+
+2) OBS
+- Integraciones > OBS Studio.
+- Probar conexión.
+- Cambiar escena o iniciar/detener grabación de prueba.
+
+3) AUTOMATIZACIONES
+- Abrir Automatizaciones.
+- Crear/editar/eliminar un flujo de prueba y comprobar que la eliminación persiste.
+
+4) PERSONALIZACIÓN / SPLASH STUDIO
+- Personalización > Splash Studio.
+- Añadir 2 o más imágenes/GIF.
+- Mover, redimensionar, hacer zoom, rotar y voltear una capa.
+- Probar pantalla de inicio.
+- Probar diferentes temas y estilos de barra.
+
+5) SIDEBAR
+- Confirmar que Buscar permanezca arriba.
+- Activar modo compacto: debe reducirse a iconos.
+- Volver a expandir sin perder la sección actual.
+
+6) PANTALLAS NEGRAS
+- Navegar varias veces entre OBS, Comandos, Emotes, Recompensas y Personalización.
+- Los enlaces externos deben abrirse en el navegador y no reemplazar la vista de Brynn.
+
+7) ACTUALIZADOR
+- Sistema > Actualizaciones.
+- Seleccionar un ZIP válido de prueba.
+- La preparación debe mostrarse dentro de Brynn sin CMD visible.
+- No debe intentar borrar la carpeta desde la que se está ejecutando Brynn.
+
+NOTA
+Esta rama NO usa el chat nativo Twitch EventSub/TikFinity Chat/OAuth de las pruebas V0.54+.
+El chat se mantiene intencionalmente sobre Social Stream Ninja como en V0.53.3.

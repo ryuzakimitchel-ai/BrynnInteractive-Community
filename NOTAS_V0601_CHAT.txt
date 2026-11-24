@@ -1,0 +1,1 @@
+V0.60.1 — Chat flotante: envío sendChat mediante POST JSON a canal 1 de SSN; no se borra el borrador ante una respuesta sin confirmación de publicación. SSN requiere Remote API Control, extensión activa y plataformas conectadas. No se ha comprobado la publicación en Twitch/TikTok durante esta compilación.

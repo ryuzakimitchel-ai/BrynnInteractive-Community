@@ -1,0 +1,13 @@
+PRUEBAS RECOMENDADAS V0.57.0
+
+1. PERSONALIZACIÓN > Tema y color: prueba Sakura, Candy y Arcade.
+2. PERSONALIZACIÓN > Interfaz: cambia Estilo de ventana y guarda/aplica.
+3. Compacta el menú lateral: deben quedar solo iconos y el buscador global arriba.
+4. Splash Studio: importa 3 imágenes de golpe, un GIF y opcionalmente un vídeo.
+5. Selecciona una capa y prueba Cubrir, Estirar, opacidad y animaciones.
+6. Mueve/redimensiona capas y cambia el orden con Subir/Bajar capa.
+7. Prueba varias barras de progreso y luego Probar pantalla de inicio.
+8. Personaliza Actualizaciones y pulsa Probar ventana de actualización.
+9. Navega repetidamente entre Chat, Comandos, Emotes, OBS y Recompensas: nunca debe quedar un panel negro permanente.
+10. Verifica que emotes, comandos, OAuth, OBS y datos anteriores sigan presentes después de actualizar.
+11. En Actualizaciones > apariencia, prueba una imagen/GIF decorativo y un fondo personalizado.

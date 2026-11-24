@@ -1,0 +1,6 @@
+V0.47.4 - BETA · SETUP PERSISTENCE HOTFIX
+
+- El asistente inicial ya no vuelve a mostrarse tras una actualización normal.
+- Nuevo marcador persistente setup_state.json en %APPDATA%\BrynnInteractive.
+- Reparación automática: si ya existe nombre de canal o propietarios, setupComplete se corrige a true.
+- Restablecimiento de fábrica sí elimina el marcador para mostrar el asistente nuevamente.

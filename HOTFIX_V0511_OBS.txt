@@ -1,0 +1,16 @@
+BRYNN INTERACTIVE V0.51.1 - HOTFIX OBS WEBSOCKET
+
+CORRECCIÓN PRINCIPAL
+- websocket-client ahora se instala explícitamente desde requirements_desktop.txt.
+- PyInstaller recopila los submódulos de websocket-client dentro del EXE.
+- obs_controller.py conserva un fallback robusto hacia _vendor para instalaciones sin paquete global.
+- Si la dependencia vuelve a fallar, el mensaje de error muestra el detalle real de importación.
+
+PRUEBA
+1. Instala este ZIP desde Sistema > Actualizaciones.
+2. Abre OBS > Herramientas > Configuración del servidor WebSocket.
+3. Mantén servidor habilitado, puerto 4455 y autenticación activa.
+4. En Brynn > Integraciones > OBS Studio, escribe la misma contraseña.
+5. Guarda y pulsa Probar conexión.
+
+No necesitas cambiar Host 127.0.0.1 ni Puerto 4455 si OBS y Brynn están en el mismo PC.

@@ -1,0 +1,22 @@
+BRYNN INTERACTIVE V0.53.0 - BETA MEDIA TIMELINE STUDIO
+
+NOVEDADES
+- Importación masiva de PNG/JPG/WEBP/GIF desde Emotes.
+- El nombre de archivo se convierte automáticamente en ID/comando y nombre visible.
+- Descripción de emote (vacía por defecto al importar lote).
+- Emotes General vs Exclusivo de secuencia.
+- Los emotes exclusivos no aparecen en !emote ni se pueden canjear públicamente.
+- Todos los emotes siguen disponibles para Comandos y Automatizaciones.
+- Nuevo secuenciador visual estilo editor de vídeo en Comandos.
+- Waveform real del audio mediante Web Audio API.
+- Reproducir, pausar, detener y hacer seek sobre la forma de onda.
+- Clips arrastrables horizontalmente y entre 6 pistas V1-V6.
+- Duración de cada clip mediante handles de resize izquierda/derecha.
+- Drag & drop desde la biblioteca de emotes al timeline.
+- Zoom del timeline y snap opcional a 0.05 s.
+- Inspector por clip: cantidad, tamaño, distribución, entrada, movimiento, salida y stagger.
+- Duración automática del comando según audio y clips.
+- Se amplió el timeline a 192 clips y hasta 180 segundos.
+
+COMPATIBILIDAD
+Los comandos/emotes anteriores siguen cargando. Los emotes sin accessMode se consideran General y los clips viejos se colocan en V1.

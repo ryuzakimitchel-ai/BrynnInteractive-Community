@@ -1,0 +1,72 @@
+BRYNN INTERACTIVE V0.48.0 - ESCRITORIO + ICONO PERSONALIZABLE
+
+BRYNN INTERACTIVE DESKTOP - V0.53.0 - BETA
+===========================================
+
+OBJETIVO DE ESTA VERSION
+------------------------
+V0.35.0 integra la ventana de Windows con la identidad visual de Brynn Interactive
+mediante una barra de titulo propia y amplia el sistema de personalizacion.
+
+NOVEDADES
+---------
+- Barra superior personalizada; desaparece la barra naranja/nativa de Windows.
+- Botones propios: minimizar, maximizar/restaurar y cerrar.
+- Arrastrar desde la barra superior y doble clic para maximizar/restaurar.
+- Grip de redimensionado en la esquina inferior derecha.
+- Barra inferior opcional con estado de Server, Streamlabs, TikFinity y Tailscale.
+- Nuevo apartado: Personalizacion.
+- Temas: Neon, Spooky, Day, Cyber Cyan, Amber Signal, Violet Proxy, Terminal Mono.
+- Colores principal/secundario personalizables.
+- Tipografia, densidad, ancho del sidebar, escala UI, zoom web y radio de paneles.
+- Branding del sidebar editable.
+- Personalizacion persistente en:
+  %APPDATA%\BrynnInteractive\desktop_appearance.json
+- desktop_appearance.json entra en los backups automaticos.
+
+ACTUALIZAR DESDE V0.34.0
+------------------------
+Metodo recomendado:
+1. Abre V0.34.0.
+2. Entra a Actualizaciones.
+3. Selecciona el ZIP de V0.35.0.
+4. La app valida update_manifest.json y crea un backup.
+5. Pulsa Instalar paquete preparado.
+
+Metodo manual:
+1. Cierra Brynn Interactive con Salir completamente.
+2. Descomprime V0.35.0 en una carpeta nueva.
+3. Ejecuta instalar_desktop.bat.
+4. Luego inicia con iniciar_brynn_desktop.bat.
+
+NO copies data/ ni user_media/ manualmente.
+Los datos del usuario viven en %APPDATA%\BrynnInteractive.
+
+OBS
+---
+Chat:
+http://127.0.0.1:8765/index.html?v=50
+
+Alertas:
+http://127.0.0.1:8765/alerts_overlay.html?v=50
+
+Eventos:
+http://127.0.0.1:8765/events_overlay.html?v=50
+
+Top 3:
+http://127.0.0.1:8765/top3_overlay.html?v=50
+
+Streamlabs Bridge:
+http://127.0.0.1:8765/streamlabs_bridge.html?v=50&obs=1
+
+
+V0.53.0 - BETA
+================
+- Navegación lateral sin emojis.
+- Diseño visual más calmado y natural.
+- Personalización reorganizada en cuatro bloques.
+- Nuevos temas Graphite, Ocean Glass, Rose Circuit y Crimson Core.
+- Nuevos estilos de menú: soft, minimal, pill y rail.
+- Versión del sidebar y titlebar pueden ocultarse.
+- Altura de barra superior configurable.
+- Todos estos ajustes se guardan en AppData.

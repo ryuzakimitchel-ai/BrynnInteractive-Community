@@ -1,0 +1,8 @@
+Brynn Interactive V0.60.4 Beta
+- Splash Studio: rediseño visual más cercano a Photoshop.
+- Lienzo central con mesa de trabajo y artboard 16:9 centrado.
+- Panel izquierdo más compacto para recursos y capas.
+- Panel central con barra de acciones rápidas y movimiento por flechas.
+- Panel derecho reorganizado como inspector de propiedades.
+- Barra de estado inferior con X/Y/W/H de la capa seleccionada.
+- El arrastre y el cambio de tamaño ahora respetan el artboard central.

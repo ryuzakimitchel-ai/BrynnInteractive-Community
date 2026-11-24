@@ -1,0 +1,17 @@
+BRYNN INTERACTIVE V0.60.12 - BETA
+
+CAMBIOS DE ESTABILIDAD Y SEGURIDAD
+- Escrituras JSON con archivos temporales únicos en seguidores, automatizaciones y configuración OBS.
+- Recuperación del motor de automatizaciones si no puede iniciar un hilo.
+- OAuth Kick: un callback con state incorrecto ya no consume la autorización pendiente.
+- Webhooks Kick: reclamación atómica del identificador; si el procesamiento falla, se libera para permitir reintento.
+- Contadores Kick: un error de API o un canal offline ya no conserva un valor anterior como si fuera actual.
+- Mensajes y badges de chat externos se escapan antes de insertarse en el DOM.
+
+VALIDACIÓN
+- python -m py_compile: OK en módulos modificados.
+- python -m pytest -q: 35 passed, 1 skipped.
+- Pruebas offline; no se ha validado con una cuenta real ni webhooks reales de Kick.
+
+IMPORTANTE
+La deduplicación Kick es en memoria y no ofrece exactamente-una-vez frente a reinicios del proceso. Los controles de autenticación administrativa y otros hallazgos P1 de las auditorías requieren una siguiente fase antes de exponer Brynn a redes no confiables.

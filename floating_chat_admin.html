@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Chat flotante</title>
+  <link rel="stylesheet" href="neo_admin_theme.css?v=50">
+  <link rel="stylesheet" href="floating_chat_admin.css?v=50">
+</head>
+<body>
+<header class="sticky-tools">
+  <div>
+    <span class="eyebrow">BRYNN INTERACTIVE SYSTEM</span>
+    <h1>Chat flotante</h1>
+    <p>Chat persistente Twitch + TikTok, transparente, siempre encima y con click-through.</p>
+  </div>
+  <div class="actions">
+    <button id="openBtn" class="primary">Abrir chat flotante</button>
+    <a class="btn" href="chat_admin.html?v=50">Diseño HTML/CSS/JS del chat</a>
+  </div>
+</header>
+<main>
+  <section class="card">
+    <h2>Ventana</h2>
+    <p class="muted">Puedes redimensionarla arrastrando la esquina. Desde V0.45 el tamaño manual se conserva al cerrar y volver a abrir.</p>
+    <div class="grid">
+      <label>Ancho<input id="width" type="number"></label>
+      <label>Alto<input id="height" type="number"></label>
+      <label>Opacidad de ventana (%)<input id="windowOpacity" type="number"></label>
+      <label>Zoom (%)<input id="zoom" type="number"></label>
+      <label>Mensajes conservados<input id="maxMessages" type="number"></label>
+    </div>
+    <div class="checks">
+      <label><input id="alwaysOnTop" type="checkbox"> Siempre encima</label>
+      <label><input id="startClickThrough" type="checkbox"> Iniciar inclickeable</label>
+      <label><input id="showViewerCounts" type="checkbox"> Viewers por plataforma</label>
+      <label><input id="showComposer" type="checkbox"> Caja para escribir</label>
+    </div>
+  </section>
+
+  <section class="card send-test-card">
+    <h2>Envío de mensajes</h2>
+    <p>La app usa <code>sendChat</code> de Social Stream Ninja. Para que Twitch/TikTok acepten el envío, en SSN debe estar activado <b>Global settings → Mechanics → Enable remote API control of extension</b> y las cuentas deben tener permiso para escribir.</p>
+    <div class="test-send-row">
+      <input id="testMessage" maxlength="500" value="Prueba desde Brynn Interactive" aria-label="Mensaje de prueba">
+      <button id="testSendBtn" type="button">Probar envío</button>
+    </div>
+    <div id="sendTestStatus" class="inline-status"></div>
+  </section>
+
+  <section class="card">
+    <h2>Comandos / atajos globales</h2>
+    <p>Funcionan aunque el juego tenga el foco. Ejemplo: <code>Ctrl+Alt+C</code>.</p>
+    <div class="grid">
+      <label>Clickable / inclickeable<input id="toggleClickThrough"></label>
+      <label>Mostrar / ocultar<input id="toggleVisible"></label>
+      <label>Subir opacidad<input id="opacityUp"></label>
+      <label>Bajar opacidad<input id="opacityDown"></label>
+      <label>Enfocar escritura<input id="focusComposer"></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Moderación</h2>
+    <p><b>Bloquear en SSN/Brynn</b> funciona mediante Social Stream Ninja. Para ban/timeout nativo de Twitch puedes habilitar Twitch Control. El token se guarda fuera de la carpeta web.</p>
+    <div class="grid">
+      <label>Client ID<input id="clientId"></label>
+      <label>Broadcaster ID<input id="broadcasterId"></label>
+      <label>Moderator ID<input id="moderatorId"></label>
+      <label>Access Token<input id="accessToken" type="password" placeholder="Dejar vacío para conservar"></label>
+    </div>
+    <label class="check"><input id="twitchEnabled" type="checkbox"> Activar moderación nativa de Twitch</label>
+    <div id="tokenState"></div>
+    <button id="saveTwitch">Guardar Twitch Control</button>
+  </section>
+
+  <section class="card info">
+    <h2>En la ventana flotante</h2>
+    <p>Haz clic derecho <b>sobre un mensaje</b> para copiar usuario, bloquearlo en SSN/Brynn, aplicar timeout o ban en Twitch. El menú del navegador ya no debe aparecer.</p>
+  </section>
+
+  <footer>
+    <button id="saveBtn" class="primary">Guardar configuración</button>
+    <button id="toggleBtn">Alternar click-through ahora</button>
+    <span id="status"></span>
+  </footer>
+</main>
+<script src="theme_runtime.js?v=50"></script>
+<script src="floating_chat_admin.js?v=50"></script>
+</body>
+</html>

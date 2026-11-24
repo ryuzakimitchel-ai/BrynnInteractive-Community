@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.venv/
+venv/
+ENV/
+
+# Build / installer outputs
+build/
+dist/
+*.spec
+*.exe
+*.msi
+*.iss.tmp
+
+# Runtime state, credentials and local configuration
+.env
+.env.*
+!.env.example
+private/
+secrets/
+credentials/
+*_secrets.json
+*_token.json
+*_credentials.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Logs, dumps and backups
+*.log
+logs/
+crash_dumps/
+backups/
+*.bak
+*.backup
+*.tmp
+
+# Local app/user data
+user_data/
+userdata/
+%APPDATA%/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp

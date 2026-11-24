@@ -1,0 +1,25 @@
+ACTUALIZACION V0.60.11 - TAP TAPS DE TIKTOK PARA EL RANKING
+=========================================================
+Base: BrynnInteractive_V0.60.11_Kick_OAuth_Corregido.zip
+
+ARCHIVOS MODIFICADOS
+- server.py: los paquetes de likes desde TikFinity Web/Desktop actualizan
+  el ranking semanal con 0.1 puntos por like y contador por usuario.
+  No confunde los totales de la sala con los likes de una persona; no
+  elimina lotes iguales que llegan seguidos cuando no tienen ID real.
+- script.js: cuando TikFinity está conectado evita añadir de nuevo al
+  ranking los likes duplicados que también lleguen por Social Stream Ninja.
+
+ARCHIVOS AGREGADOS
+- GUIA_RANKING_TAPTAP_TIKTOK.txt
+- tests/test_tiktok_likes_ranking.py
+
+Twitch, Kick, el chat, las alertas, Gumpitas y las demás funciones
+permanecen en el proyecto. Se recomienda hacer respaldo de data/.
+
+PRUEBAS
+python -m unittest discover -s tests -v
+
+RESULTADO EN EL ENTORNO DE DESARROLLO
+23 pruebas correctas; 1 omitida por requerir PySide6 en Windows.
+Las pruebas no equivalen a una transmisión real de TikTok.

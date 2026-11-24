@@ -1,0 +1,27 @@
+PRUEBAS RECOMENDADAS V0.53.2
+
+1) Editar sin duplicar
+- Abre un emote existente.
+- Cambia nombre, tamaño o animación y pulsa Guardar.
+- Debe seguir existiendo un solo emote.
+- Cambia además su ID y guarda.
+- El ID anterior debe desaparecer y el nuevo debe ocupar su lugar.
+
+2) Exclusivo semanal
+- Marca un emote como Exclusivo semanal.
+- Asigna Top 1 (por ejemplo) y guarda.
+- En el panel debe aparecer el/los usuarios autorizados de la semana.
+- El ganador Top 1 debe poder ejecutar !emote <id>.
+- Un viewer sin recompensa debe recibir un mensaje de acceso exclusivo.
+
+3) Propietario
+- Configura tu usuario Twitch/TikTok como propietario en Brynn.
+- Tu cuenta debe poder usar el emote exclusivo aunque no figure como ganador.
+
+4) Vencimiento
+- La vigencia mostrada debe coincidir con la fecha de expiración de Recompensas semanales.
+- Los ganadores de una semana anterior no deben conservar acceso al iniciar otra semana.
+
+5) Comandos
+- Marca rangos semanales en un comando.
+- Solo los usuarios elegibles deben poder canjearlo; el propietario puede probarlo.

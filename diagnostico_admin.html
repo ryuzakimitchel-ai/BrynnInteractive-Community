@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Diagnóstico - Brynn</title>
+<link rel="stylesheet" href="diagnostico_admin.css?v=50">
+<link rel="stylesheet" href="neo_admin_theme.css?v=50">
+<script src="theme_runtime.js?v=50"></script>
+</head>
+<body>
+<main class="app">
+<header class="hero">
+  <div>
+    <p class="eyebrow">BRYNN INTERACTIVE // V0.44.0 - BETA</p>
+    <h1>🩺 Diagnóstico avanzado</h1>
+    <p>Revisa servidor, archivos persistentes, Streamlabs, TikFinity y recepción de eventos desde un solo panel.</p>
+  </div>
+  <button id="refreshBtn">🔄 Actualizar</button>
+</header>
+
+<section class="summary-grid">
+  <article class="metric"><span>Servidor</span><strong id="serverState">Cargando...</strong><small id="serverDetail"></small></article>
+  <article class="metric"><span>Streamlabs</span><strong id="streamlabsState">Cargando...</strong><small id="streamlabsDetail"></small></article>
+  <article class="metric"><span>TikFinity</span><strong id="tikfinityState">Cargando...</strong><small id="tikfinityDetail"></small></article>
+  <article class="metric"><span>WebSocket</span><strong id="wsState">Cargando...</strong><small id="wsDetail"></small></article>
+</section>
+
+<section class="diagnostic-grid">
+  <article class="box">
+    <h2>Pruebas rápidas</h2>
+    <div class="actions vertical">
+      <button data-test="streamlabs-follow">Probar Follow Streamlabs</button>
+      <button data-test="streamlabs-bits">Probar 100 Bits</button>
+      <button data-test="tikfinity-follow">Probar Follow TikFinity</button>
+      <button data-test="tikfinity-like">Probar Like TikFinity</button>
+    </div>
+    <p class="hint">Estas pruebas son internas. Para validar una conexión real, usa también el evento de prueba del proveedor.</p>
+  </article>
+
+  <article class="box">
+    <h2>Archivos persistentes</h2>
+    <div id="files" class="file-list"></div>
+  </article>
+</section>
+
+<section class="box">
+  <h2>Snapshot técnico</h2>
+  <pre id="raw">Cargando...</pre>
+</section>
+
+<div id="status">Listo.</div>
+</main>
+<script src="diagnostico_admin.js?v=50"></script>
+</body>
+</html>

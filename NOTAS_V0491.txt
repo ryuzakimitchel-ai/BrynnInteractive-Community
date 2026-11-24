@@ -1,0 +1,7 @@
+BRYNN INTERACTIVE V0.50.0 - BETA
+
+- El audio de comandos vuelve a poder cortarse al finalizar la duración configurada.
+- Fade-out de audio configurable entre 0 y 5 segundos (0 = corte inmediato).
+- El secuenciador de stickers puede continuar aunque el audio ya haya hecho fade.
+- Presentación de canje movible desde Economía: 9 posiciones, offsets X/Y y escala.
+- El canje personalizado usa todo el lienzo de OBS, evitando editar CSS solo para moverlo.

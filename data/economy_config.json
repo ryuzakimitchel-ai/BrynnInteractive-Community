@@ -1,0 +1,17 @@
+{
+  "message": 2,
+  "messageCooldownSeconds": 30,
+  "likesPerGumpita": 5,
+  "follow": 50,
+  "join": 5,
+  "joinCooldownSeconds": 1800,
+  "share": 5,
+  "subscription": 250,
+  "giftBase": 25,
+  "giftCoin": 2,
+  "donationUsd": 60,
+  "dailyBonus": 35,
+  "dailyActivityBonus": 20,
+  "activityMilestoneEvery": 10,
+  "activityMilestoneBonus": 10
+}

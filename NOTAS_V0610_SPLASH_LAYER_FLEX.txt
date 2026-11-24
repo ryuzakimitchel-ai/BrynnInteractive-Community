@@ -1,0 +1,7 @@
+BRYNN INTERACTIVE V0.60.10 · BETA
+
+Hotfix orientado a Splash Studio:
+- La capa seleccionada en el lienzo se trae al frente, facilitando mover imágenes importadas incluso si estaban detrás del logo u otros elementos.
+- La selección del lienzo y la lista de capas quedaron más sincronizadas.
+- El botón Eliminar ahora también puede ocultar el logo oficial cuando el logo está seleccionado en el lienzo.
+- Se conservan las optimizaciones de V0.60.9 y la base funcional del chat con Social Stream Ninja.

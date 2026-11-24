@@ -1,0 +1,12 @@
+BRYNN INTERACTIVE V0.53.2 BETA — WEEKLY ACCESS & SAFE EDIT
+
+- Los emotes marcados como Exclusivo semanal sí pueden usarse con !emote.
+- Brynn valida la cuenta del viewer contra los ganadores y tiers semanales activos.
+- El propietario configurado tiene bypass de exclusivos para poder probarlos/usarlos.
+- Los derechos de los ganadores vencen con expiresAt de la recompensa semanal.
+- Emotes y comandos pueden asignarse a Top 1, Top 2, Top 3 y/o Top 4–10 desde sus editores.
+- Los editores muestran quién tiene acceso actualmente y la vigencia.
+- Un exclusivo sin tier queda reservado: solo el propietario puede probarlo hasta asignar un rango.
+- Guardar un emote existente actualiza ese mismo emote. Cambiar el ID ya no crea una copia.
+- Al renombrar un emote se actualizan las referencias de los timelines de comandos y la configuración semanal.
+- Los comandos también usan edición por originalId para evitar duplicados al renombrarlos.

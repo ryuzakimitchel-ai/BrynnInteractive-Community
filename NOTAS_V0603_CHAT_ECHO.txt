@@ -1,0 +1,6 @@
+Brynn Interactive V0.60.3 Beta
+- Chat flotante: al enviar un mensaje, ahora aparece como salida local de Brynn dentro del propio chat.
+- Chat flotante: el compositor limpia el cuadro de texto tras un envío aceptado por SSN.
+- Chat flotante: el aviso de estado explica mejor que la publicación real debe verificarse en Twitch/TikTok.
+- SSN sendChat: incluye la contraseña configurada cuando existe y devuelve diagnóstico más claro.
+- Panel admin del chat flotante: mensajes de prueba con texto más claro y misma pista de diagnóstico.

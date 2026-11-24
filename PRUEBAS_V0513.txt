@@ -1,0 +1,25 @@
+BRYNN INTERACTIVE V0.51.3 - PRUEBAS OBS CONTROL CENTER
+
+1) Abre OBS y confirma que Herramientas > Configuración del servidor WebSocket esté habilitado.
+2) Abre Brynn > Integraciones > OBS Studio.
+3) Confirma que el encabezado muestre Conectado.
+4) Pulsa Actualizar y verifica:
+   - Escenas
+   - Fuentes de la escena actual
+   - Filtros
+   - Inputs de audio/media
+5) Cambia entre dos escenas desde el panel.
+6) Marca una escena con ★ y abre la vista Favoritas.
+7) Oculta/muestra una fuente.
+8) Activa/desactiva un filtro si tienes alguno.
+9) En un input de audio prueba Mute/Unmute y mueve el volumen ligeramente.
+10) En un input multimedia compatible usa “↻ Media”.
+11) Inicia y detén una grabación desde la tarjeta DIRECTO.
+12) Revisa que Actividad registre las acciones.
+13) Usa “Copiar inventario” para comprobar que Brynn puede exportar los nombres detectados.
+
+IMPORTANTE
+- Los botones de Streaming y Grabación actúan inmediatamente sobre OBS.
+- El volumen se aplica al soltar/cambiar el slider, evitando enviar decenas de solicitudes por segundo.
+- Las escenas favoritas se guardan localmente en la interfaz de Brynn y no modifican OBS.
+- Si un input no expone audio o media, Brynn oculta los controles que no aplican.

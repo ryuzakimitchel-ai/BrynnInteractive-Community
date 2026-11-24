@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Twitch + TikTok</title>
+  <link id="base-chat-style" rel="stylesheet" href="style.css?v=50">
+</head>
+<body>
+  <iframe id="ssn_bridge" title="Social Stream Ninja bridge" aria-hidden="true"></iframe>
+
+  <div id="connection-status" class="status connecting">
+    <span class="status-dot"></span>
+    <div>
+      <div id="status-title">Preparando Social Stream...</div>
+      <div id="status-detail">Conectando ranking local</div>
+    </div>
+  </div>
+
+  <div id="log" class="sl__chat__layout"></div>
+
+  <script src="script.js?v=50"></script>
+</body>
+</html>

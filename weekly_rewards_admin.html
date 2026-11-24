@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Centro de recompensas - Brynn</title>
+<link rel="stylesheet" href="neo_admin_theme.css?v=533">
+<link rel="stylesheet" href="weekly_rewards_admin.css?v=533">
+</head>
+<body>
+<main class="app">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">BRYNN INTERACTIVE · V0.59.0 · WEEKLY REWARDS HUB</p>
+      <h1>🏆 Centro de recompensas semanales</h1>
+      <p>Administra desde un solo lugar quién recibe emotes, comandos, identidad, descuentos y entradas especiales. Emotes y Comandos solo editan el recurso; aquí decides quién puede usarlo.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="ghost" href="/ranking.html">Ranking</a>
+      <a class="ghost" href="/emotes_admin.html">Emotes</a>
+      <a class="ghost" href="/comandos_admin.html">Comandos</a>
+      <button id="saveBtn" class="primary" type="button">Guardar cambios</button>
+    </div>
+  </header>
+
+  <nav id="hubTabs" class="hub-tabs" aria-label="Secciones de recompensas">
+    <button type="button" data-view="summary" class="active">Resumen</button>
+    <button type="button" data-view="ranking">Ranking</button>
+    <button type="button" data-view="top1">🥇 Top 1</button>
+    <button type="button" data-view="top2">🥈 Top 2</button>
+    <button type="button" data-view="top3">🥉 Top 3</button>
+    <button type="button" data-view="top10">🏅 Top 4–10</button>
+  </nav>
+
+  <section id="summaryView" class="view-panel active">
+    <div class="summary-grid">
+      <article class="panel active-week-card">
+        <div class="section-heading"><div><p class="eyebrow">SEMANA ACTIVA</p><h2 id="activePeriod">Sin recompensas activas</h2></div><span id="activeState" class="state-pill">INACTIVA</span></div>
+        <p id="activeMeta" class="muted">Las recompensas se activan al cerrar una semana o usando el Top actual para pruebas.</p>
+        <div id="activeWinners" class="winner-grid"></div>
+      </article>
+
+      <article class="panel rules-card">
+        <div class="section-heading"><div><p class="eyebrow">REGLAS GLOBALES</p><h2>Acceso semanal</h2></div></div>
+        <div class="rules-list">
+          <label class="switch-row"><input id="enabled" type="checkbox"> Activar recompensas semanales</label>
+          <label class="switch-row"><input id="inheritLowerTiers" type="checkbox"> Puestos superiores heredan recompensas inferiores</label>
+          <label class="switch-row"><input id="awardOnManualReset" type="checkbox"> Entregar premios también con reinicio manual</label>
+          <label class="switch-row"><input id="ownerBypassEnabled" type="checkbox"> Propietario con acceso total para pruebas</label>
+          <label>Rango simulado del propietario<select id="ownerTestTier"><option value="none">Sin rango simulado</option><option value="top1">Top 1</option><option value="top2">Top 2</option><option value="top3">Top 3</option><option value="top10">Top 4–10</option></select></label>
+        </div>
+      </article>
+    </div>
+
+    <section class="panel">
+      <div class="section-heading"><div><p class="eyebrow">MATRIZ DE RECOMPENSAS</p><h2>Qué obtiene cada puesto</h2></div></div>
+      <div id="tierOverview" class="tier-overview"></div>
+    </section>
+
+    <section id="reservedPanel" class="panel hidden">
+      <div class="section-heading"><div><p class="eyebrow">MIGRACIÓN SEGURA</p><h2>Recursos reservados sin rango</h2></div></div>
+      <p class="note">Estos recursos eran “exclusivos” en versiones anteriores pero no tenían un rango asignado. Permanecen bloqueados para viewers hasta que los asignes a un Top o los hagas generales.</p>
+      <div id="reservedResources" class="reserved-grid"></div>
+    </section>
+  </section>
+
+  <section id="rankingView" class="view-panel">
+    <section class="panel">
+      <div class="section-heading">
+        <div><p class="eyebrow">CONTROL DE SEMANA</p><h2>Ganadores y pruebas</h2></div>
+        <div class="summary-actions"><button id="applyCurrentBtn" type="button">Usar Top actual para probar</button><button id="clearActiveBtn" class="danger" type="button">Quitar recompensas activas</button></div>
+      </div>
+      <div id="rankingWinners" class="winner-grid"></div>
+    </section>
+    <section class="panel">
+      <div class="section-heading"><div><p class="eyebrow">HALL OF FAME</p><h2>Historial de la comunidad</h2></div></div>
+      <div class="hall-layout"><div><h3>Semanas recientes</h3><div id="hallWeeks" class="hall-weeks"></div></div><div><h3>Historial acumulado</h3><div class="table-wrap"><table><thead><tr><th>Usuario</th><th>Coronas</th><th>Top 3</th><th>Top 10</th><th>Mejor puntaje</th></tr></thead><tbody id="hallUsers"></tbody></table></div></div></div>
+    </section>
+  </section>
+
+  <section id="tierView" class="view-panel">
+    <header class="tier-hero" id="tierHero">
+      <div><p class="eyebrow">CONFIGURACIÓN DEL PREMIO</p><h2 id="tierTitle">Top 1</h2><p id="tierWinnerMeta" class="muted">Sin ganador activo.</p></div>
+      <div id="tierStats" class="tier-stats"></div>
+    </header>
+
+    <nav id="tierSectionTabs" class="subtabs">
+      <button type="button" data-section="identity" class="active">Identidad</button>
+      <button type="button" data-section="entry">Entrada</button>
+      <button type="button" data-section="emotes">Emotes</button>
+      <button type="button" data-section="commands">Comandos</button>
+      <button type="button" data-section="economy">Economía</button>
+      <button type="button" data-section="preview">Preview</button>
+    </nav>
+
+    <section data-tier-section="identity" class="tier-section active two-column">
+      <article class="panel">
+        <p class="eyebrow">IDENTIDAD TEMPORAL</p>
+        <div class="fields two"><label>Título temporal<input id="title" maxlength="100"></label><label>Texto de insignia<input id="badgeLabel" maxlength="40"></label><label>Icono / símbolo<input id="badgeIcon" maxlength="12"></label><label>Color de acento<input id="accent" type="color"></label></div>
+      </article>
+      <article class="panel">
+        <div class="section-heading compact"><div><p class="eyebrow">INSIGNIA</p><h3>HTML + CSS</h3></div><button id="badgePreviewBtn" type="button">Actualizar preview</button></div>
+        <div class="code-tabs"><button class="badge-code-tab active" type="button" data-badge-code="html">HTML</button><button class="badge-code-tab" type="button" data-badge-code="css">CSS</button></div>
+        <textarea id="badgeHtml" class="badge-code-editor active" data-badge-panel="html" spellcheck="false"></textarea><textarea id="badgeCss" class="badge-code-editor" data-badge-panel="css" spellcheck="false"></textarea>
+        <div class="badge-preview-wrap"><span>Preview</span><iframe id="badgePreview" sandbox="allow-scripts"></iframe></div>
+      </article>
+    </section>
+
+    <section data-tier-section="entry" class="tier-section">
+      <article class="panel">
+        <div class="section-heading"><div><p class="eyebrow">ENTRADA ESPECIAL</p><h2>Cuando el ganador aparezca</h2></div><label class="switch-row compact-switch"><input id="entryEnabled" type="checkbox"> Activar</label></div>
+        <div class="fields two"><label>Cooldown (horas)<input id="entryCooldownHours" type="number" min="0" max="168" step="0.5"></label><label>Duración (ms)<input id="entryDurationMs" type="number" min="800" max="30000"></label></div>
+        <div class="token-row"><code>{user}</code><code>{platform}</code><code>{rank}</code><code>{score}</code><code>{title}</code><code>{badge}</code><code>{badgeIcon}</code><code>{badgeHtml}</code><code>{tier}</code><code>{accent}</code><code>{avatar}</code></div>
+        <div class="code-tabs"><button class="code-tab active" type="button" data-code="html">HTML</button><button class="code-tab" type="button" data-code="css">CSS</button><button class="code-tab" type="button" data-code="js">JS</button></div>
+        <textarea id="entryHtml" class="code-editor active" data-code-panel="html" spellcheck="false"></textarea><textarea id="entryCss" class="code-editor" data-code-panel="css" spellcheck="false"></textarea><textarea id="entryJs" class="code-editor" data-code-panel="js" spellcheck="false"></textarea>
+      </article>
+    </section>
+
+    <section data-tier-section="emotes" class="tier-section">
+      <article class="panel">
+        <div class="section-heading"><div><p class="eyebrow">EMOTES EXCLUSIVOS</p><h2>Asignar a este rango</h2><p class="note">Marcar un emote aquí lo vuelve exclusivo automáticamente. Si no está asignado a ningún rango, es general.</p></div><a class="ghost" href="/emotes_admin.html">Editar biblioteca</a></div>
+        <input id="emoteSearch" class="resource-search" placeholder="Buscar emote por nombre o ID...">
+        <div id="emotePicker" class="resource-picker"></div>
+      </article>
+    </section>
+
+    <section data-tier-section="commands" class="tier-section">
+      <article class="panel">
+        <div class="section-heading"><div><p class="eyebrow">COMANDOS EXCLUSIVOS</p><h2>Asignar a este rango</h2><p class="note">El comando sigue existiendo una sola vez. La recompensa solo guarda una referencia a su ID.</p></div><a class="ghost" href="/comandos_admin.html">Editar comandos</a></div>
+        <input id="commandSearch" class="resource-search" placeholder="Buscar comando por nombre o ID...">
+        <div id="commandPicker" class="resource-picker"></div>
+      </article>
+    </section>
+
+    <section data-tier-section="economy" class="tier-section two-column">
+      <article class="panel"><p class="eyebrow">GUMPITAS</p><h2>Bonificación</h2><label>Bonus semanal<input id="gumpitasBonus" type="number" min="0" max="1000000"></label><p class="note">Se entrega una sola vez al activar la recompensa semanal.</p></article>
+      <article class="panel"><p class="eyebrow">DESCUENTO</p><h2>Canjes</h2><label>Descuento (%)<input id="discountPct" type="number" min="0" max="100"></label><p class="note">Se aplica a comandos y emotes mientras el acceso semanal esté vigente.</p></article>
+    </section>
+
+    <section data-tier-section="preview" class="tier-section">
+      <article class="panel">
+        <div class="section-heading"><div><p class="eyebrow">PREVIEW</p><h2>Experiencia del ganador</h2></div><div class="summary-actions"><button id="previewBtn" type="button">Actualizar preview</button><button id="obsTestBtn" type="button">Probar entrada en OBS</button></div></div>
+        <div id="accessPreview" class="access-preview"></div>
+        <div class="preview-wrap"><div class="preview-title">Entrada especial</div><iframe id="preview" sandbox="allow-scripts"></iframe></div>
+      </article>
+    </section>
+  </section>
+
+  <div id="status" class="status">Cargando...</div>
+</main>
+<script src="weekly_rewards_admin.js?v=533"></script>
+<script src="theme_runtime.js?v=533"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+BRYNN INTERACTIVE V0.51.3 - PRUEBA RÁPIDA
+
+1. Actualiza Brynn con este ZIP desde Sistema > Actualizaciones.
+2. Abre Integraciones > OBS Studio.
+3. En OBS: Herramientas > Configuración del servidor WebSocket.
+   - Habilita el servidor.
+   - Puerto recomendado: 4455.
+   - Si usas contraseña, escríbela también en Brynn.
+4. En Brynn marca "Habilitar integración con OBS" y pulsa "Probar conexión".
+5. Comprueba que aparezcan escena actual, escenas, fuentes, filtros e inputs.
+6. Abre Integraciones > Automatizaciones.
+7. Crea una automatización manual con:
+   - Acción: Overlay > Mensaje, o
+   - Acción: OBS > Cambiar escena.
+8. Pulsa "Probar". La ejecución aparecerá en Actividad reciente.
+9. Después cambia el disparador a Evento de plataforma (por ejemplo TikTok gift)
+   y añade condiciones si lo necesitas.
+
+NOTAS
+- Si OBS está cerrado o deshabilitado, Brynn debe seguir funcionando normalmente.
+- Las credenciales de OBS se guardan en AppData/BrynnInteractive/obs_config.json,
+  fuera de la carpeta versionada.
+- Las automatizaciones se guardan junto a los datos persistentes en
+  AppData/BrynnInteractive/data/automations.json.

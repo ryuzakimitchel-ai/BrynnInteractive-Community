@@ -1,0 +1,10 @@
+V0.47.4 - BETA · COMMERCIAL FOUNDATION
+========================================
+- Asistente de primer inicio.
+- Perfil por instalación con streamer y cuentas propietarias.
+- Datos iniciales sanitizados.
+- Propietarios configurables: no compiten en ranking y conservan privilegios de prueba.
+- Modo Developer opcional.
+- Datos y privacidad: exportar/importar/reset.
+- Generador de build comercial con escaneo anti-secretos.
+- Sin usuarios, ranking, economía, webhook keys ni multimedia personales dentro del paquete base.

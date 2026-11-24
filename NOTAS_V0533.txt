@@ -1,0 +1,12 @@
+BRYNN INTERACTIVE V0.53.3 BETA — WEEKLY REWARDS HUB
+
+- Recompensas Semanales es la fuente de verdad para acceso exclusivo.
+- Nuevo Hub: Resumen, Ranking, Top 1, Top 2, Top 3 y Top 4–10.
+- Cada tier organiza Identidad, Entrada, Emotes, Comandos, Economía y Preview.
+- Emotes/Comandos dejan de editar tiers directamente; muestran el estado como información y enlazan al Hub.
+- Asignar un recurso a cualquier tier lo vuelve exclusivo automáticamente.
+- Al retirar un recurso de todos los tiers vuelve a ser general.
+- Migración segura de accessMode=exclusive sin tier a lista reservada.
+- Recursos reservados pueden liberarse desde Resumen.
+- Renombrar emotes/comandos migra sus referencias semanales.
+- El propietario conserva bypass para pruebas.

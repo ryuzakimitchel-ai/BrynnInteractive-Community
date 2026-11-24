@@ -1,0 +1,17 @@
+BRYNN INTERACTIVE V0.51.3 - BETA
+
+Automation Engine + OBS Control
+- Nueva integración directa con OBS Studio mediante OBS WebSocket 5.x.
+- Conexión configurable (host, puerto y contraseña) persistida fuera de la carpeta versionada.
+- Panel OBS con estado de stream/grabación, escena actual e inventario de escenas, fuentes, filtros e inputs.
+- Control rápido de escenas, visibilidad de fuentes, filtros, mute, media, stream y grabación.
+- Nuevo Automation Engine persistente.
+- Disparadores iniciales: eventos Twitch/TikTok, mensajes de chat, eventos internos Brynn y pruebas manuales.
+- Condiciones: igualdad, diferencia, contiene, comparadores numéricos y existencia.
+- Acciones: espera, OBS escena/fuente/filtro/mute/volumen/media, comando, emote, mensaje overlay y audio.
+- Cooldown por automatización, ejecución secuencial, stop-on-error e historial de ejecución.
+- Los módulos existentes siguen funcionando aunque OBS esté deshabilitado o cerrado.
+
+IMPORTANTE
+OBS 28 o superior incluye OBS WebSocket 5.x. Activa el servidor WebSocket desde
+Herramientas > Configuración del servidor WebSocket en OBS y usa por defecto el puerto 4455.

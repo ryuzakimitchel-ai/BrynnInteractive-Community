@@ -1,0 +1,17 @@
+BRYNN INTERACTIVE V0.57.0 BETA — PERSONALIZATION STUDIO 2.0
+
+NOVEDADES
+- Splash Studio 2.0 con múltiples capas de imagen/GIF/vídeo.
+- Importación múltiple de imágenes.
+- Orden de capas, duplicar, eliminar, subir/bajar.
+- Ajuste contain / cover / stretch.
+- Animaciones simples: float, drift, breathe, pulse, fade.
+- Nuevos presets de Splash y siete estilos de barra de progreso.
+- Nuevos temas globales: Sakura, Candy, Arcade, Matrix, Sunset, Ice y Coffee.
+- Estilos de ventana: Soft, Glass, Arcade, Halloween, Terminal, Candy y Minimal.
+- Actualizador tematizable (ventana, título, barra y log técnico).
+- Barra lateral profesional: buscador arriba, controles compactos y modo icon-only real.
+- Optimización de navegación: no recarga una sección que ya está abierta.
+- Watchdog adicional para recuperar WebViews que queden vacíos.
+- Mantiene AppData, cuentas, tokens, OBS, emotes, comandos, recompensas y medios del usuario.
+- Actualizador: fondo opcional, logo, imagen/GIF decorativo, título y registro técnico configurables.

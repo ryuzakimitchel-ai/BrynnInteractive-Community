@@ -1,0 +1,121 @@
+BRYNN INTERACTIVE V0.60.11 — SEGUIDORES SINCRONIZADOS
+======================================================
+
+Esta actualización parte de la versión con Kick + TikFinity + Tap Taps
+para Ranking. Conserva los archivos de Twitch, Kick, TikFinity,
+Gumpitas, Alertas, Comandos, Automatizaciones y OBS.
+
+CAMBIOS
+-------
+- Centro de sincronización en "Metas del stream".
+- Metas de "Seguidores nuevos (eventos)": siguen sumando los follows
+  que ocurren en TikTok, Kick o desde otros transportes configurados.
+- Metas de "Seguidores totales (sincronizados)": muestran una cifra
+  absoluta y pueden DISMINUIR después de una sincronización real.
+- Selección por TikTok, Kick, Twitch, TikTok + Kick o todas.
+- Antiduplicado temporal de follows por plataforma y usuario.
+- Se conserva la cifra anterior si falla una consulta; se indica error
+  y no se finge que la cifra esté verificada.
+- Revisión automática de las fuentes disponibles cada 180 segundos
+  (configurable entre 60 y 3600 segundos).
+- Consultas manuales y establecimiento de cifras iniciales.
+- OBS continúa leyendo /api/goals cada segundo desde el overlay.
+
+INSTALAR SIN PERDER CONFIGURACION
+--------------------------------
+1. Cierra Brynn y haz un respaldo completo del proyecto anterior.
+2. Extrae este ZIP en OTRA carpeta.
+3. Si usabas datos locales propios, copia las carpetas `data` y
+   `user_media` desde la versión anterior a la nueva, sin borrar
+   los archivos nuevos del programa.
+4. Ejecuta `py desktop.py` desde la nueva carpeta de Brynn.
+5. Abre Metas del stream. Arriba verás el Centro de sincronización.
+6. En Kick / TikTok puedes fijar el número actual como cifra inicial.
+7. Crea una nueva meta y cambia su Tipo a
+   "Seguidores totales (sincronizados)".
+8. Selecciona Plataforma: TikTok / Kick / Twitch / TikTok + Kick.
+   Para una meta combinada TikTok + Kick es necesario que ambos
+   tengan por lo menos una cifra inicial.
+9. Fija un objetivo y copia la URL de OBS desde el editor de metas.
+
+DETECCION DE FOLLOWS TIKTOK
+--------------------------
+- Abre Integraciones > TikFinity.
+- Modo TikFinity Web: crea una acción de WebHook de tipo Follow en
+  TikFinity Actions & Events usando la URL de Follow generada por
+  Brynn. El puerto receptor es 8766 y puede compartirse con Kick.
+- Si usas TikFinity Desktop: su evento `follow` también entra.
+- Al recibir un follow real se suma en las metas de seguidores nuevos
+  y, si existe una cifra total inicial, se incrementa su ESTIMACIÓN.
+- La integración TikFinity no ofrece por sí misma garantía de
+  sincronización exacta del número total de seguidores del perfil.
+
+DETECCION DE FOLLOWS KICK
+------------------------
+- Conserva tu configuración de Kick (OAuth + evento channel.followed).
+- Funnel publico confirmado anteriormente en puerto 8766:
+  https://desktop-eejn1pu.tail424818.ts.net
+  URL webhook Kick:
+  https://desktop-eejn1pu.tail424818.ts.net/kick/webhook
+- Los follows reales incrementan automáticamente el contador estimado,
+  y pueden activar las metas de nuevos seguidores.
+- IMPORTANTE: La API PUBLICA OFICIAL DE KICK no permite obtener un
+  follower_count total de forma documentada (noviembre 2026).
+  Sin otra fuente, Brynn NO puede detectar quién dejó de seguirte;
+  el valor estimado podrá diferir del total real hasta corregirlo.
+- OPCIONAL: Configuración avanzada acepta una URL HTTPS que devuelva
+  JSON: {"followers_count": 123}. Si tienes un proveedor fiable,
+  Brynn lo consultará cada cierto tiempo; se indicará "Fuente externa"
+  (NO VERIFICADA por Kick). No introduzcas URL si no tienes una.
+
+SINCRONIZACION EXACTA TIKTOK (OPCIONAL)
+--------------------------------------
+Requiere tu propia aplicación aprobada en TikTok for Developers y
+consentimiento para el permiso `user.info.stats` mediante Login Kit.
+TikFinity y la API de LIVE no proporcionan automáticamente ese token.
+
+- En Metas > Configurar sincronización automática y estadísticas:
+  introduce un `access_token` de TikTok autorizado para user.info.stats.
+- Si también tienes `refresh_token`, Client Key y Client Secret de la
+  misma app, Brynn puede renovar el token cuando recibe HTTP 401.
+- Guarda la configuración y haz clic en "Consultar API" de TikTok.
+- Con token válido: Brynn consulta /v2/user/info/?fields=follower_count
+  y corrige el total hacia arriba o hacia abajo.
+- Sin token: continúa funcionando la detección de follows, pero el
+  total queda marcado como ESTIMACIÓN.
+- Nunca coloques los tokens en la URL pública de Tailscale, OBS o en
+  capturas. Se guardan fuera de data/, bajo AppData de Windows.
+
+TWITCH
+------
+Si Twitch Control tiene un Client ID, Broadcaster ID y access token
+válidos, Brynn consulta el total por GET /helix/channels/followers.
+Para leer la lista de seguidores se requerirían permisos adicionales;
+para la cifra total Twitch puede devolver el campo total sin ese scope.
+
+DATOS Y SEGURIDAD
+-----------------
+- GET  /api/followers       (estado de sincronización; NO incluye tokens)
+- POST /api/followers/manual   (fijar base)
+- POST /api/followers/sync     (consultar una plataforma)
+- POST /api/followers/settings (opciones y credenciales, puerto local)
+- `followers_state.json` se guarda en data/.
+- `followers_private.json` se guarda bajo AppData/BrynnInteractive/.
+- No expongas el puerto 8765 a Internet: contiene administración.
+- Tailscale Funnel debe continuar apuntando SOLO al puerto 8766.
+- Si desconectas el PC, los webhooks no pueden registrar follows
+  mientras Brynn no esté escuchando y la cifra estimada se desviará.
+
+PRUEBAS
+-------
+- 35 pruebas automatizadas completadas, 1 omitida (dependencia PySide6).
+- Comprobados: deduplicación, persistencia, cambios por unfollow,
+  errores de red, confidencialidad de tokens y metas combinadas.
+- Probado GET/POST HTTP de followers/goals en una instancia de prueba.
+- FALTA: validación real con tu cuenta TikTok/Kick y los tokens oficiales.
+
+NOTA
+----
+"Sincronización" significa que Brynn periódicamente reconsulta una
+fuente de datos real. Los contadores SIN esa fuente solo pueden ser
+estimados por eventos, y no se deben anunciar como cifras exactas.

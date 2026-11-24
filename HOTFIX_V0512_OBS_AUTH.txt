@@ -1,0 +1,14 @@
+BRYNN INTERACTIVE V0.51.2 - HOTFIX OBS AUTH
+
+CORRECCIONES
+- Brynn ya no intenta interpretar como JSON un frame CLOSE enviado por OBS.
+- Se muestra el código y motivo real de cierre de OBS WebSocket.
+- El código 4009 se muestra como contraseña incorrecta.
+- Si OBS cierra sin payload, Brynn recomienda volver a escribir la contraseña exacta.
+
+PRUEBA RECOMENDADA
+1. En OBS: Herramientas > Configuración del servidor WebSocket.
+2. Confirma puerto 4455 y autenticación habilitada.
+3. En Brynn > Integraciones > OBS Studio, escribe de nuevo la contraseña EXACTA.
+4. Pulsa Guardar y después Probar conexión.
+5. Si falla, copia el nuevo mensaje completo; ahora incluirá código/motivo de OBS.

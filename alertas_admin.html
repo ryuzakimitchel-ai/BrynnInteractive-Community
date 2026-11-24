@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Alertas del stream - Brynn</title>
+<link rel="stylesheet" href="alertas_admin.css?v=50">
+<link rel="stylesheet" href="neo_admin_theme.css?v=50">
+<script src="theme_runtime.js?v=50"></script>
+</head>
+<body>
+<main class="app">
+<header class="hero">
+<div>
+<p class="eyebrow">BRYNN INTERACTIVE SYSTEM</p>
+<h1>🔔 Alertas Twitch + TikTok + Kick</h1>
+<p>Personaliza eventos de Twitch, TikTok y Kick por separado.</p>
+</div>
+<div class="hero-actions">
+<a class="ghost" href="/comandos_admin.html">⚙ Comandos</a>
+<a class="ghost" href="/emotes_admin.html">😀 Emotes</a>
+<a class="ghost" href="/chat_admin.html">💬 Diseñar chat</a>
+</div>
+</header>
+
+<section class="source-warning">
+  <h2>⚠ Requisitos para follows reales</h2>
+  <p><b>Twitch:</b> V26 usa Streamlabs Socket para Follow, Sub, Bits, Raid y Donación.</p>
+  <p><b>TikTok:</b> V26 usa TikFinity WebHook para Follow, Sub, Gift, Like, Share y Join.</p>
+  <p><b>Kick:</b> API oficial con OAuth y Webhook firmado para follows, subs, KICKs y canjes aceptados.</p>
+  <p>Para saber qué llega realmente abre <a href="/eventos_monitor.html">📡 Monitor de eventos reales</a>.</p>
+</section>
+
+<section class="tabs" id="tabs"></section>
+
+<form id="form" class="editor">
+<div class="grid two">
+<label>Título
+<input id="titleTemplate" placeholder="{user} ahora te sigue">
+</label>
+<label>Mensaje
+<input id="messageTemplate" placeholder="{amount}">
+</label>
+</div>
+<p class="hint">Variables disponibles: <b>{user}</b>, <b>{platform}</b>, <b>{amount}</b>.</p>
+
+<div class="grid four">
+<label>Duración (s)<input id="duration" type="number" min=".5" max="120" step=".1" value="5"></label>
+<label>Tamaño (%)<input id="size" type="number" min="10" max="100" value="45"></label>
+<label>Volumen<input id="volume" type="range" min="0" max="1" step=".05" value=".8"><output id="volumeOut">80%</output></label>
+<label>Posición<select id="position">
+<option value="top-center">Arriba centro</option><option value="center">Centro</option><option value="top-left">Arriba izquierda</option><option value="top-right">Arriba derecha</option><option value="bottom-left">Abajo izquierda</option><option value="bottom-center">Abajo centro</option><option value="bottom-right">Abajo derecha</option><option value="fullscreen">Pantalla completa</option>
+</select></label>
+</div>
+
+<div class="grid three">
+<label>Entrada<select id="enterAnimation">
+<option value="none">Sin entrada</option><option value="pop">Pop</option><option value="fade">Fade</option><option value="zoom">Zoom</option><option value="bounce">Rebote</option><option value="slide-left">Desde izquierda</option><option value="slide-right">Desde derecha</option><option value="slide-up">Desde abajo</option><option value="slide-down">Desde arriba</option><option value="elastic">Elástico</option><option value="flip">Volteo 3D</option><option value="rotate">Giro</option><option value="burst">Explosión</option><option value="drop-in">Caer</option><option value="rise">Emerger</option>
+</select></label>
+<label>Movimiento<select id="animation">
+<option value="none">Quieto</option><option value="float">Flotar</option><option value="pulse">Pulso</option><option value="shake">Temblor</option><option value="spin">Girar</option><option value="glitch">Glitch</option><option value="wobble">Wobble</option><option value="sway">Balanceo</option><option value="bounce">Rebote</option><option value="heartbeat">Latido</option><option value="bob">Sube y baja</option><option value="jelly">Gelatina</option><option value="swing">Columpio</option><option value="flip">Volteo</option><option value="zigzag">Zigzag</option><option value="spiral">Espiral</option><option value="orbit">Órbita</option><option value="drift-left">Deriva izquierda</option><option value="drift-right">Deriva derecha</option><option value="drift-up">Deriva arriba</option><option value="drift-down">Deriva abajo</option><option value="rainbow">Arcoíris</option>
+</select></label>
+<label>Salida<select id="exitAnimation">
+<option value="none">Sin salida</option><option value="fade">Fade</option><option value="shrink">Encogerse</option><option value="zoom">Zoom</option><option value="slide-left">Izquierda</option><option value="slide-right">Derecha</option><option value="slide-up">Arriba</option><option value="slide-down">Abajo</option><option value="drop">Caer</option><option value="explode">Explotar</option><option value="dissolve">Disolver</option><option value="spin-out">Girar y salir</option><option value="fly-away">Salir volando</option>
+</select></label>
+</div>
+
+<div class="uploads">
+<div class="upload"><h3>Imagen / GIF / Video</h3><input id="visualFile" type="file" accept="image/*,video/mp4,video/webm"><div id="visualCurrent">Sin archivo</div></div>
+<div class="upload"><h3>Audio</h3><input id="audioFile" type="file" accept="audio/*"><div id="audioCurrent">Sin archivo</div></div>
+</div>
+
+
+
+<section class="emote-burst-section">
+  <div class="emote-burst-head">
+    <div>
+      <h2>Explosión de emotes</h2>
+      <p>Haz que los emotes salgan desde la alerta como confeti. Esta configuración es independiente para cada Follow, Sub, Raid, Gift, etc.</p>
+    </div>
+    <label class="burst-toggle">
+      <input id="burstEnabled" type="checkbox">
+      Activar confeti de emotes
+    </label>
+  </div>
+
+  <div id="burstOptions" class="burst-options">
+    <div class="grid three">
+      <label>Emotes a usar
+        <select id="burstSource">
+          <option value="selected">Solo los seleccionados</option>
+          <option value="all">Todos los emotes activos</option>
+        </select>
+      </label>
+      <label>Movimiento
+        <select id="burstMode">
+          <option value="burst">Explosión radial</option>
+          <option value="fountain">Fuente hacia arriba</option>
+          <option value="spray">Abanico / spray</option>
+        </select>
+      </label>
+      <label>Cantidad
+        <input id="burstCount" type="number" min="1" max="80" value="18">
+      </label>
+    </div>
+
+    <div class="grid four">
+      <label>Tamaño (px)
+        <input id="burstSize" type="number" min="18" max="180" value="72">
+      </label>
+      <label>Duración (s)
+        <input id="burstDuration" type="number" min="0.5" max="8" step="0.1" value="2.2">
+      </label>
+      <label>Alcance (px)
+        <input id="burstSpread" type="number" min="80" max="1000" value="420">
+      </label>
+      <label>Retardo (ms)
+        <input id="burstDelay" type="number" min="0" max="3000" step="50" value="250">
+      </label>
+    </div>
+
+    <div class="burst-picker-head">
+      <div>
+        <b>Emotes registrados</b>
+        <small>Selecciona uno o varios. GIF y WEBP animados también funcionan.</small>
+      </div>
+      <div class="burst-picker-actions">
+        <button type="button" id="burstSelectAll">Seleccionar todos</button>
+        <button type="button" id="burstClearAll">Quitar selección</button>
+      </div>
+    </div>
+
+    <div id="burstEmoteList" class="burst-emote-list">
+      <div class="burst-empty">Cargando emotes...</div>
+    </div>
+  </div>
+</section>
+
+<section class="advanced-section">
+  <div class="advanced-head">
+    <div>
+      <h2>Editor avanzado HTML / CSS / JS</h2>
+      <p>
+        Actívalo para reemplazar el diseño visual de esta alerta sin tocar
+        los archivos del proyecto. Las variables se siguen rellenando automáticamente.
+      </p>
+    </div>
+    <label class="advanced-toggle">
+      <input id="advancedEnabled" type="checkbox">
+      Usar diseño avanzado
+    </label>
+  </div>
+
+  <div class="vars-box">
+    Variables disponibles:
+    <code>{user}</code>
+    <code>{platform}</code>
+    <code>{amount}</code>
+    <code>{avatar}</code>
+    <code>{visual}</code>
+    <code>{visualUrl}</code>
+    <code>{visualType}</code>
+    <code>{audio}</code>
+    <code>{title}</code>
+    <code>{message}</code>
+  </div>
+
+  <label class="check advanced-visual-option">
+    <input id="autoVisualInAdvanced" type="checkbox" checked>
+    Insertar automáticamente la imagen/GIF/video subido si mi HTML no usa <code>{visual}</code> ni <code>{visualUrl}</code>
+  </label>
+
+  <div class="code-tabs">
+    <button type="button" class="code-tab active" data-panel="htmlPanel">HTML</button>
+    <button type="button" class="code-tab" data-panel="cssPanel">CSS</button>
+    <button type="button" class="code-tab" data-panel="jsPanel">JS</button>
+  </div>
+
+  <div class="code-panels">
+    <div id="htmlPanel" class="code-panel active">
+      <textarea id="customHtml" spellcheck="false" placeholder="<div class='mi-alerta'>...</div>"></textarea>
+    </div>
+
+    <div id="cssPanel" class="code-panel">
+      <textarea id="customCss" spellcheck="false" placeholder=".mi-alerta { ... }"></textarea>
+    </div>
+
+    <div id="jsPanel" class="code-panel">
+      <textarea id="customJs" spellcheck="false" placeholder="// ALERT_DATA contiene los datos de la alerta"></textarea>
+    </div>
+  </div>
+
+  <div class="advanced-actions">
+    <button type="button" id="loadTemplateBtn">Cargar plantilla editable</button>
+    <button type="button" id="refreshPreviewBtn">Actualizar vista previa</button>
+  </div>
+
+  <div class="advanced-preview-wrap">
+    <div class="advanced-preview-title">Vista previa del diseño avanzado</div>
+    <iframe
+      id="advancedPreview"
+      title="Vista previa avanzada"
+      sandbox="allow-scripts"
+    ></iframe>
+  </div>
+
+  <p class="advanced-note">
+    El JavaScript personalizado se ejecuta solamente dentro del iframe de esa alerta.
+    Puedes usar <code>window.ALERT_DATA</code> para leer los datos actuales.
+  </p>
+</section>
+
+<label class="check"><input id="enabled" type="checkbox" checked> Alerta habilitada</label>
+
+<div class="actions">
+<button class="primary" type="submit">Guardar alerta</button>
+<button id="testBtn" type="button">Probar en OBS</button>
+</div>
+<div id="status" class="status">Listo.</div>
+</form>
+</main>
+<script src="alertas_admin.js?v=50"></script>
+</body>
+</html>

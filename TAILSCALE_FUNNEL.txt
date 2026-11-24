@@ -1,0 +1,14 @@
+V26 - TAILSCALE FUNNEL
+======================
+
+Tu URL fija actual puede guardarse en Integraciones.
+No necesitas cloudflared si Tailscale Funnel está activo.
+
+Estado:
+tailscale funnel status
+
+V25/V26 server:
+python server.py
+
+El Funnel apunta SOLO a 127.0.0.1:8766.
+Nunca expongas 8765.

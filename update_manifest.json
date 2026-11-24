@@ -1,0 +1,11 @@
+{
+  "appId": "brynn-interactive-desktop",
+  "version": "0.60.12-beta",
+  "label": "Brynn Interactive V0.60.12 - BETA · Estabilidad, seguridad y distribución limpia",
+  "installer": "instalar_desktop.bat",
+  "dataCompatibility": 2,
+  "channel": "beta",
+  "commercialFoundation": true,
+  "notes": "Corrige escrituras concurrentes, deduplicación atómica de webhooks Kick, validación OAuth, contadores Kick obsoletos y escape de mensajes de chat. Incluye distribución comunitaria limpia y paquete de actualización que conserva los datos existentes.",
+  "build": "612"
+}
